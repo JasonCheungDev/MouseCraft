@@ -142,6 +142,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CContactListener.cpp" />
+    <ClCompile Include="ComponentFactory.cpp" />
+    <ClCompile Include="ComponentMan.cpp" />
     <ClCompile Include="Core\Component.cpp" />
     <ClCompile Include="Core\Entity.cpp" />
     <ClCompile Include="Core\Handle.cpp" />
@@ -178,6 +180,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CContactListener.h" />
+    <ClInclude Include="ComponentFactory.h" />
+    <ClInclude Include="ComponentMan.h" />
     <ClInclude Include="Event\EventManager.h" />
     <ClInclude Include="Event\EventName.h" />
     <ClInclude Include="Event\ISubscriber.h" />
