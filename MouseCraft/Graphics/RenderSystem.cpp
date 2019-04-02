@@ -8,6 +8,10 @@
 #include "ModelGen.h"
 #include "../Loading/ImageLoader.h"
 #include "RenderUtil.h"
+#include "AnimatedRenderable.h"
+#include <sstream>
+#include <iostream>
+#include <string>
 
 using std::string;
 using std::vector;
@@ -24,6 +28,7 @@ RenderSystem::RenderSystem() : System() {
 	initVertexBuffers();
 	initTextures();
 	initRenderBuffers();
+	initBoneLocations();
 
 	_screenQuad = ModelGen::makeQuad(ModelGen::Axis::Z, 2, 2);
 
@@ -102,6 +107,10 @@ void RenderSystem::setWindow(Window* window) {
 
 void RenderSystem::initShaders() {
 	loadShader("gbuffer");
+	if (!loadShader("gbuffer_animated"))
+	{
+		std::cerr << "Shader failed to load" << std::endl;
+	}
 	loadShader("lighting");
 	loadShader("ui");
 }
@@ -200,6 +209,41 @@ void RenderSystem::gBufferPass() {
 
 		index++;
 	}
+
+	// no need to accumlate, the engine guarantees your data won't be delete
+	setShader(_shaders["gbuffer_animated"]);
+	auto animated = ComponentManager<AnimatedRenderable>::Instance().All();
+	for (auto& ar : animated)
+	{
+		auto vao = ar->GetGeometry()->getVAO();
+		glBindVertexArray(vao);
+		
+		auto m = ar->GetEntity()->transform.getWorldTransformation();
+		auto mvp = vp * m;
+		auto invMVP = transpose(inverse(view * m));
+
+		// load settings 
+		_shader->setUniformMatrix("transform", mvp);
+		_shader->setUniformMatrix("invTransform", invMVP);
+		_textures->bind(GL_TEXTURE0);
+		_shader->setUniformInt("textureID", 0);
+		_shader->setUniformTexture("albedoTex", 0);
+
+		// load bones 
+		std::vector<glm::mat4> boneTransforms;
+		boneTransforms.reserve(ar->GetBones().size());
+		for (auto& b : ar->GetBones())
+		{
+			boneTransforms.push_back(b.transform->t().getWorldTransformation());
+		}
+		glUniformMatrix4fv(glGetUniformLocation(_shader->getProgram(), "boneTransforms"),
+			ar->GetBones().size(), GL_FALSE, &boneTransforms[0][0][0]);
+
+		glDrawElements(GL_TRIANGLES, ar->GetGeometry()->getIndices().size(), GL_UNSIGNED_INT, 0);
+	}
+	glBindVertexArray(0);
+
+
 	_fbo->unbind();
 }
 
@@ -363,6 +407,19 @@ Image* RenderSystem::scaleImage(Image* input, int width, int height) {
 	_resizeOutFBO->unbind(GL_DRAW_FRAMEBUFFER);
 
 	return tmpImg;
+}
+
+void RenderSystem::initBoneLocations()
+{
+	setShader(_shaders["gbuffer_animated"]);
+	std::stringstream ss;
+	for (int i = 0; i < MAX_BONES; ++i)
+	{
+		ss.str("");
+		ss.clear();
+		ss << "boneTransforms[" << i << "]";
+		_boneLocations[i] = glGetUniformLocation(_shaders["gbuffer_animated"].getProgram(), ss.str().c_str());
+	}
 }
 
 bool RenderSystem::loadShader(string shaderName) {

@@ -17,6 +17,8 @@
 #include "GLTextureArray.h"
 #include "../Util/CpuProfiler.h"
 
+#define MAX_BONES 64
+
 class RenderSystem : public System {
 public:
 	RenderSystem();
@@ -28,6 +30,7 @@ public:
 	void Update(float dt) override;
 	void swapLists();
 private:
+	void initBoneLocations();
 	bool loadShader(std::string shaderName);
 	void initShaders();
 	void setShader(Shader& s);
@@ -79,4 +82,6 @@ private:
 
 	std::vector<Geometry*>* _staticGeometries;
 	std::vector<Image*>* _staticTextures;
+
+	GLuint _boneLocations[MAX_BONES];
 };

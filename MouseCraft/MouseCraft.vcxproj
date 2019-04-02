@@ -156,9 +156,12 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Graphics\BoneData.cpp" />
     <ClCompile Include="ContraptionSystem.cpp" />
     <ClCompile Include="DamageOnCollision.cpp" />
     <ClCompile Include="Event\Handler.cpp" />
+    <ClCompile Include="Graphics\AnimatedRenderable.cpp" />
+    <ClCompile Include="Graphics\BonedGeometry.cpp" />
     <ClCompile Include="Graphics\BufferObjects\FBO.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Graphics\GLTexture.cpp" />
@@ -242,7 +245,9 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClCompile Include="WorldGrid.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationData.h" />
     <ClInclude Include="Bomb.h" />
+    <ClInclude Include="Graphics\BoneData.h" />
     <ClInclude Include="Coil.h" />
     <ClInclude Include="Contraption.h" />
     <ClInclude Include="Cat.h" />
@@ -251,6 +256,8 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClInclude Include="Core\Vector2D.h" />
     <ClInclude Include="DamageOnCollision.h" />
     <ClInclude Include="Event\Handler.h" />
+    <ClInclude Include="Graphics\AnimatedRenderable.h" />
+    <ClInclude Include="Graphics\BonedGeometry.h" />
     <ClInclude Include="Graphics\BufferObjects\FBO.h" />
     <ClInclude Include="Graphics\CombinedGeometry.h" />
     <ClInclude Include="GameManager.h" />

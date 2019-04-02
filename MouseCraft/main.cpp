@@ -434,7 +434,13 @@ void MainTest()
 			Entity* teapotEntity = PrefabLoader::LoadPrefab("res/prefabs/pot_army.json");
 			teapotEntity->transform.setLocalPosition(glm::vec3(50, 0, 50));
 
+			//yolo
+			auto whaleEntity = ModelLoader::loadAnimatedModel("res/models/Whale.fbx");
+			whaleEntity->transform.setLocalPosition(glm::vec3(50, 1, 50));
+
+
 			OmegaEngine::Instance().ChangeScene(s);
+			OmegaEngine::Instance().AddEntity(whaleEntity);
 			OmegaEngine::Instance().AddEntity(mouse1Entity);
 			OmegaEngine::Instance().AddEntity(mouse2Entity);
 			OmegaEngine::Instance().AddEntity(mouse3Entity);

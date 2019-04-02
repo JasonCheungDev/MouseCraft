@@ -336,6 +336,12 @@
     <ClCompile Include="Mouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\BonedGeometry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\AnimatedRenderable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Graphics\UIRenderable.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
@@ -350,6 +356,9 @@
     </ClCompile>
     <ClCompile Include="Trampoline.cpp">
       <Filter>Source Files\Contraptions</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\BoneData.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -662,6 +671,12 @@
     <ClInclude Include="Mouse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\BonedGeometry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\AnimatedRenderable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Graphics\UIRenderable.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
@@ -676,6 +691,12 @@
     </ClInclude>
     <ClInclude Include="Trampoline.h">
       <Filter>Header Files\Contraptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\BoneData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationData.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
