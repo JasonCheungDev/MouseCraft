@@ -27,6 +27,6 @@ private:
 	// builds the bone hierarcy
 	static void buildBoneHierarchy(aiNode* node, const aiScene* scene, std::vector<BoneData>& boneDatas, Entity* root, AnimatedRenderable* animatedRenderable);
 
-	static void buildAnimations(const aiScene* scene, AnimatedRenderable* animatedRenderable);
+	static void buildAnimations(const aiScene* scene, AnimatedRenderable* animatedRenderable, std::vector<BoneData>& boneDatas);
 };
 

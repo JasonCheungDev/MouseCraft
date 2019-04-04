@@ -27,7 +27,7 @@ void main()
 	trans += boneTransforms[bones[2]] * weights[2];
 	trans += boneTransforms[bones[3]] * weights[3];
 
-    vec4 pos = trans * transform * vec4(position, 1.0);
+    vec4 pos = transform * vec4(position, 1.0);
     fragPos = pos.xyz;
     fragNormal = (invTransform * vec4(normal, 1.0)).xyz;
     fragNormal = fragNormal + bones.xyz + weights.xyz;

@@ -13,6 +13,8 @@ public:
 	int id;
 	glm::mat4 offsetMatrix;
 	Entity* transform;
+
+	glm::mat4 GetTransformation();
 };
 
 // Layout of a boned Vertex. Only used to determine the size of the Vertex.

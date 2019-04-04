@@ -7,6 +7,7 @@
 #include "../AnimationData.h"
 #include <map>
 #include <string>
+#include <iostream>
 
 // A special renderable for animated objects.
 // Note: Does not inherit from Renderable as it needs an update call.
@@ -22,23 +23,26 @@ public:
 	{
 		if (_currentAnim != nullptr)
 		{
-			counter += dt;
+			counter += dt * 25.0f;
 			if (counter > _currentAnim->duration)
 				counter -= _currentAnim->duration;
 
+			bool first = true;
+
+			// go thru each bone animation 
 			for (auto& banim : _currentAnim->frames)
 			{
-				float current = 0;
 				glm::vec3 pos = banim.positions[0].second;
 				glm::quat rot = banim.rotations[0].second;
 				glm::vec3 scl = banim.scales[0].second;
 
+				// calculate interpolated transform
+				float current = 0;
 				for (auto& p : banim.positions) {
-					if (counter > p.first)
+					if (p.first > counter)
 					{
-						// start -> counter -> end 
-						// counter - start / end - start;
-						float percent = p.first - current; 
+						float percent = (counter - current) / (p.first - current);
+						pos = glm::lerp(pos, p.second, percent);
 						break;
 					}
 					else
@@ -47,22 +51,51 @@ public:
 						pos = p.second;
 					}
 				}
-				for (auto& r : banim.rotations) {
-					if (counter > r.first)
+
+				current = 0;
+				for (auto& v : banim.rotations) {
+					if (v.first > counter)
+					{
+						float percent = (counter - current) / (v.first - current);
+						rot = glm::lerp(rot, v.second, percent);	// crashing here 
 						break;
+					}
 					else
-						rot = r.second;
+					{
+						current = v.first;
+						rot = v.second;
+					}
 				}
-				for (auto& s : banim.positions) {
-					if (counter > s.first)
+				
+				current = 0;
+				for (auto& v : banim.scales) {
+					if (v.first > counter)
+					{
+						float percent = (counter - current) / (v.first - current);
+						scl = glm::lerp(scl, v.second, percent);
 						break;
+					}
 					else
-						scl = s.second;
+					{
+						current = v.first;
+						scl = v.second;
+					}
 				}
 
+				if (first)
+				{
+					// std::cout << pos.x << "," << pos.y << "," << pos.z << std::endl;
+					first = false;
+				}
+
+				// update transform 
+				auto boneEntity = _boneMap[banim.name];
 				_boneMap[banim.name]->transform->transform.setLocalPosition(pos);
+				_boneMap[banim.name]->transform->transform.setLocalRotation(rot);
 				_boneMap[banim.name]->transform->transform.setLocalScale(scl);
 			}
+
+			auto debug = GetBones()[0].transform->transform.getWorldPosition();
 		}
 	};
 
@@ -104,9 +137,9 @@ public:
 	void SetAnimations(std::vector<Animation>& anims)
 	{
 		_animations = anims;
-		if (anims.size() > 0)
+		if (_animations.size() > 0)
 		{
-			_currentAnim = &anims[0];
+			_currentAnim = &_animations[0];
 		}
 	}
 
@@ -116,7 +149,7 @@ private:
 	BoneMap _boneMap;
 	std::vector<BoneData> _bones;
 	std::vector<Animation> _animations;
-	Animation* _currentAnim;
+	Animation* _currentAnim = nullptr;
 	float counter = 0;
 };
 

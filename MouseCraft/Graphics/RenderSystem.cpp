@@ -1,8 +1,12 @@
 #include "RenderSystem.h"
+
+#define GLM_ENABLE_EXPERIMENTAL
+
 #include "../Loading/TextLoader.h"
 #include "../Core/ComponentManager.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/string_cast.hpp>
 #include "Renderable.h"
 #include "UIRenderable.h"
 #include "ModelGen.h"
@@ -128,6 +132,10 @@ void RenderSystem::clearShader() {
 void RenderSystem::Update(float dt) {
 	profiler.StartTimer(0);
 
+	auto animated = ComponentManager<AnimatedRenderable>::Instance().All();
+	for (auto& ar : animated)
+		ar->Update(dt);
+
 	clearBuffers();
 	renderScene();
 
@@ -210,7 +218,7 @@ void RenderSystem::gBufferPass() {
 		index++;
 	}
 
-	// no need to accumlate, the engine guarantees your data won't be delete
+	// no need to accumlate, the engine guarantees your data won't be deleted
 	setShader(_shaders["gbuffer_animated"]);
 	auto animated = ComponentManager<AnimatedRenderable>::Instance().All();
 	for (auto& ar : animated)
@@ -234,8 +242,9 @@ void RenderSystem::gBufferPass() {
 		boneTransforms.reserve(ar->GetBones().size());
 		for (auto& b : ar->GetBones())
 		{
-			boneTransforms.push_back(b.transform->t().getWorldTransformation());
+			boneTransforms.push_back(b.GetTransformation());
 		}
+
 		glUniformMatrix4fv(glGetUniformLocation(_shader->getProgram(), "boneTransforms"),
 			ar->GetBones().size(), GL_FALSE, &boneTransforms[0][0][0]);
 

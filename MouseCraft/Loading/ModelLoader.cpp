@@ -9,6 +9,8 @@
 #include "../Core/EntityManager.h"
 #include "../Core/Entity.h"
 #include "../Core/ComponentManager.h"
+#include "../Graphics/Renderable.h"
+#include "../Graphics/ModelGen.h"
 
 using std::ifstream;
 using std::string;
@@ -76,6 +78,10 @@ Entity * ModelLoader::loadAnimatedModel(std::string filename)
 	}
 	
 	auto e = EntityManager::Instance().Create();
+	auto c_r = ComponentManager<Renderable>::Instance().Create<Renderable>();
+	auto debug_model = ModelGen::makeCube(1, 1, 1);
+	c_r->setModel(*debug_model);
+	e->AddComponent(c_r);
 	auto c_ar = ComponentManager<AnimatedRenderable>::Instance().Create<AnimatedRenderable>();
 	e->AddComponent(c_ar);
 
@@ -88,7 +94,7 @@ Entity * ModelLoader::loadAnimatedModel(std::string filename)
 	
 	buildBoneHierarchy(scene->mRootNode, scene, boneDatas, e, c_ar);
 
-	buildAnimations(scene, c_ar);
+	buildAnimations(scene, c_ar, boneDatas);
 
 	g->constructVAO();
 	c_ar->SetBones(boneDatas);
@@ -286,6 +292,11 @@ void ModelLoader::buildBoneHierarchy(aiNode * node, const aiScene * scene, std::
 			root->AddChild(childBone);
 			root = childBone;
 
+			auto c_r = ComponentManager<Renderable>::Instance().Create<Renderable>();
+			auto debug_model = ModelGen::makeCube(1, 1, 1);
+			c_r->setModel(*debug_model);
+			childBone->AddComponent(c_r);
+
 			// finalize the bone data 
 			std::cout << "build bone hierarchy: " << node->mName.C_Str() << std::endl;
 			it->transform = childBone;
@@ -299,7 +310,7 @@ void ModelLoader::buildBoneHierarchy(aiNode * node, const aiScene * scene, std::
 	}
 }
 
-void ModelLoader::buildAnimations(const aiScene * scene, AnimatedRenderable * animatedRenderable)
+void ModelLoader::buildAnimations(const aiScene * scene, AnimatedRenderable * animatedRenderable, std::vector<BoneData>& boneDatas)
 {
 	std::vector<Animation> animations;
 
@@ -318,7 +329,19 @@ void ModelLoader::buildAnimations(const aiScene * scene, AnimatedRenderable * an
 		{
 			auto channel = aiAnim->mChannels[j];
 			BoneAnim bAnim;
+			bAnim.name = channel->mNodeName.C_Str();
 
+			// this node is a bone 
+			auto it = std::find_if(boneDatas.begin(), boneDatas.end(), [channel](const BoneData& val)
+			{
+				return val.name.compare(channel->mNodeName.C_Str()) == 0;
+			});
+			if (it == boneDatas.end())
+			{
+				std::cout << "WARNING: Animation clip is animating a non-bone" << std::endl;
+				continue;
+			}
+			
 			for (int k = 0; k < channel->mNumPositionKeys; ++k)
 			{
 				auto t = channel->mPositionKeys[k].mTime;
@@ -337,6 +360,7 @@ void ModelLoader::buildAnimations(const aiScene * scene, AnimatedRenderable * an
 				auto v = channel->mScalingKeys[k].mValue;
 				bAnim.scales.push_back(std::make_pair(t, glm::vec3(v.x, v.y, v.z)));
 			}
+
 
 			anim.frames.push_back(bAnim);
 		}
