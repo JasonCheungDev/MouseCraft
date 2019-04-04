@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include "Vector2D.h"
 
 class Transform
@@ -22,6 +23,12 @@ public:
 	
 	// Sets the local rotation.
 	void setLocalRotation(glm::vec3 rotation);
+
+	// Gets the local rotation as a quaternion.
+	glm::quat getLocalQuaternion() const;
+
+	// Sets the local rotation.
+	void setLocalRotation(glm::quat rotation);
 	
 	// Gets the local scale.
 	glm::vec3 getLocalScale() const;
@@ -136,6 +143,7 @@ private:
 private:
 	glm::vec3 _localPosition;
 	glm::vec3 _localRotation;
+	glm::quat _localQuat;
 	glm::vec3 _localScale = glm::vec3(1.0f);
 	glm::mat4 _localTransformation;
 	glm::mat4 _worldTransformation;

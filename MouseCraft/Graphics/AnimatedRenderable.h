@@ -28,15 +28,24 @@ public:
 
 			for (auto& banim : _currentAnim->frames)
 			{
+				float current = 0;
 				glm::vec3 pos = banim.positions[0].second;
 				glm::quat rot = banim.rotations[0].second;
 				glm::vec3 scl = banim.scales[0].second;
 
 				for (auto& p : banim.positions) {
 					if (counter > p.first)
+					{
+						// start -> counter -> end 
+						// counter - start / end - start;
+						float percent = p.first - current; 
 						break;
+					}
 					else
+					{
+						current = p.first;
 						pos = p.second;
+					}
 				}
 				for (auto& r : banim.rotations) {
 					if (counter > r.first)
