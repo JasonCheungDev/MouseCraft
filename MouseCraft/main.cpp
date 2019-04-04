@@ -437,7 +437,7 @@ void MainTest()
 			//yolo
 			auto whaleEntity = ModelLoader::loadAnimatedModel("res/models/Whale.fbx");
 			whaleEntity->transform.setLocalPosition(glm::vec3(50, 20, 50));
-			whaleEntity->transform.rotate(glm::vec3(0, 1.4, 0));
+			// whaleEntity->transform.rotate(glm::vec3(1.5, 1.4, 0));
 
 			OmegaEngine::Instance().ChangeScene(s);
 			OmegaEngine::Instance().AddEntity(whaleEntity);

@@ -22,7 +22,8 @@ glm::mat4 BoneData::GetTransformation()
 		parent = parent->GetParent();
 	}
 
-	// remove root 
+	// remove top two 
+	transformations.pop_front();
 	transformations.pop_front();
 
 	// calculate
