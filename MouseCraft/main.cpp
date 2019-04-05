@@ -435,8 +435,8 @@ void MainTest()
 			teapotEntity->transform.setLocalPosition(glm::vec3(50, 0, 50));
 
 			//yolo
-			auto whaleEntity = ModelLoader::loadAnimatedModel("res/models/Whale.fbx");
-			whaleEntity->transform.setLocalPosition(glm::vec3(50, 20, 50));
+			auto whaleEntity = ModelLoader::loadAnimatedModel("res/models/Rat_normalized.fbx");
+			whaleEntity->transform.setLocalPosition(glm::vec3(50, 20, 45));
 			// whaleEntity->transform.rotate(glm::vec3(1.5, 1.4, 0));
 
 			OmegaEngine::Instance().ChangeScene(s);

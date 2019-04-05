@@ -166,6 +166,7 @@ void ModelLoader::processAnimatedMeshes(std::vector<aiMesh*>& meshes, BonedGeome
 	std::vector<BonedVertex> vertices;
 	std::vector<GLuint> indices;
 	std::set<std::string> foundBones;
+	std::vector<aiBone*> foundBonesData;
 
 	int boneIndex = 0;
 	int meshStartIndex = 0;
@@ -201,7 +202,7 @@ void ModelLoader::processAnimatedMeshes(std::vector<aiMesh*>& meshes, BonedGeome
 				indices.push_back(face.mIndices[j] + meshStartIndex);
 			}
 		}
-
+		int pi = 0;
 		for (int i = 0; i < mesh->mNumBones; i++)
 		{
 			auto bone = mesh->mBones[i];
@@ -209,36 +210,49 @@ void ModelLoader::processAnimatedMeshes(std::vector<aiMesh*>& meshes, BonedGeome
 			if (foundBones.find(bone->mName.C_Str()) != foundBones.end())
 				continue;
 			else
-				foundBones.insert(bone->mName.C_Str());
-
-			// construct bone 
-			BoneData bd;
-			bd.name = bone->mName.C_Str();
-			bd.id = boneIndex;
-			boneDatas.push_back(bd);
-
-			// update affected vertices 
-			for (int j = 0; j < bone->mNumWeights; ++j)
 			{
-				auto weight = bone->mWeights[j];
-				auto vertex = &vertices[weight.mVertexId];
-				// find the first free bone slot 
-				for (int k = 0; k < 4; ++k)
-				{
-					if (vertex->weights[k] == 0.0f)
-					{
-						// found
-						vertex->bones[k] = boneIndex;	// bone id 
-						vertex->weights[k] = weight.mWeight;
-						break;
-					}
-				}
+				foundBones.insert(bone->mName.C_Str());
+				foundBonesData.push_back(bone);
 			}
-			boneIndex++;
 		}
 
 		meshStartIndex = indices.size();
 	}
+
+	for (auto& bone : foundBonesData)
+	{
+		// construct bone 
+		BoneData bd;
+		bd.name = bone->mName.C_Str();
+		bd.id = boneIndex;
+		boneDatas.push_back(bd);
+
+		// update affected vertices 
+		for (int j = 0; j < bone->mNumWeights; ++j)
+		{
+			auto weight = bone->mWeights[j];
+			auto vertex = &vertices[weight.mVertexId];
+			// find the first free bone slot 
+			for (int k = 0; k < 4; ++k)
+			{
+				if (vertex->weights[k] == 0.0f)
+				{
+					// found
+					vertex->bones[k] = boneIndex;	// bone id 
+					vertex->weights[k] = weight.mWeight;
+					break;
+				}
+				else if (k == 3)
+				{
+					std::cout << "Vertex: " << weight.mVertexId << " overloaded" << std::endl;
+					int asdf = 0;
+				}
+			}
+		}
+		boneIndex++;
+	}
+
+
 
 	// reformat vertex struct data into individual data
 	std::vector<GLfloat> vertPositions;
@@ -292,10 +306,12 @@ void ModelLoader::buildBoneHierarchy(aiNode * node, const aiScene * scene, std::
 			root->AddChild(childBone);
 			root = childBone;
 
+		
 			auto c_r = ComponentManager<Renderable>::Instance().Create<Renderable>();
-			auto debug_model = ModelGen::makeCube(1, 1, 1);
+			auto debug_model = ModelGen::makeCube(0.1f, 0.1f, 0.1f);
 			c_r->setModel(*debug_model);
 			childBone->AddComponent(c_r);
+			
 
 			// finalize the bone data 
 			std::cout << "build bone hierarchy: " << node->mName.C_Str() << std::endl;
