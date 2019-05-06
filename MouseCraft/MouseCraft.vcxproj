@@ -178,6 +178,9 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClCompile Include="Event\Observer.cpp" />
     <ClCompile Include="Event\Subject.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
+    <ClCompile Include="ComponentFactory.cpp" />
+    <ClCompile Include="ComponentList.cpp" />
+    <ClCompile Include="ComponentMan.cpp" />
     <ClCompile Include="Core\Component.cpp" />
     <ClCompile Include="Core\Entity.cpp" />
     <ClCompile Include="Core\Handle.cpp" />
@@ -192,6 +195,7 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClCompile Include="Core\Example\ExampleSystemComponent.cpp" />
     <ClCompile Include="Core\Example\ExampleUpdatableComponent.cpp" />
     <ClCompile Include="Core\Vector2D.cpp" />
+    <ClCompile Include="Core\Example\ExampleDerivedComponent.cpp" />
     <ClCompile Include="GL\glad.c" />
     <ClCompile Include="Event\EventManager.cpp" />
     <ClCompile Include="Graphics\GLTextureArray.cpp" />
@@ -289,6 +293,9 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClInclude Include="Event\Observer.h" />
     <ClInclude Include="Event\Subject.h" />
     <ClInclude Include="Graphics\Camera.h" />
+    <ClInclude Include="ComponentFactory.h" />
+    <ClInclude Include="ComponentList.h" />
+    <ClInclude Include="ComponentMan.h" />
     <ClInclude Include="Event\EventManager.h" />
     <ClInclude Include="Event\EventName.h" />
     <ClInclude Include="Event\ISubscriber.h" />
@@ -334,6 +341,7 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClInclude Include="Core\Example\ExampleSystem.h" />
     <ClInclude Include="Core\Example\ExampleSystemComponent.h" />
     <ClInclude Include="Core\Example\ExampleUpdatableComponent.h" />
+    <ClInclude Include="Core\Example\ExampleDerivedComponent.h" />
     <ClInclude Include="GL\glad.h" />
     <ClInclude Include="GL\khrplatform.h" />
     <ClInclude Include="Input\InputSystem.h" />

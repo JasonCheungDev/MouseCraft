@@ -20,6 +20,20 @@ Component::~Component()
 	EventManager::Notify(COMPONENT_REMOVED, &param, false);
 }
 
+// copy ctor
+Component::Component(const Component& c) 
+{
+	// update memory location 
+	_self = c._self;
+	_self->Set(this);	
+	// copy configuration
+	_id = c._id;
+	_destroyed = c._destroyed;
+	_initialized = c._initialized;
+	_enabled = c._enabled;
+	_entity = c._entity;
+}
+
 // Note: Looks kind of strange but this is to prevent components
 // from being initialized twice and hides this interaction 
 // away from implementing classes.
@@ -38,5 +52,5 @@ void Component::Initialize()
 
 bool Component::GetActive() const
 {
-	return GetEnabled() && GetEntity() && GetEntity()->GetActive();
+	return !GetDeletedFlag() && GetEnabled() && GetEntity() && GetEntity()->GetActive();
 }
