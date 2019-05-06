@@ -2,6 +2,7 @@
 
 #include <typeindex>
 #include <typeinfo>
+#include "Handle.h"
 
 class Entity;
 
@@ -10,8 +11,10 @@ class Component
 public:
 	Component();
 	virtual ~Component();
-	virtual Component& operator=(const Component&) = delete;  // Disallow copying
-	Component(const Component&) = delete;
+	Component(const Component&);
+
+	// virtual Component& operator=(const Component&) = delete;  // Disallow copying
+	// Component(const Component&) = delete;
 
 	// WARNING: Should only be called internally by the engine. 
 	// Initializes this component.
@@ -42,7 +45,22 @@ public:
 	// Returns true if this component is active (must be enabled, must have entity, entity must be active).
 	bool GetActive() const;
 
+	// WARNING: Should only be called internally by the engine.
+	// Sets the lazy deleted flag for this component. 
+	void SetDeletedFlag(bool torf)
+	{
+		_destroyed = torf;
+	}
+
+	// Gets the lazy deleted status for this component.
+	bool GetDeletedFlag() const
+	{
+		return _destroyed;
+	}
+
 private:
+	HandlePointer<Component>* _self;
+	bool _destroyed = false;
 	bool _initialized = false;
 	bool _enabled = true;
 	Entity* _entity;

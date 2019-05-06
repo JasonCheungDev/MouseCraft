@@ -10,7 +10,7 @@ public:
 };
 
 template<class ComponentType>
-class ComponentMan : IComponentMan
+class ComponentMan : public IComponentMan
 {
 // singleton 
 public:
@@ -22,16 +22,32 @@ public:
 	ComponentMan(ComponentMan const&) = delete;
 	void operator=(ComponentMan const&) = delete;
 private:
-	ComponentMan()
-	{
-	};
+	ComponentMan() {};
 	~ComponentMan() {};
 
 public:
 	ComponentType* Create()
 	{
-		_data.emplace_back();
+		_data.push_back(ComponentType());
+
+		auto something = &_data[_data.size() - 1];
+
 		return &_data[_data.size() - 1];
+	}
+
+	void Delete(int id) override
+	{
+		// Current strategy is to lazy delete a component. 
+		// This is to ensure no pointers to a specific component are invalidated. 
+		for (auto& c : _data)
+		{
+			auto component = static_cast<Component*>(&c);
+			if (component->GetID() == id)
+			{
+				component->SetDeletedFlag(true);
+				break;
+			}
+		}
 	}
 
 	const std::vector<ComponentType>& All()

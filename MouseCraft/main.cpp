@@ -9,6 +9,10 @@
 #include "Core/EntityManager.h"
 #include "Core/Example/ExampleComponent.h"
 #include "Core/Example/ExampleSystem.h"
+#include "ComponentFactory.h"
+#include "ComponentMan.h"
+#include "ComponentList.h"
+#include "Core/Example/ExampleDerivedComponent.h"
 
 extern "C" {
 	__declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
@@ -166,18 +170,27 @@ int main()
 
 	OmegaEngine::Instance().initialize();
 
-	// OmegaEngine::Instance().AddSystem(new YourSystem());
-
 	// fast load 
-	Scene* s = new MainScene();
-	OmegaEngine::Instance().ChangeScene(s);
+	//Scene* s = new MainScene();
+	//OmegaEngine::Instance().ChangeScene(s);
 
-	auto mouse = EntityManager::Instance().Create();
-	// ComponentManager<Base_Type>::Instance().Create<Base_or_Derived_Type>();
-	auto c_example = ComponentManager<ExampleComponent>::Instance().Create<ExampleComponent>();
-	mouse->AddComponent(c_example);
+	auto c1 = ComponentFactory::Create<ExampleComponent>();
+	auto c2 = ComponentFactory::Create<ExampleComponent>();
+	auto c3 = ComponentFactory::Create<ExampleComponent>();
 
-	OmegaEngine::Instance().AddEntity(mouse);
+	auto ca = ComponentFactory::Create<ExampleDerivedComponent>();
+	auto cb = ComponentFactory::Create<ExampleDerivedComponent>();
+	auto cc = ComponentFactory::Create<ExampleDerivedComponent>();
+	
+	// give me the PERFORMANCE
+// managers allow direct access to component (raw) of type. 
+	auto contains_c_123 = ComponentMan<ExampleComponent>::Instance().All();
+	auto contains_c_abc = ComponentMan<ExampleDerivedComponent>::Instance().All();
+
+	// lists allow convenient access to component (pointers) of type 
+	auto contains_c_123abc = ComponentList<ExampleComponent>::Instance().All();
+	auto contains_c_sameAsAbove = ComponentList<Component>::Instance().All();
+
 
 	OmegaEngine::Instance().Loop();
 

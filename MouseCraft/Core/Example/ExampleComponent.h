@@ -10,6 +10,7 @@ class ExampleComponent : public Component
 public:
 	ExampleComponent() : velocity(rand() % 10, rand() % 10, rand() % 10) {};
 	~ExampleComponent() {};
+	virtual void foobar() {};
 	glm::vec3 velocity;
 };
 

@@ -8,6 +8,7 @@ unsigned int Component::_curID = 0;
 
 Component::Component() : _id(Component::_curID++)
 {
+	_self = new HandlePointer<Component>(this);
 	std::cout << "Component created" << std::endl;
 	//TypeParam<Component*> param(this);
 	//EventManager::Notify(COMPONENT_ADDED, &param, false);
@@ -16,8 +17,22 @@ Component::Component() : _id(Component::_curID++)
 Component::~Component()
 {
 	std::cout << "Component destroyed" << std::endl;
-	TypeParam<Component*> param(this);
-	EventManager::Notify(COMPONENT_REMOVED, &param, false);
+	//TypeParam<Component*> param(this);
+	//EventManager::Notify(COMPONENT_REMOVED, &param, false);
+}
+
+// copy ctor
+Component::Component(const Component& c) 
+{
+	// update memory location 
+	_self = c._self;
+	_self->Set(this);	
+	// copy configuration
+	_id = c._id;
+	_destroyed = c._destroyed;
+	_initialized = c._initialized;
+	_enabled = c._enabled;
+	_entity = c._entity;
 }
 
 // Note: Looks kind of strange but this is to prevent components
@@ -38,5 +53,5 @@ void Component::Initialize()
 
 bool Component::GetActive() const
 {
-	return GetEnabled() && GetEntity() && GetEntity()->GetActive();
+	return !GetDeletedFlag() && GetEnabled() && GetEntity() && GetEntity()->GetActive();
 }
