@@ -76,12 +76,6 @@
     <Filter Include="Source Files\Input">
       <UniqueIdentifier>{a78e8ccf-9344-4b4d-b460-250414a2a24d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Contraptions">
-      <UniqueIdentifier>{ff659aa3-d49b-40cd-ab2f-6c594b9c0c44}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Contraptions">
-      <UniqueIdentifier>{40655de4-e5a8-47f6-89b9-3f8ce105b862}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Network">
       <UniqueIdentifier>{8e01d580-d6e3-43c5-94ad-5704d6c32074}</UniqueIdentifier>
     </Filter>
@@ -243,22 +237,7 @@
     <ClCompile Include="Loading\ImageLoader.cpp">
       <Filter>Source Files\Loading</Filter>
     </ClCompile>
-    <ClCompile Include="DebugColliderComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DebugColliderSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TestSubObs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Pickup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PickupFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PickupSpawner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Event\Observer.cpp">
@@ -266,33 +245,6 @@
     </ClCompile>
     <ClCompile Include="Event\Subject.cpp">
       <Filter>Source Files\Event</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Gun.cpp">
-      <Filter>Source Files\Contraptions</Filter>
-    </ClCompile>
-    <ClCompile Include="Bomb.cpp">
-      <Filter>Source Files\Contraptions</Filter>
-    </ClCompile>
-    <ClCompile Include="Overcharge.cpp">
-      <Filter>Source Files\Contraptions</Filter>
-    </ClCompile>
-    <ClCompile Include="Swords.cpp">
-      <Filter>Source Files\Contraptions</Filter>
-    </ClCompile>
-    <ClCompile Include="Cat.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Contraption.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Coil.cpp">
-      <Filter>Source Files\Contraptions</Filter>
-    </ClCompile>
-    <ClCompile Include="ContraptionFactory.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TestPrefab.cpp">
       <Filter>Source Files</Filter>
@@ -315,9 +267,6 @@
     <ClCompile Include="Network\Socket.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
-    <ClCompile Include="WorldGrid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Sound\SoundComponent.cpp">
       <Filter>Source Files\Sound</Filter>
     </ClCompile>
@@ -327,52 +276,7 @@
     <ClCompile Include="Graphics\GLTextureArray.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ContraptionSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DamageOnCollision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TimedDestruction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Mouse.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="YarnBall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Obstacle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ObstacleFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Lamp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Obstruction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuItem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Trampoline.cpp">
-      <Filter>Source Files\Contraptions</Filter>
-    </ClCompile>
-    <ClCompile Include="HostScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\BufferObjects\ElementBufferObject.cpp">
@@ -396,9 +300,6 @@
     <ClCompile Include="Loading\UILoader.cpp">
       <Filter>Source Files\Loading</Filter>
     </ClCompile>
-    <ClCompile Include="HealthDisplay.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TransformAnimator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -410,9 +311,6 @@
     </ClCompile>
     <ClCompile Include="Sound\TrackParams.cpp">
       <Filter>Source Files\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="ClientScene.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HealthComponent.cpp">
       <Filter>Source Files</Filter>
@@ -620,25 +518,7 @@
     <ClInclude Include="Loading\ImageLoader.h">
       <Filter>Header Files\Loading</Filter>
     </ClInclude>
-    <ClInclude Include="DebugColliderComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DebugColliderSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TestSubObs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MOUSECRAFT_ENUMS.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Pickup.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PickupFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PickupSpawner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Event\Subject.h">
@@ -648,33 +528,6 @@
       <Filter>Header Files\Event</Filter>
     </ClInclude>
     <ClInclude Include="HealthComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Gun.h">
-      <Filter>Header Files\Contraptions</Filter>
-    </ClInclude>
-    <ClInclude Include="Coil.h">
-      <Filter>Header Files\Contraptions</Filter>
-    </ClInclude>
-    <ClInclude Include="Contraption.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Bomb.h">
-      <Filter>Header Files\Contraptions</Filter>
-    </ClInclude>
-    <ClInclude Include="Overcharge.h">
-      <Filter>Header Files\Contraptions</Filter>
-    </ClInclude>
-    <ClInclude Include="Swords.h">
-      <Filter>Header Files\Contraptions</Filter>
-    </ClInclude>
-    <ClInclude Include="Cat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ContraptionFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Physics\PhysObjectType.h">
@@ -719,12 +572,6 @@
     <ClInclude Include="Network\Socket.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
-    <ClInclude Include="Obstacles.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WorldGrid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Sound\SoundComponent.h">
       <Filter>Header Files\Sound</Filter>
     </ClInclude>
@@ -737,55 +584,10 @@
     <ClInclude Include="Graphics\CombinedGeometry.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ContraptionSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DamageOnCollision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TimedDestruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OmegaTests.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mouse.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="YarnBall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Obstacle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ObstacleFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Lamp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Obstruction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuItem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Trampoline.h">
-      <Filter>Header Files\Contraptions</Filter>
-    </ClInclude>
-    <ClInclude Include="HostScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\BufferObjects\ElementBufferObject.h">
@@ -809,9 +611,6 @@
     <ClInclude Include="Loading\UILoader.h">
       <Filter>Header Files\Loading</Filter>
     </ClInclude>
-    <ClInclude Include="HealthDisplay.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="TransformAnimator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -819,9 +618,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Rotator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ClientScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ResourceCache.h">

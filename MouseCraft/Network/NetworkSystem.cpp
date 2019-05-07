@@ -3,7 +3,6 @@
 #include "../Core/ComponentManager.h"
 #include "../Input/InputSystem.h"
 #include "../Core/OmegaEngine.h"
-#include "../ClientScene.h"
 #include "NetState.h"
 #include <iostream>
 #include <string>
@@ -250,7 +249,8 @@ void NetworkSystem::processDatum(const Address &sender, PacketData *packet) {
                 _connectionList[sender].Append(new AckDatum(packet->GetTick()));
                 _role = Role::CLIENT;
                 _tickNum = newTick;
-                OmegaEngine::Instance().ChangeScene(new ClientScene());
+                // TODO:
+				// OmegaEngine::Instance().ChangeScene(new ClientScene());
             }
             break;
         }

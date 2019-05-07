@@ -10,8 +10,6 @@
 #include "Network/NetworkSystem.h"
 #include "Physics/PhysicsManager.h"
 #include "Sound/SoundManager.h"
-#include "ContraptionSystem.h"
-#include "MenuScene.h"
 #include "UI/UIManager.h"
 
 SoundManager* noise;
@@ -34,7 +32,7 @@ void MainTest()
 
 	OmegaEngine::Instance().initialize();
 
-	OmegaEngine::Instance().ChangeScene(new MenuScene());
+// 	OmegaEngine::Instance().ChangeScene(new MenuScene());
 
 	InputSystem* inputSystem = new InputSystem();
 
@@ -46,7 +44,6 @@ void MainTest()
 	OmegaEngine::Instance().AddSystem(PhysicsManager::instance());
 	OmegaEngine::Instance().AddSystem(renderSystem);
 	OmegaEngine::Instance().AddSystem(inputSystem);
-	OmegaEngine::Instance().AddSystem(new ContraptionSystem());
 	OmegaEngine::Instance().AddSystem(NetworkSystem::Instance());
 	OmegaEngine::Instance().AddSystem(new UIManager());
 

@@ -20,7 +20,6 @@ PhysicsManager::~PhysicsManager()
 {
 	delete(cListener);
 	delete(world);
-	delete(grid);
 }
 
 PhysicsManager* PhysicsManager::instance()
@@ -130,7 +129,6 @@ void PhysicsManager::Update(float dt)
 //Make sure scale divides into w and h or your w and h will be less than you want
 void PhysicsManager::setupGrid(int w, int h, int scale)
 {
-	grid = new WorldGrid(w, h, scale);
 }
 
 PhysicsComponent* PhysicsManager::createObject(float x, float y, float w, float h, float r, PhysObjectType::PhysObjectType t)
@@ -233,16 +231,12 @@ PhysicsComponent* PhysicsManager::createGridObject(float x, float y, int w, int 
 		p1 = new Vector2D(x - ((float)w / 2), y + ((float)h / 2));
 		p2 = new Vector2D(x + ((float)w / 2), y - ((float)h / 2));
 
-		grid->positionArea(*p1, *p2);
-
 		bodyDef.position.Set(p1->x + ((float)w / 2), p1->y - ((float)h / 2));
 		break;
 	case PhysObjectType::CONTRAPTION_UP:
 	case PhysObjectType::CONTRAPTION_DOWN:
 	case PhysObjectType::PART:
 		p1 = new Vector2D(x, y);
-
-		grid->positionObject(*p1);
 
 		bodyDef.position.Set(p1->x, p1->y);
 		break;
@@ -338,12 +332,10 @@ PhysicsComponent* PhysicsManager::createGridObject(float x, float y, int w, int 
 	case PhysObjectType::OBSTACLE_UP:
 	case PhysObjectType::OBSTACLE_DOWN:
 	case PhysObjectType::PLATFORM:
-		grid->createArea(*p1, *p2, physicsComp, t);
 		break;
 	case PhysObjectType::CONTRAPTION_UP:
 	case PhysObjectType::CONTRAPTION_DOWN:
 	case PhysObjectType::PART:
-		grid->createObject(*p1, physicsComp);
 		break;
 	}
 
@@ -611,9 +603,4 @@ PhysicsComponent* PhysicsManager::rayCheck(PhysicsComponent* checkedBy, std::set
 
 	hit = Vector2D(ray.x, ray.y);
 	return bestMatch;
-}
-
-WorldGrid* PhysicsManager::getGrid()
-{
-	return grid;
 }

@@ -122,7 +122,7 @@ void PhysicsComponent::removeCollisions()
 
 void PhysicsComponent::removeFromGrid()
 {
-	PhysicsManager::instance()->getGrid()->removeObject(body->GetPosition().x, body->GetPosition().y);
+	// PhysicsManager::instance()->getGrid()->removeObject(body->GetPosition().x, body->GetPosition().y);
 }
 
 Component* PhysicsComponent::Create(json json)
