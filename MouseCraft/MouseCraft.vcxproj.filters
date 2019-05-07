@@ -58,9 +58,6 @@
     <Filter Include="Header Files\GL">
       <UniqueIdentifier>{27290bc5-d77d-4a85-9624-90b084778cff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Physics">
-      <UniqueIdentifier>{092fd361-982d-42a8-bd76-f5da315426ee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Physics">
       <UniqueIdentifier>{53de4277-c255-497b-a1af-b24c6ff26379}</UniqueIdentifier>
     </Filter>
@@ -102,6 +99,9 @@
     </Filter>
     <Filter Include="Resource Files\Core\Test">
       <UniqueIdentifier>{2e0bc802-8f7f-4fea-9c8b-171cd452f934}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core\Physics">
+      <UniqueIdentifier>{092fd361-982d-42a8-bd76-f5da315426ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -422,7 +422,7 @@
     </ClCompile>
     <ClCompile Include="Network\NetState.cpp">
       <Filter>Source Files\Network</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="Graphics\OutlineComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -579,13 +579,13 @@
       <Filter>Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="Physics\PhysicsManager.h">
-      <Filter>Header Files\Physics</Filter>
+      <Filter>Header Files\Core\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Physics\PhysicsComponent.h">
-      <Filter>Header Files\Physics</Filter>
+      <Filter>Header Files\Core\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Physics\CContactListener.h">
-      <Filter>Header Files\Physics</Filter>
+      <Filter>Header Files\Core\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Window.h">
       <Filter>Header Files\Graphics</Filter>
@@ -678,13 +678,13 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Physics\PhysObjectType.h">
-      <Filter>Header Files\Physics</Filter>
+      <Filter>Header Files\Core\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Physics\RayQueryCallback.h">
-      <Filter>Header Files\Physics</Filter>
+      <Filter>Header Files\Core\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Physics\AreaQueryCallback.h">
-      <Filter>Header Files\Physics</Filter>
+      <Filter>Header Files\Core\Physics</Filter>
     </ClInclude>
     <ClInclude Include="json.hpp">
       <Filter>Header Files</Filter>
@@ -829,24 +829,24 @@
     </ClInclude>
     <ClInclude Include="Network\NetState.h">
       <Filter>Header Files\Network</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="Graphics\OutlineComponent.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\TextureInfo.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="ComponentFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentMan.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Example\ExampleDerivedComponent.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentFactory.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentList.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentMan.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

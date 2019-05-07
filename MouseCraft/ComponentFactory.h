@@ -56,11 +56,11 @@ public:
 		// raise event 
 		EventManager::Notify(EventName::COMPONENT_REMOVED, new TypeParam<Component*>(c));
 
-		// remove from directory 
-		_componentDirectory.erase(c);
-
 		// release memory 
 		_componentDirectory[c]->Delete(c->GetID());
+
+		// remove from directory 
+		_componentDirectory.erase(c);
 	}
 
 	// returns the component directory. only call this if you know what you're doing.

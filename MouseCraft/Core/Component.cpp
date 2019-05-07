@@ -20,20 +20,6 @@ Component::~Component()
 	EventManager::Notify(COMPONENT_REMOVED, &param, false);
 }
 
-// copy ctor
-Component::Component(const Component& c) 
-{
-	// update memory location 
-	_self = c._self;
-	_self->Set(this);	
-	// copy configuration
-	_id = c._id;
-	_destroyed = c._destroyed;
-	_initialized = c._initialized;
-	_enabled = c._enabled;
-	_entity = c._entity;
-}
-
 // Note: Looks kind of strange but this is to prevent components
 // from being initialized twice and hides this interaction 
 // away from implementing classes.
@@ -41,16 +27,12 @@ Component::Component(const Component& c)
 // Consider: Deleting this, as it's currently handled by Entity. (maybe?) 
 void Component::Initialize()
 {
-	if (_initialized)
-	{
-		std::cerr << "WARNING: Component tried to init twice - how did that happen?" << std::endl;
-		return;
-	}
+	if (_initialized) return;
 	_initialized = true;
 	OnInitialized();
 }
 
 bool Component::GetActive() const
 {
-	return !GetDeletedFlag() && GetEnabled() && GetEntity() && GetEntity()->GetActive();
+	return GetEnabled() && GetEntity() && GetEntity()->GetActive();
 }

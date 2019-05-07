@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <algorithm>
 #include "Core/Component.h"
 
 class IComponentMan
@@ -25,29 +26,22 @@ private:
 	ComponentMan() {};
 	~ComponentMan() {};
 
+// functions 
 public:
 	ComponentType* Create()
 	{
-		_data.push_back(ComponentType());
-
-		auto something = &_data[_data.size() - 1];
-
-		return &_data[_data.size() - 1];
+		auto c = new ComponentType();
+		_data.push_back(c);
+		return c;
 	}
 
 	void Delete(int id) override
 	{
-		// Current strategy is to lazy delete a component. 
-		// This is to ensure no pointers to a specific component are invalidated. 
-		for (auto& c : _data)
-		{
-			auto component = static_cast<Component*>(&c);
-			if (component->GetID() == id)
-			{
-				component->SetDeletedFlag(true);
-				break;
-			}
-		}
+		auto it = std::find_if(_data.begin(), _data.end(), [](const ComponentType& c) { 
+			return static_cast<Component*>(c)->GetID() == id; 
+		});
+		delete(*it);
+		_data.erase(it);
 	}
 
 	const std::vector<ComponentType>& All()
@@ -55,7 +49,19 @@ public:
 		return _data;
 	}
 
+// variables 
 private:
-	std::vector<ComponentType> _data;
+	// Current strategy is to use pointer array.
+	// This is to ensure pointers aren't invalidated.
+	std::vector<ComponentType*> _data;
+
+	// Consider: A double layered array, 1st array with continuous gapless data
+	// 2nd array with Handle pointers that point to continuous data.
+	// Whenever a component is destroyed the last element in the 1st array takes that spot,
+	// and the handle internal pointer is updated to point to that new spot. 
+	
+	// Be aware that array of pointers is fine so far (performs better or just as good as 
+	// continuous objects in MultiThreadTest project). Most likely need larger and more 
+	// fragmented data for cache efficiency to shine. 
 };
 
