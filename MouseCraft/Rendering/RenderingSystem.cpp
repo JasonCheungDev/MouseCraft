@@ -808,8 +808,8 @@ void RenderingSystem::Update(float dt)
 		<< "Postprocessing Pass: " << profiler.GetDuration(6) / 1000000.0 << "ms\n"
 		<< "Image Pass: " << profiler.GetDuration(7) / 1000000.0 << "ms\n"
 		<< "Text Pass: " << profiler.GetDuration(8) / 1000000.0 << "ms\n";
-	
-	TextRenderer::Instance().RenderText(ss.str(), TextAlignment::Left, 0.0f, screenHeight - 20.0f, 0.4f, glm::vec3(1.0f, 1.0f, 1.0f));
+
+	TextRenderer::Instance().RenderText(ss.str(), 0.0f, screenHeight, glm::vec3(1,0,0));
 }
 
 void RenderingSystem::addPostProcess(const std::string name, std::unique_ptr<PostProcess> postProcess)
