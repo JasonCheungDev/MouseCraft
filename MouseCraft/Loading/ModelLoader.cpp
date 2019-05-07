@@ -1,28 +1,13 @@
 #include "ModelLoader.h"
 #include <fstream>
 #include <iostream>
-#include "ObjFileParser.h"
 
 using std::ifstream;
 using std::string;
 using std::vector;
 
+/*
 Model* ModelLoader::loadModel(string filename) {
-	/*
-	/// Old model loading code
-
-	ObjFileParser parser = ObjFileParser();
-	ifstream file;
-	file.open(filename);
-	if (!file.is_open()) {
-		std::cerr << "Problem opening file " << filename << std::endl;
-		return nullptr;
-	}
-	Geometry* g = parser.parse(file);
-	file.close();
-	return new Model(g);
-	*/
-
 	// Model loading adapted from https://learnopengl.com/Model-Loading/Model
 
 	Assimp::Importer importer;
@@ -97,3 +82,4 @@ void ModelLoader::processMeshes(vector<aiMesh*>& meshes, const aiScene* scene, G
 	g->setTexCoordData(vertTexCoord);
 	g->setIndices(indices);
 }
+*/

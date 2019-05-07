@@ -4,13 +4,14 @@
 #include <Windows.h>
 #include <iostream>
 #include "Core/OmegaEngine.h"
-#include "Graphics/RenderSystem.h"
 #include "Input/InputSystem.h"
 #include "Loading/PrefabLoader.h"
 #include "Network/NetworkSystem.h"
 #include "Physics/PhysicsManager.h"
 #include "Sound/SoundManager.h"
-#include "UI/UIManager.h"
+//#include "UI/UIManager.h"
+#include "Rendering/RenderingSystem.h"
+#include "MainScene.h"
 
 SoundManager* noise;
 
@@ -32,20 +33,20 @@ void MainTest()
 
 	OmegaEngine::Instance().initialize();
 
-// 	OmegaEngine::Instance().ChangeScene(new MenuScene());
+	OmegaEngine::Instance().ChangeScene(new MainScene());
 
 	InputSystem* inputSystem = new InputSystem();
 
-	//Can this go at the top?
-	RenderSystem* renderSystem = new RenderSystem();
-	renderSystem->setWindow(OmegaEngine::Instance().getWindow());
+	RenderingSystem* rs = new RenderingSystem();
+	rs->SetSize(OmegaEngine::Instance().getWindow()->getWidth(), OmegaEngine::Instance().getWindow()->getHeight());
 
 	//Add the systems
 	OmegaEngine::Instance().AddSystem(PhysicsManager::instance());
-	OmegaEngine::Instance().AddSystem(renderSystem);
+	//OmegaEngine::Instance().AddSystem(renderSystem);
+	OmegaEngine::Instance().AddSystem(rs);
 	OmegaEngine::Instance().AddSystem(inputSystem);
 	OmegaEngine::Instance().AddSystem(NetworkSystem::Instance());
-	OmegaEngine::Instance().AddSystem(new UIManager());
+	//OmegaEngine::Instance().AddSystem(new UIManager());
 
 	//Start the game
 	OmegaEngine::Instance().Loop();

@@ -37,14 +37,14 @@ public:
 
 	void Delete(int id) override
 	{
-		auto it = std::find_if(_data.begin(), _data.end(), [](const ComponentType& c) { 
+		auto it = std::find_if(_data.begin(), _data.end(), [id](ComponentType* c) { 
 			return static_cast<Component*>(c)->GetID() == id; 
 		});
 		delete(*it);
 		_data.erase(it);
 	}
 
-	const std::vector<ComponentType>& All()
+	const std::vector<ComponentType*>& All()
 	{
 		return _data;
 	}

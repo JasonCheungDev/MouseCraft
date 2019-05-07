@@ -7,7 +7,6 @@
 #include <glm/vec4.hpp>
 #include "../Core/Component.h"
 #include "../Core/Entity.h"
-#include "../Graphics/Model.h"
 #include "../Graphics/Color.h"
 
 enum VerticalAnchor {

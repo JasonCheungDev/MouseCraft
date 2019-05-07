@@ -3,6 +3,7 @@
 
 using std::vector;
 
+/*
 Model* ModelGen::makeQuad(ModelGen::Axis facing, float width, float height) {
 	float halfwidth = width / 2.0f;
 	float halfheight = height / 2.0f;
@@ -202,3 +203,4 @@ Model* ModelGen::makeCube(float width, float height, float depth) {
 
 	return new Model(g);
 }
+*/

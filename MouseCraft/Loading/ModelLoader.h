@@ -1,10 +1,11 @@
 #pragma once
-#include "../Graphics/Model.h"
 #include "assimp/Importer.hpp"
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
 #include <string>
 #include <vector>
+
+/*
 
 class ModelLoader
 {
@@ -15,3 +16,4 @@ private:
 	static std::vector<aiMesh*> processNode(aiNode* node, const aiScene* scene);
 };
 
+*/

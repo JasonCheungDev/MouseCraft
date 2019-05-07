@@ -111,22 +111,7 @@
     <ClCompile Include="Sound\SoundManager.cpp">
       <Filter>Source Files\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="UI\ImageComponent.cpp">
-      <Filter>Source Files\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\TextComponent.cpp">
-      <Filter>Source Files\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\UIComponent.cpp">
-      <Filter>Source Files\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\UIManager.cpp">
-      <Filter>Source Files\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Loading\SimpleParser.cpp">
-      <Filter>Source Files\Loading</Filter>
-    </ClCompile>
-    <ClCompile Include="Loading\ObjFileParser.cpp">
       <Filter>Source Files\Loading</Filter>
     </ClCompile>
     <ClCompile Include="Loading\ModelLoader.cpp">
@@ -134,9 +119,6 @@
     </ClCompile>
     <ClCompile Include="Loading\TextLoader.cpp">
       <Filter>Source Files\Loading</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Shader.cpp">
-      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Core\Component.cpp">
       <Filter>Resource Files\Core</Filter>
@@ -213,15 +195,6 @@
     <ClCompile Include="Graphics\Window.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\RenderSystem.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Renderable.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Camera.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="MainScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -229,9 +202,6 @@
       <Filter>Source Files\Input</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\ModelGen.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\GLTexture.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Loading\ImageLoader.cpp">
@@ -273,32 +243,8 @@
     <ClCompile Include="Network\NetworkComponent.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\GLTextureArray.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="TimedDestruction.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\BufferObjects\ElementBufferObject.cpp">
-      <Filter>Source Files\Graphics\BufferObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\BufferObjects\FrameBufferObject.cpp">
-      <Filter>Source Files\Graphics\BufferObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\BufferObjects\VertexArrayObject.cpp">
-      <Filter>Source Files\Graphics\BufferObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\BufferObjects\VertexBufferObject.cpp">
-      <Filter>Source Files\Graphics\BufferObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\BufferObjects\UniformBufferObject.cpp">
-      <Filter>Source Files\Graphics\BufferObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Light.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Loading\UILoader.cpp">
-      <Filter>Source Files\Loading</Filter>
     </ClCompile>
     <ClCompile Include="TransformAnimator.cpp">
       <Filter>Source Files</Filter>
@@ -311,9 +257,6 @@
     </ClCompile>
     <ClCompile Include="Sound\TrackParams.cpp">
       <Filter>Source Files\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="HealthComponent.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ResourceCache.cpp">
       <Filter>Source Files</Filter>
@@ -334,6 +277,72 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Core\Example\ExampleDerivedComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Lighting\DirectionalLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Lighting\Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Lighting\PointLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\PostProcess\BlurPP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\PostProcess\FxaaPP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\PostProcess\NegativePP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\PostProcess\PostProcess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\UI\ImageComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\UI\TextComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\UI\View.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Constants.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\CubeMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\GeometryMaterial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\PlaneMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Renderable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\RenderComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\RenderingSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -362,44 +371,14 @@
     <ClInclude Include="Sound\TrackParams.h">
       <Filter>Header Files\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="UI\ImageComponent.h">
-      <Filter>Header Files\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\TextComponent.h">
-      <Filter>Header Files\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\UIComponent.h">
-      <Filter>Header Files\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\UIManager.h">
-      <Filter>Header Files\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Geometry.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Image.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Model.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Loading\SimpleParser.h">
-      <Filter>Header Files\Loading</Filter>
-    </ClInclude>
-    <ClInclude Include="Loading\ObjFileParser.h">
       <Filter>Header Files\Loading</Filter>
     </ClInclude>
     <ClInclude Include="Loading\ModelLoader.h">
       <Filter>Header Files\Loading</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\RenderData.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Loading\TextLoader.h">
       <Filter>Header Files\Loading</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Shader.h">
-      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Core\Component.h">
       <Filter>Header Files\Core</Filter>
@@ -488,28 +467,13 @@
     <ClInclude Include="Graphics\Window.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\RenderUtil.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\RenderSystem.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\Color.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Renderable.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Camera.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Input\InputSystem.h">
       <Filter>Header Files\Input</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\ModelGen.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\GLTexture.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="stb_image.h">
@@ -578,38 +542,11 @@
     <ClInclude Include="Network\NetworkComponent.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\GLTextureArray.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\CombinedGeometry.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="TimedDestruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OmegaTests.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\BufferObjects\ElementBufferObject.h">
-      <Filter>Header Files\Graphics\BufferObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\BufferObjects\FrameBufferObject.h">
-      <Filter>Header Files\Graphics\BufferObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\BufferObjects\UniformBufferObject.h">
-      <Filter>Header Files\Graphics\BufferObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\BufferObjects\VertexArrayObject.h">
-      <Filter>Header Files\Graphics\BufferObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\BufferObjects\VertexBufferObject.h">
-      <Filter>Header Files\Graphics\BufferObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Light.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Loading\UILoader.h">
-      <Filter>Header Files\Loading</Filter>
     </ClInclude>
     <ClInclude Include="TransformAnimator.h">
       <Filter>Header Files</Filter>
@@ -629,9 +566,6 @@
     <ClInclude Include="Graphics\OutlineComponent.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\TextureInfo.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Example\ExampleDerivedComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -643,6 +577,75 @@
     </ClInclude>
     <ClInclude Include="ComponentMan.h">
       <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Lighting\DirectionalLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Lighting\Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Lighting\PointLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\PostProcess\BlurPP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\PostProcess\FxaaPP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\PostProcess\NegativePP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\PostProcess\PostProcess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\UI\ImageComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\UI\TextComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\UI\View.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\CubeMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\GeometryMaterial.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\PlaneMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Renderable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\RenderComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\RenderingSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\RenderUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Camera.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

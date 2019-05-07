@@ -81,7 +81,7 @@ void TextComponent::generateVertices() {
 		
 		UVs.push_back(uv);
 		UVs.push_back(uv + glm::vec2(0.1, 0));
-		UVs.push_back(uv + glm::vec2(0, -0.1));
+		UVs.push_back(uv + glm::vec2(0, -0.1)); 
 		UVs.push_back(uv + glm::vec2(0.1, -0.1));
 
 		elements.push_back(i * 4 + 1);

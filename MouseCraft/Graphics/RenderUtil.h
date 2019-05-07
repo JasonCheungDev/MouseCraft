@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <sdl/SDL.h>
+#include "../GL/glad.h"
 
 class RenderUtil {
 public:
