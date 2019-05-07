@@ -1,8 +1,6 @@
 #pragma once
 
 #include <vector>
-//#include <ft2build.h>
-//#include <freetype\freetype.h>
 #include "../Util/OpenGLProfiler.h"
 #include "../Util/CpuProfiler.h"
 #include "Renderable.h"
@@ -17,27 +15,6 @@
 #include "UI\TextComponent.h"
 #include "PostProcess\PostProcess.h"
 
-
-#define RENDERING_SYSTEM_DEFAULT_FONT "fonts/arial.ttf"
-#define RENDERING_SYSTEM_DEFAULT_FONTSIZE 48
-#define FREETYPE_DYNAMIC_WIDTH 0	
-
-// A freetype character 
-struct Character {
-	GLuint     TextureID;  // ID handle of the glyph texture
-	glm::ivec2 Size;       // Size of glyph
-	glm::ivec2 Bearing;    // Offset from baseline to left/top of glyph
-	GLuint     Advance;    // Offset to advance to next glyph
-};
-
-// Font information used to render 
-struct FontInfo
-{
-	std::string Path;
-	GLuint LineHeight;
-	std::map<GLchar, Character> Characters;
-};
-
 class RenderingSystem : public System
 {
 public:
@@ -46,7 +23,6 @@ public:
 	Shader* compDLightShader;	// default composition shader for directional lights
 	Shader* compPLightShader;	// default composition shader for point lights
 	Shader* shadowmapShader;	// default shadowmap shader 
-	Shader* textShader;			// default text shader 
 	Shader* imageShader;		// default UI shader 
 	Shader* postShader;			// default postprocessing shader 
 	Shader* postToScreenShader;	// default shader to move final texture to back buffer
@@ -64,18 +40,11 @@ private:
 	unsigned int attachments[3] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 };
 	unsigned int ppAttachments[1] = { GL_COLOR_ATTACHMENT0 };
 
-	//FT_Library ft;
-	unsigned int textVAO;	// quad to draw a single letter 
-	unsigned int textVBO;	// quad buffer to draw a single letter
-	glm::mat4 uiProjection;
-
-	std::map<std::string, FontInfo> fonts;
-
 	std::map<std::string, std::unique_ptr<PostProcess>> _postProcesses;
 
 	glm::mat4 projection;
 	glm::mat4 view;
-
+	glm::mat4 uiProjection;
 
 public:
 	RenderingSystem();
@@ -111,12 +80,10 @@ private:
 
 	void RenderEntityGeometry(Entity* e, glm::mat4 transform);
 	void RenderCompositionPass();
-	void RenderText(Shader &s, std::string text, TextAlignment alignment, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color, std::string font = RENDERING_SYSTEM_DEFAULT_FONT);
 	void RenderImage(Shader &s, ImageComponent* image);
 	void InitializeFrameBuffers();
 	void InitializeScreenQuad();
 	void InitializeScreenCube();
-	void InitializeTextEngine();
 	void DrawComponent(RenderComponent* component);
 };
 

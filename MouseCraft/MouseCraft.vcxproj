@@ -207,6 +207,7 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClCompile Include="Rendering\Camera.cpp" />
     <ClCompile Include="Rendering\Constants.cpp" />
     <ClCompile Include="Rendering\CubeMesh.cpp" />
+    <ClCompile Include="Rendering\TextRenderer.cpp" />
     <ClCompile Include="Rendering\GeometryMaterial.cpp" />
     <ClCompile Include="Rendering\Lighting\DirectionalLight.cpp" />
     <ClCompile Include="Rendering\Lighting\Light.cpp" />
@@ -308,6 +309,7 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClInclude Include="Rendering\Camera.h" />
     <ClInclude Include="Rendering\Constants.h" />
     <ClInclude Include="Rendering\CubeMesh.h" />
+    <ClInclude Include="Rendering\TextRenderer.h" />
     <ClInclude Include="Rendering\GeometryMaterial.h" />
     <ClInclude Include="Rendering\Lighting\DirectionalLight.h" />
     <ClInclude Include="Rendering\Lighting\Light.h" />
@@ -344,7 +346,19 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClInclude Include="Loading\TextLoader.h" />
     <ClInclude Include="Util\TypePunners.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\freetype.redist.2.8.0.1\build\native\freetype.redist.targets" Condition="Exists('..\packages\freetype.redist.2.8.0.1\build\native\freetype.redist.targets')" />
+    <Import Project="..\packages\freetype.2.8.0.1\build\native\freetype.targets" Condition="Exists('..\packages\freetype.2.8.0.1\build\native\freetype.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\freetype.redist.2.8.0.1\build\native\freetype.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\freetype.redist.2.8.0.1\build\native\freetype.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\freetype.2.8.0.1\build\native\freetype.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\freetype.2.8.0.1\build\native\freetype.targets'))" />
+  </Target>
 </Project>
