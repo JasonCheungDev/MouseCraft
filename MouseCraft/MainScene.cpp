@@ -8,6 +8,7 @@
 #include "Rendering/Lighting/DirectionalLight.h"
 #include "Rendering/UI/ImageComponent.h"
 #include "UI/ImageComponent.h"
+#include "UI/Canvas.h"
 #include <string>
 
 void MainScene::InitScene() 
@@ -43,11 +44,19 @@ void MainScene::InitScene()
 	//e_img->AddComponent(c_img);
 	// root.AddChild(e_img);
 
+	auto c_canvas = ComponentFactory::Create<Canvas>();
+	auto e_canvas = EntityManager::Instance().Create();
+	e_canvas->AddComponent(c_canvas);
+
 	auto c_uimg = ComponentFactory::Create<ImgComponent>(std::string("res/textures/araragi_karen.png"), 1.0f, 1.0f, 0.0f, 0.0f);
 	c_uimg->size = { 0.5f, 0.5f };
+	c_uimg->hAnchor = HorizontalAnchor::ANCHOR_HCENTER;
+	c_uimg->vAnchor = VerticalAnchor::ANCHOR_VCENTER;
 	auto e_uimg = EntityManager::Instance().Create();
 	e_uimg->AddComponent(c_uimg);
-	e_uimg->transform.scale(2.0f);
+	e_uimg->transform.setLocalRotation(glm::vec3(0.0f, 0.0f, 1.57f));
+	e_canvas->AddChild(e_uimg);
+	//e_uimg->transform.scale(2.0f);
 
 	auto c_uimg2 = ComponentFactory::Create<ImgComponent>(std::string("res/textures/bob_ross.png"), 1.0f, 1.0f, 0.0f, 0.0f);
 	c_uimg2->hAnchor = HorizontalAnchor::ANCHOR_RIGHT;
@@ -61,7 +70,7 @@ void MainScene::InitScene()
 	root.AddChild(e_test);
 	root.AddChild(e_cam);
 	root.AddChild(e_light);
-	root.AddChild(e_uimg);
+	root.AddChild(e_canvas);
 }
 
 void MainScene::Update(const float delta) 

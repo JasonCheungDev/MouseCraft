@@ -55,13 +55,6 @@ void UIComponent::Resize()
 			parentBounds = { 0, parentSize.y, parentSize.x, 0 };
 		}
 
-		// TODO: REMOVE
-		if (parentSize == glm::vec2())
-		{
-			std::cerr << "ERROR: UI BORKED" << std::endl;
-			return;
-		}
-
 		// Calculate pixel size of panel based on Unit Type
 		switch (xType) 
 		{
@@ -130,6 +123,12 @@ void UIComponent::Resize()
 		screenBounds.top += yPixelOffset;
 		screenBounds.bottom += yPixelOffset;
 
+		/* Setup entity transform (this allows entity rotation and scaling) */
+
+		// Transfer screen position to entity local position 
+		auto localPosition = screenBounds.getCenter() - parentBounds.getCenter();
+		GetEntity()->transform.setLocalPosition(glm::vec3(localPosition, 0));
+
 		// Generate vertices of quad from position and size of panel
 		// setupModels();
 
@@ -146,6 +145,11 @@ void UIComponent::Resize()
 
 		valid = true;
 	}
+}
+
+glm::mat4 UIComponent::GetTransform()
+{
+	return GetEntity()->transform.getWorldTransformation();
 }
 
 void UIComponent::setupModels() {
@@ -167,4 +171,14 @@ void UIComponent::setupModels() {
 
 bool UIComponent::IsTransparent() {
     return color.getAlpha() < 1.0f;
+}
+
+float UIComponent::screenWidth()
+{
+	return OmegaEngine::Instance().getWindow()->getWidth();
+}
+
+float UIComponent::screenHeight()
+{
+	return OmegaEngine::Instance().getWindow()->getHeight();
 }

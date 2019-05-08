@@ -95,6 +95,13 @@ public:
     std::string         ClickAction;
 
 	//std::vector<Model*> models;
+
+	virtual glm::mat4 GetTransform();
+
 protected:
 	virtual void setupModels();
+
+	static float screenWidth();
+
+	static float screenHeight();
 };

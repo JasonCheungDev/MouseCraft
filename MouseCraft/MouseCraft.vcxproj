@@ -238,6 +238,7 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimedDestruction.cpp" />
     <ClCompile Include="TransformAnimator.cpp" />
+    <ClCompile Include="UI\Canvas.cpp" />
     <ClCompile Include="UI\ImageComponent.cpp" />
     <ClCompile Include="UI\UIComponent.cpp" />
     <ClCompile Include="UI\UIManager.cpp" />
@@ -346,6 +347,7 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimedDestruction.h" />
     <ClInclude Include="TransformAnimator.h" />
+    <ClInclude Include="UI\Canvas.h" />
     <ClInclude Include="UI\ImageComponent.h" />
     <ClInclude Include="UI\UIComponent.h" />
     <ClInclude Include="UI\UIManager.h" />

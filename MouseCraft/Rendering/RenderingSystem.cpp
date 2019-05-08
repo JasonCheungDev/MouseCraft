@@ -108,7 +108,7 @@ void RenderingSystem::SetSize(unsigned int width, unsigned int height)
 	screenHeight = height;
 	InitializeFrameBuffers();
 	TextRenderer::Instance().SetScreenSize(width, height);
-	uiProjection = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
+	uiProjection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, -16000.0f, 16000.0f);
 }
 
 // todo: refactor with current system
@@ -434,7 +434,8 @@ void RenderingSystem::RenderUIImagesPass()
 		i->Resize();
 
 		auto size = glm::vec2(i->screenBounds.getWidth(), i->screenBounds.getHeight());
-		auto transform = glm::translate(glm::mat4(1.0f), glm::vec3(i->screenBounds.left + size.x / 2, i->screenBounds.bottom + size.y / 2, 0.0f));
+		auto transform = i->GetTransform();
+			//glm::translate(glm::mat4(1.0f), glm::vec3(i->screenBounds.getCenter(), 0.0f));
 			// image->GetEntity()->transform.getWorldTransformation();	// transform
 
 		imageShader->setVec2("u_Size", size / 2.0f);
