@@ -52,6 +52,8 @@ struct AtlasFont
 
 struct TextMesh
 {
+	std::string Text;
+	std::string Font;
 	glm::vec2 Size;
 	std::vector<glm::vec4> Mesh;
 	TextAlignment Alignment;	
@@ -90,6 +92,13 @@ public:
 		TextAlignment alignment = TextAlignment::Left,
 		Shader *s				= nullptr, 
 		std::string font		= FONT_MANAGER_DEFAULT_FONT);
+
+	// Convenience function to renders a TextMesh with given settings. 
+	void RenderText(
+		TextMesh* textMesh,
+		float x, float y, float scale = 1.0f,
+		glm::vec3 color = glm::vec3(1.0f),
+		Shader* s = nullptr);
 
 	// Renders a TextMesh with given settings. 
 	void RenderText(

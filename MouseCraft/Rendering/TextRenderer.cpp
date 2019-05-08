@@ -155,6 +155,11 @@ void TextRenderer::LoadFont(std::string path)
 	FT_Done_Face(face);
 }
 
+void TextRenderer::UnloadFont(std::string path)
+{
+	_fonts.erase(path);
+}
+
 void TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, glm::vec3 color, GLfloat scale, TextAlignment alignment, Shader * s, std::string font)
 {
 	if (width == 0 || height == 0)
@@ -170,10 +175,11 @@ void TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, glm::vec3 
 	auto tm = GenerateTextMesh(text, font, alignment);
 
 	// correct alignment (Left == TopLeft, Center == TopCenter, Right == TopRight)
-	if (alignment == TextAlignment::Center)
-		x -= tm->Size.x / 2 * scale;
+	y -= tm->Size.y / 2 * scale;
+	if (alignment == TextAlignment::Left)
+		x += tm->Size.x / 2 * scale;
 	else if (alignment == TextAlignment::Right)
-		x -= tm->Size.x * scale;
+		x -= tm->Size.x / 2 * scale;
 
 	glm::mat4 transformation = glm::mat4(1.0f);
 	transformation = glm::translate(transformation, glm::vec3(x,y,0));
@@ -182,7 +188,16 @@ void TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, glm::vec3 
 	RenderText(tm, transformation, color, s);
 }
 
-void TextRenderer::RenderText(TextMesh * textMesh, glm::mat4 transformation, glm::vec3 color, Shader * s)
+void TextRenderer::RenderText(TextMesh * textMesh, float x, float y, float scale, glm::vec3 color, Shader * s)
+{
+	RenderText(
+		textMesh, 
+		glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(x, y, 0)), glm::vec3(1.0f)), 
+		color, 
+		s);
+}
+
+void TextRenderer::RenderText(TextMesh* textMesh, glm::mat4 transformation, glm::vec3 color, Shader * s)
 {
 	if (width == 0 || height == 0)
 	{
@@ -298,16 +313,25 @@ TextMesh * TextRenderer::GenerateTextMesh(std::string text, AtlasFont& fontInfo,
 		y -= fontInfo.LineHeight;
 	}
 
-	// correct origin point (top-left)
+	// correct origin point (center)
 	float xOffset = 0;
+	float yOffset = height / 2;
+	if (alignment == TextAlignment::Left)
+		xOffset = -width / 2;
 	if (alignment == TextAlignment::Center)
-		xOffset = width / 2;
+		xOffset = 0;
 	else if (alignment == TextAlignment::Right)
-		xOffset = width;
+		xOffset = width / 2;
+	
 	for (auto& vertex : tm->Mesh)
+	{
 		vertex.x = vertex.x + xOffset;
+		vertex.y = vertex.y + yOffset;
+	}
 
 	// finalize mesh
+	tm->Text = text;
+	tm->Font = fontInfo.Path;
 	tm->Alignment = alignment;
 	tm->Size = { width, height };
 	tm->TexId = fontInfo.TexId;
