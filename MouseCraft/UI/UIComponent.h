@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <string>
 #include <vector>
 #include <glm/vec2.hpp>
@@ -8,7 +9,8 @@
 #include "../Core/Component.h"
 #include "../Core/Entity.h"
 #include "../Graphics/Color.h"
-#include <algorithm>
+
+class UIRoot;
 
 enum VerticalAnchor {
     ANCHOR_TOP, ANCHOR_VCENTER, ANCHOR_BOTTOM
@@ -37,6 +39,7 @@ struct Rect
 
 	float getWidth() { return abs(right - left); }
 	float getHeight() { return abs(top - bottom); }
+	glm::vec2 getSize() { return glm::vec2(getWidth(), getHeight()); }
 	float getXCenter() { return (left + right) / 2;}
 	float getYCenter() { return (bottom + top) / 2; }
 	glm::vec2 getCenter() { return glm::vec2(getXCenter(), getYCenter()); }
@@ -51,16 +54,10 @@ public:
     UIComponent(float width, float height, float x, float y);
     ~UIComponent();
 
-	// Recalculates screen position and size
-    virtual void Resize();
-
-	// Determine whether this panel uses transparency
-    virtual bool IsTransparent();
-
 	// String id used for uniquely identifying this UIComponent
 	std::string			id;
 
-	// Whether or not this UIComponent and its children should be drawn
+	// Whether or not this UIComponent. Does not affect children.
     bool                visible;
 
 	// UIComponent should be resized if Valid is set to false
@@ -68,6 +65,9 @@ public:
 
 	Color				color;
 
+	glm::vec2           size;
+	UnitType            xType;
+	UnitType            yType;
 	float				zForce;
 	float				z;
     
@@ -77,31 +77,51 @@ public:
     AnchorType          anchorXType;
     AnchorType          anchorYType;
 
-	glm::vec2           size;
-    UnitType            xType;
-    UnitType            yType;
-
 	// If using scaling type sizing on one side, defines the ratio by which to scale on
     float               aspectRatio;
 
 	// Calculated screen coordinates, size and rotation in pixels
 	Rect				screenBounds;
-    glm::vec2           screenPosition;
-    glm::vec2           screenSize;
+	glm::vec2			screenSize;
     float				screenRotation;
 
 	// Name of UIComponent's associated action to take when clicked
 	// Blank string if no action
     std::string         ClickAction;
 
-	//std::vector<Model*> models;
+// functions
+public:
+	// Recalculates screen position and size
+	virtual void Resize();
 
+	// Determine whether this panel uses transparency
+	virtual bool IsTransparent();
+
+	// Transformation matrix to get pivot into correct screen position (includes rotation and scale).
 	virtual glm::mat4 GetTransform();
 
+	// Transformation matrix specific to this component (does not affect children).
+	virtual glm::mat4 GetIndividualTransform();
+
+	// Sets this UIComponent's owner canvas 
+	virtual void SetRoot(UIRoot* root);
+
+	// Gets this UIComponent's owner canvas
+	virtual UIRoot* GetRoot();
+
+	virtual void OnInitialized() override;
+
 protected:
-	virtual void setupModels();
+	// Recalculates screen size
+	virtual void CalculateScreenSize(const UIComponent* parent);
 
-	static float screenWidth();
+	static float ScreenWidth();
 
-	static float screenHeight();
+	static float ScreenHeight();
+
+private:
+	// Root canvas this UIComponent belongs to. 
+	UIRoot* root;
+	glm::mat4 _trans;
+	glm::mat4 _indivTrans;
 };

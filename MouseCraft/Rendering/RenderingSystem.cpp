@@ -17,6 +17,8 @@
 #include "../Core/OmegaEngine.h"
 #include "TextRenderer.h"
 #include "../UI/ImageComponent.h"
+#include "../UI/TextComponent.h"
+#include "../Texture.h"
 
 RenderingSystem::RenderingSystem() : System()
 {
@@ -434,22 +436,30 @@ void RenderingSystem::RenderUIImagesPass()
 		i->Resize();
 
 		auto size = glm::vec2(i->screenBounds.getWidth(), i->screenBounds.getHeight());
-		auto transform = i->GetTransform();
-			//glm::translate(glm::mat4(1.0f), glm::vec3(i->screenBounds.getCenter(), 0.0f));
+		auto transform = i->GetTransform() * i->GetIndividualTransform();
+			// glm::translate(glm::mat4(1.0f), glm::vec3(i->screenBounds.getCenter(), 0.0f));
 			// image->GetEntity()->transform.getWorldTransformation();	// transform
 
-		imageShader->setVec2("u_Size", size / 2.0f);
+		//imageShader->setVec2("u_Size", size / 2.0f);
 		imageShader->setMat4("u_Model", transform);
 		imageShader->setMat4("u_Projection", uiProjection);
-		// imageShader->setVec3("u_Tint", image->tint);
-		// imageShader->setFloat("u_Opacity", image->opacity);
+		imageShader->setVec4("u_Tint", i->color.vec4());
+		//imageShader->setFloat("u_Opacity", image->opacity);
 
 		glBindVertexArray(quadVAO);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, i->textureId);
+		glBindTexture(GL_TEXTURE_2D, i->GetTexture()->GetId());
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glBindVertexArray(0);
+	}
+
+	auto txts = ComponentMan<TxtComponent>::Instance().All();
+	for (auto& t : txts)
+	{
+		t->Resize();
+		TextRenderer::Instance().RenderText(
+			t->GetTextMesh(), t->GetTransform(), t->color.vec3());
 	}
 
 	profiler.StopTimer(4);

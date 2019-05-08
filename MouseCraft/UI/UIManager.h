@@ -12,11 +12,10 @@
 /**
 Static structure used to store the UI data, and methods to interact with UI
 */
-class UIManager : public System {
+class UIManager : public System 
+{
 public:
 	UIManager();
-	// Resize the root element (and consequently every element)
-    void Resize(UIComponent* root);
 
 	void Update(float dt) override;
 
@@ -25,19 +24,14 @@ public:
 
 	// Define an on-click function passing in its label and the function to execute
     void DefineClickFunction(const std::string name, void(*f)());
-private:
-	// Initial definition of all on-click functions
-	void defineClicks();
 
+private:
 	// Find the top element under your cursor that has an on-click event and store it in the top pointer location
 	void findTopClick(UIComponent** top, UIComponent* comp, const float x, const float y);
 
 	// Is the given point in the defined rectangle
     bool pointInRect(float px, float py, float rTop, float rRight, float rLeft, float rBottom);
 
-	// Recursive function used to traverse UI tree and resize elements
-	void traverseChildren(UIComponent *component);
-
-    std::vector<UIComponent*> _roots;
+	// Map of all global functions that can be invoked
     std::map<const std::string, void(*)()> _clickFunctions;
 };

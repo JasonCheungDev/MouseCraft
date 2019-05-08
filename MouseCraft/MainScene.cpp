@@ -9,6 +9,7 @@
 #include "Rendering/UI/ImageComponent.h"
 #include "UI/ImageComponent.h"
 #include "UI/Canvas.h"
+#include "UI/TextComponent.h"
 #include <string>
 
 void MainScene::InitScene() 
@@ -44,7 +45,7 @@ void MainScene::InitScene()
 	//e_img->AddComponent(c_img);
 	// root.AddChild(e_img);
 
-	auto c_canvas = ComponentFactory::Create<Canvas>();
+	auto c_canvas = ComponentFactory::Create<UIRoot>();
 	auto e_canvas = EntityManager::Instance().Create();
 	e_canvas->AddComponent(c_canvas);
 
@@ -52,9 +53,10 @@ void MainScene::InitScene()
 	c_uimg->size = { 0.5f, 0.5f };
 	c_uimg->hAnchor = HorizontalAnchor::ANCHOR_HCENTER;
 	c_uimg->vAnchor = VerticalAnchor::ANCHOR_VCENTER;
+	c_uimg->color = Color(1, 0, 0, 0.5f);
 	auto e_uimg = EntityManager::Instance().Create();
 	e_uimg->AddComponent(c_uimg);
-	e_uimg->transform.setLocalRotation(glm::vec3(0.0f, 0.0f, 1.57f));
+	//e_uimg->transform.setLocalRotation(glm::vec3(0.24f, 0.36f, 1.57f));
 	e_canvas->AddChild(e_uimg);
 	//e_uimg->transform.scale(2.0f);
 
@@ -66,6 +68,12 @@ void MainScene::InitScene()
 	e_uimg2->AddComponent(c_uimg2);
 
 	e_uimg->AddChild(e_uimg2);
+
+	auto c_utxt = ComponentFactory::Create<TxtComponent>("Hello World", 1.0f, 0.0, 0.0);
+	c_utxt->hAnchor = HorizontalAnchor::ANCHOR_HCENTER;
+	auto e_txt = EntityManager::Instance().Create();
+	e_txt->AddComponent(c_utxt);
+	e_canvas->AddChild(e_txt);
 
 	root.AddChild(e_test);
 	root.AddChild(e_cam);

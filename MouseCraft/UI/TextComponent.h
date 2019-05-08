@@ -1,31 +1,63 @@
 #pragma once
 
 #include "UIManager.h"
+#include "../Rendering/TextRenderer.h"
 
 /**
-Type of UIComponent that renders text to the panel, through the means of a bitmap font
+Type of UIComponent that renders text to the panel.
+This component overrides UIComponent sizing with the text size.
 */
-class TextComponent : public UIComponent {
+class TxtComponent : public UIComponent {
 public:
 	// default font type to use
     static const std::string DEFAULT_FONT;
 
-    TextComponent(std::string text, float fontSize, float x, float y, std::string fontPath = DEFAULT_FONT);
+    TxtComponent(std::string text, float fontSize, float x, float y, std::string fontPath = DEFAULT_FONT);
 
-    void Resize();
-    bool IsTransparent();
-
-	void SetSpacing(float spacing);
-	float GetSpacing();
+	// Current text
+	const std::string GetText() const;
 
 	// Change the text on this component
-    void SetText(std::string text);
-private:
-    glm::vec2 getUVfromChar(const char c);
-    void generateVertices();
+	void SetText(std::string text);
 
-    std::string _text;
-    float       _fontSize;
-	float		_spacing;
-	std::string	_fontPath;
+	// Gets the text mesh
+	TextMesh* GetTextMesh() const;
+
+	// Change the text mesh (and text) on this component.
+	void SetTextMesh(TextMesh* textMesh);
+
+	// Get path to current font
+	const std::string GetFont() const;
+
+	// Path to desired font
+	void SetFont(std::string font);
+
+	// Current text alignment
+	TextAlignment GetAlignment() const;
+
+	// Set the text alignment
+	void SetAlignment(TextAlignment alignment);
+
+	// Get the font scale 
+	float GetFontScale() const;
+
+	// Set the font scale
+	void SetFontScale(float scale);
+
+	// WARNING: Not used.
+	void SetSpacing(float spacing);
+	
+	// WARNING: Not used.
+	float GetSpacing() const;
+
+	// Size if overriden by text mesh size.
+	virtual void CalculateScreenSize(const UIComponent* parent) override;
+
+private:
+    std::string   _text;
+    float         _fontScale;
+	float         _spacing;
+	std::string   _fontPath;
+	TextAlignment _alignment;
+	TextMesh*     _textMesh;
 };
