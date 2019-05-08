@@ -5,7 +5,7 @@
 #include "../Core/EntityManager.h"
 #include "../Core/ComponentManager.h"
 #include "../json.hpp"
-#include "../ResourceCache.h"
+#include "../Loading/ResourceCache.h"
 #include <glm/glm.hpp>
 #include <map>
 #include <string>

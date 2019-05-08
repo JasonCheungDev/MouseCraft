@@ -258,9 +258,6 @@
     <ClCompile Include="Sound\TrackParams.cpp">
       <Filter>Source Files\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceCache.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Network\NetState.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
@@ -348,6 +345,18 @@
     <ClCompile Include="Rendering\TextRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Loading\TextureLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Loading\ResourceCache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -378,9 +387,6 @@
       <Filter>Header Files\Loading</Filter>
     </ClInclude>
     <ClInclude Include="Loading\ModelLoader.h">
-      <Filter>Header Files\Loading</Filter>
-    </ClInclude>
-    <ClInclude Include="Loading\TextLoader.h">
       <Filter>Header Files\Loading</Filter>
     </ClInclude>
     <ClInclude Include="Core\Component.h">
@@ -560,9 +566,6 @@
     <ClInclude Include="Rotator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceCache.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Network\NetState.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
@@ -651,6 +654,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Rendering\TextRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Loading\TextureLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Loading\TextLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Loading\ResourceCache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

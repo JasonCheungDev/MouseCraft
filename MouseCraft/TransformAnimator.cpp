@@ -2,7 +2,7 @@
 
 #include "Core/Entity.h"
 
-#include "ResourceCache.h"
+#include "Loading/ResourceCache.h"
 
 TransformAnimator::TransformAnimator()
 {

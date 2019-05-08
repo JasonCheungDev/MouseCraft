@@ -107,7 +107,7 @@ void RenderingSystem::SetSize(unsigned int width, unsigned int height)
 	screenHeight = height;
 	InitializeFrameBuffers();
 	TextRenderer::Instance().SetScreenSize(width, height);
-	
+	uiProjection = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
 }
 
 // todo: refactor with current system
@@ -407,7 +407,6 @@ void RenderingSystem::RenderPostProcessPass()
 
 void RenderingSystem::RenderUIImagesPass()
 {
-	/*
 	// 5th pass - UI images 
 	profiler.StartTimer(4);
 	cpuProfiler.StartTimer(4);
@@ -417,15 +416,17 @@ void RenderingSystem::RenderUIImagesPass()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// render text components 
-	std::sort(_images.begin(), _images.end(), View::comparePointers);	// sort for rendering order
-	for (int i = 0; i < _images.size(); i++)
-	{
-		RenderImage(*imageShader, _images[i]);
-	}
+	auto images = ComponentMan<ImageComponent>::Instance().All();
+	for (auto& i : images)
+		RenderImage(*imageShader, i);
+	//std::sort(_images.begin(), _images.end(), View::comparePointers);	// sort for rendering order
+	//for (int i = 0; i < _images.size(); i++)
+	//{
+	//	RenderImage(*imageShader, _images[i]);
+	//}
 
 	profiler.StopTimer(4);
 	cpuProfiler.StopTimer(4);
-	*/
 }
 
 void RenderingSystem::RenderUITextPass()

@@ -6,6 +6,7 @@
 #include "Rendering/RenderComponent.h"
 #include "Rendering/Camera.h"
 #include "Rendering/Lighting/DirectionalLight.h"
+#include "Rendering/UI/ImageComponent.h"
 
 void MainScene::InitScene() 
 {
@@ -34,9 +35,15 @@ void MainScene::InitScene()
 	e_light->AddComponent(c_light);
 	e_light->transform.setLocalRotation(glm::vec3(0.42f, 0, 0));
 	
+	auto c_img = ComponentFactory::Create<ImageComponent>();
+	c_img->loadImage("res/textures/araragi_karen.png");
+	auto e_img = EntityManager::Instance().Create();
+	e_img->AddComponent(c_img);
+
 	root.AddChild(e_test);
 	root.AddChild(e_cam);
 	root.AddChild(e_light);
+	root.AddChild(e_img);
 }
 
 void MainScene::Update(const float delta) 

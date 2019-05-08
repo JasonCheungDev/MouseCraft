@@ -21,8 +21,8 @@ public:
 	}
 
 	unsigned int imageId = -1;
-	int width;	// not used 
-	int height;	// not used 
+	int width;	
+	int height;	
 	float opacity = 1.0f; 
 	glm::vec3 tint = glm::vec3(1,1,1);
 };
