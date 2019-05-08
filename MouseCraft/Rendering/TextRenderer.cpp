@@ -136,19 +136,19 @@ void TextRenderer::LoadFont(std::string path)
 
 		// store character for later use
 		AtlasCharacter character = {
-			glm::vec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-			glm::vec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-			glm::vec4(left, top, right, bottom),
+			{ face->glyph->bitmap.width, face->glyph->bitmap.rows },
+			{ face->glyph->bitmap_left, face->glyph->bitmap_top },
+			{ left, top, right, bottom },
 			face->glyph->advance.x >> 6
 		};
 		_fonts[path].Characters.insert(std::pair<GLchar, AtlasCharacter>(c, character));
 	
 		x += face->glyph->bitmap.width;
 	}
-	_fonts[path].LineHeight = face->size->metrics.height >> 6;
 	_fonts[path].Path = path;
-	_fonts[path].Size = glm::vec2(atlas_width, atlas_height);
 	_fonts[path].TexId = tex;
+	_fonts[path].Size = { atlas_width, atlas_height };
+	_fonts[path].LineHeight = face->size->metrics.height >> 6;
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -166,45 +166,52 @@ void TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, glm::vec3 
 	if (text.empty()) 
 		return;
 
+	// calculate information for actual rendering function
 	auto tm = GenerateTextMesh(text, font, alignment);
 
-	if (tm == nullptr)
+	// correct alignment (Left == TopLeft, Center == TopCenter, Right == TopRight)
+	if (alignment == TextAlignment::Center)
+		x -= tm->Size.x / 2 * scale;
+	else if (alignment == TextAlignment::Right)
+		x -= tm->Size.x * scale;
+
+	glm::mat4 transformation = glm::mat4(1.0f);
+	transformation = glm::translate(transformation, glm::vec3(x,y,0));
+	transformation = glm::scale(transformation, glm::vec3(scale));
+
+	RenderText(tm, transformation, color, s);
+}
+
+void TextRenderer::RenderText(TextMesh * textMesh, glm::mat4 transformation, glm::vec3 color, Shader * s)
+{
+	if (width == 0 || height == 0)
 	{
-		std::cerr << "ERROR: TextRenderer failed to generate TextMesh!" << std::endl;
+		std::cerr << "ERROR: TextRenderer screen width/height is not set yet!" << std::endl;
 		return;
 	}
 
-	// During init, enable debug output
-	glEnable(GL_DEBUG_OUTPUT);
-	glDebugMessageCallback(MessageCallback, 0);
-
+	if (textMesh == nullptr)
+	{
+		std::cerr << "ERROR: TextRenderer can't render null TextMesh!" << std::endl;
+		return;
+	}
 
 	// Activate corresponding render state	
 	if (s == nullptr) s = textShader;
 	s->use();
 	s->setVec3("u_TextColor", color);
 	s->setMat4("u_Projection", uiProjection);
+	s->setMat4("u_Model", transformation);
+
 	glBindVertexArray(textVAO);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, tm->TexId);
-
-	auto a = sizeof(tm->Mesh);
-	auto b = sizeof(glm::vec4) * tm->Mesh.size();
-	auto c = tm->Mesh[0];
-
+	glBindTexture(GL_TEXTURE_2D, textMesh->TexId);
 	glBindBuffer(GL_ARRAY_BUFFER, textVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * tm->Mesh.size(), &tm->Mesh[0], GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * textMesh->Mesh.size(), &textMesh->Mesh[0], GL_DYNAMIC_DRAW);
 
-	auto d = glGetError();
-
-	glDrawArrays(GL_TRIANGLES, 0, tm->Mesh.size());
+	glDrawArrays(GL_TRIANGLES, 0, textMesh->Mesh.size());
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-
-}
-
-void TextRenderer::RenderText(TextMesh * textMesh, GLfloat x, GLfloat y, glm::vec3 color, GLfloat scale, Shader * s)
-{
 }
 
 TextMesh* TextRenderer::GenerateTextMesh(std::string text, std::string font, TextAlignment alignment)
@@ -227,9 +234,14 @@ TextMesh * TextRenderer::GenerateTextMesh(std::string text, AtlasFont& fontInfo,
 	// Initialize TextMesh
 	TextMesh* tm = new TextMesh();
 
-	float width, height = 0;// final size of text mesh
-	float x, y = 0;				// current position of character
-	int charCount = 0;		// number of characters
+	// final size of text mesh
+	float width = 0;
+	float height = 0; 
+	// current position of character
+	float x = 0;
+	float y = -(float)fontInfo.LineHeight;	
+	// number of (non-newline) characters and counter
+	int charCount = 0;				 
 
 	// determine number of characters for mesh allocation
 	for (auto& c : text)
@@ -270,12 +282,12 @@ TextMesh * TextRenderer::GenerateTextMesh(std::string text, AtlasFont& fontInfo,
 			GLfloat h = ch.Size.y;
 
 			// Update VBO for each character
-			tm->Mesh.emplace_back(xpos		, ypos + h	, ch.TexCoords[0], ch.TexCoords[1]);
-			tm->Mesh.emplace_back(xpos		, ypos		, ch.TexCoords[0], ch.TexCoords[3]);
-			tm->Mesh.emplace_back(xpos + w	, ypos		, ch.TexCoords[2], ch.TexCoords[3]);
-			tm->Mesh.emplace_back(xpos		, ypos + h	, ch.TexCoords[0], ch.TexCoords[1]);
-			tm->Mesh.emplace_back(xpos + w	, ypos		, ch.TexCoords[2], ch.TexCoords[3]);
-			tm->Mesh.emplace_back(xpos + w	, ypos + h	, ch.TexCoords[2], ch.TexCoords[1]);
+			tm->Mesh.emplace_back(xpos		, ypos + h	, ch.TexCoords.left  , ch.TexCoords.top);
+			tm->Mesh.emplace_back(xpos		, ypos		, ch.TexCoords.left  , ch.TexCoords.bot);
+			tm->Mesh.emplace_back(xpos + w	, ypos		, ch.TexCoords.right , ch.TexCoords.bot);
+			tm->Mesh.emplace_back(xpos		, ypos + h	, ch.TexCoords.left  , ch.TexCoords.top);
+			tm->Mesh.emplace_back(xpos + w	, ypos		, ch.TexCoords.right , ch.TexCoords.bot);
+			tm->Mesh.emplace_back(xpos + w	, ypos + h	, ch.TexCoords.right , ch.TexCoords.top);
 
 			++charCount;
 			x += ch.Advance;
@@ -286,21 +298,14 @@ TextMesh * TextRenderer::GenerateTextMesh(std::string text, AtlasFont& fontInfo,
 		y -= fontInfo.LineHeight;
 	}
 
-	// center mesh 
+	// correct origin point (top-left)
 	float xOffset = 0;
-	float yOffset = height / 2;
-	if (alignment == TextAlignment::Left)
-		xOffset = 0;
-	else if (alignment == TextAlignment::Center)
-		xOffset = -width / 2;
-	else if (alignment == TextAlignment::Right)
+	if (alignment == TextAlignment::Center)
 		xOffset = width / 2;
-
+	else if (alignment == TextAlignment::Right)
+		xOffset = width;
 	for (auto& vertex : tm->Mesh)
-	{
 		vertex.x = vertex.x + xOffset;
-		vertex.y = vertex.y + yOffset;
-	}
 
 	// finalize mesh
 	tm->Alignment = alignment;

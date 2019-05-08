@@ -14,6 +14,14 @@
 #define FONT_MANAGER_DEFAULT_FONTSIZE 48
 #define FREETYPE_DYNAMIC_WIDTH 0
 
+struct Rect
+{
+	float left;
+	float top;
+	float right;
+	float bot;
+};
+
 // A freetype character 
 struct Character {
 	GLuint     TextureID;  // ID handle of the glyph texture
@@ -34,16 +42,16 @@ struct AtlasCharacter
 {
 	glm::vec2 Size;			// Size of glyph 
 	glm::vec2 Bearing;		// Offset from baseline to left/top of glyph
-	glm::vec4 TexCoords;	// Texture coordinates (left/top/right/bottom)
+	Rect TexCoords;			// Texture coordinates (left/top/right/bottom)
 	GLfloat	  Advance;		// Offset to next glyph (in pixels)
 };
 
 struct AtlasFont
 {
-	std::string Path;
-	GLuint TexId;
-	GLuint LineHeight;
-	glm::vec2 Size;
+	std::string Path;		// Path this font was loaded from
+	GLuint TexId;			// OpenGL texture ID 
+	glm::vec2 Size;			// Size of texture
+	GLuint LineHeight;		// Pixel height of each line
 	std::map<GLchar, AtlasCharacter> Characters;
 };
 
@@ -76,15 +84,6 @@ public:
 	void LoadFont(std::string path);
 	void UnloadFont(std::string path);
 
-	// Renders a TextMesh with given settings centered on x,y
-	void RenderText(
-		TextMesh* textMesh,
-		GLfloat x,
-		GLfloat y,
-		glm::vec3 color = glm::vec3(1.0f),
-		GLfloat scale = 1.0f,
-		Shader* s = nullptr);
-
 	// Convenience function to render text directly onto the screen.
 	// Not recommended, use RenderText(TextMesh*) instead. 
 	void RenderText(
@@ -97,7 +96,15 @@ public:
 		Shader *s				= nullptr, 
 		std::string font		= FONT_MANAGER_DEFAULT_FONT);
 
+	// Renders a TextMesh with given settings. 
+	void RenderText(
+		TextMesh* textMesh,
+		glm::mat4 transformation = glm::mat4(1.0f),
+		glm::vec3 color = glm::vec3(1.0f),
+		Shader* s = nullptr);
+
 	// Convenience function generate a text mesh.
+	// The origin point is the top-left of the bounding box. 
 	TextMesh* GenerateTextMesh(
 		std::string text,
 		std::string font = FONT_MANAGER_DEFAULT_FONT,
@@ -105,6 +112,7 @@ public:
 
 private:
 	// Generates a TextMesh
+	// The origin point is the top-left of the bounding box. 
 	TextMesh* GenerateTextMesh(
 		std::string text,
 		AtlasFont& font,
