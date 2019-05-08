@@ -282,12 +282,12 @@ TextMesh * TextRenderer::GenerateTextMesh(std::string text, AtlasFont& fontInfo,
 			GLfloat h = ch.Size.y;
 
 			// Update VBO for each character
-			tm->Mesh.emplace_back(xpos		, ypos + h	, ch.TexCoords.left  , ch.TexCoords.top);
-			tm->Mesh.emplace_back(xpos		, ypos		, ch.TexCoords.left  , ch.TexCoords.bot);
-			tm->Mesh.emplace_back(xpos + w	, ypos		, ch.TexCoords.right , ch.TexCoords.bot);
-			tm->Mesh.emplace_back(xpos		, ypos + h	, ch.TexCoords.left  , ch.TexCoords.top);
-			tm->Mesh.emplace_back(xpos + w	, ypos		, ch.TexCoords.right , ch.TexCoords.bot);
-			tm->Mesh.emplace_back(xpos + w	, ypos + h	, ch.TexCoords.right , ch.TexCoords.top);
+			tm->Mesh.emplace_back(xpos		, ypos + h	, ch.TexCoords.left  , ch.TexCoords.top   );
+			tm->Mesh.emplace_back(xpos		, ypos		, ch.TexCoords.left  , ch.TexCoords.bottom);
+			tm->Mesh.emplace_back(xpos + w	, ypos		, ch.TexCoords.right , ch.TexCoords.bottom);
+			tm->Mesh.emplace_back(xpos		, ypos + h	, ch.TexCoords.left  , ch.TexCoords.top   );
+			tm->Mesh.emplace_back(xpos + w	, ypos		, ch.TexCoords.right , ch.TexCoords.bottom);
+			tm->Mesh.emplace_back(xpos + w	, ypos + h	, ch.TexCoords.right , ch.TexCoords.top   );
 
 			++charCount;
 			x += ch.Advance;

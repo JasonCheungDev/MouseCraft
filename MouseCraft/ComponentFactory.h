@@ -23,10 +23,10 @@ private:
 
 // static alias
 public:
-	template<typename ComponentType>
-	static ComponentType* Create()
+	template<typename ComponentType, typename... Args>
+	static ComponentType* Create(Args... args)
 	{
-		return Instance().CreateComponent<ComponentType>();
+		return Instance().CreateComponent<ComponentType>(args...);
 	}
 
 	void Destroy(Component* c)
@@ -36,11 +36,11 @@ public:
 
 // functions
 public:
-	template<typename ComponentType>
-	ComponentType* CreateComponent()
+	template<typename ComponentType, typename... Args>
+	ComponentType* CreateComponent(Args... args)
 	{
 		// create component 
-		auto newComponent = ComponentMan<ComponentType>::Instance().Create();
+		auto newComponent = ComponentMan<ComponentType>::Instance().Create(args...);
 		
 		// add to directory 
 		_componentDirectory[newComponent] = &ComponentMan<ComponentType>::Instance();

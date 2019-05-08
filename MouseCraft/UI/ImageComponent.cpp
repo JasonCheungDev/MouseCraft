@@ -1,23 +1,27 @@
 #include "ImageComponent.h"
+#include "../Texture.h"
+#include "../Loading/TextureLoader.h"
 
-ImageComponent::ImageComponent(std::string imagePath, float width, float height, float x, float y) :
-    UIComponent(width, height, x, y), _imagePath(imagePath) {
-
+ImgComponent::ImgComponent(std::string imagePath, float width, float height, float x, float y) :
+    UIComponent(width, height, x, y), _imagePath(imagePath) 
+{
     //aspectRatio = float(texture.width) / texture.height;
-    color = Color(1, 1, 1);
+    // color = Color(1, 1, 1);
+	Texture* texture = TextureLoader::Load(imagePath);
+	textureId = texture->GetId();
 }
 
-bool ImageComponent::IsTransparent() { return true; }
+bool ImgComponent::IsTransparent() { return true; }
 
-std::string ImageComponent::GetImagePath() {
+std::string ImgComponent::GetImagePath() {
 	return _imagePath;
 }
 
-void ImageComponent::SetImagePath(std::string path) {
+void ImgComponent::SetImagePath(std::string path) {
 	_imagePath = path;
 }
 
-void ImageComponent::setupModels() {
+void ImgComponent::setupModels() {
 	UIComponent::setupModels();
-	models[0]->setTexture(new std::string(_imagePath));
+	//models[0]->setTexture(new std::string(_imagePath));
 }

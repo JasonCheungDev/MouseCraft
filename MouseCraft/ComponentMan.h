@@ -28,9 +28,10 @@ private:
 
 // functions 
 public:
-	ComponentType* Create()
+	template<typename... Args>
+	ComponentType* Create(Args... args)
 	{
-		auto c = new ComponentType();
+		auto c = new ComponentType(args...);
 		_data.push_back(c);
 		return c;
 	}

@@ -8,6 +8,7 @@
 #include "../Core/Component.h"
 #include "../Core/Entity.h"
 #include "../Graphics/Color.h"
+#include <algorithm>
 
 enum VerticalAnchor {
     ANCHOR_TOP, ANCHOR_VCENTER, ANCHOR_BOTTOM
@@ -25,6 +26,20 @@ enum AnchorType {
 // The unit type for the size of the UIComponent
 enum UnitType {
     UNIT_PIXEL, UNIT_PERCENT, UNIT_SCALE
+};
+
+struct Rect
+{
+	float left;
+	float top;
+	float right;
+	float bottom;
+
+	float getWidth() { return abs(right - left); }
+	float getHeight() { return abs(top - bottom); }
+	float getXCenter() { return (left + right) / 2;}
+	float getYCenter() { return (bottom + top) / 2; }
+	glm::vec2 getCenter() { return glm::vec2(getXCenter(), getYCenter()); }
 };
 
 /**
@@ -53,14 +68,16 @@ public:
 
 	Color				color;
 
-    glm::vec2           size;
-	glm::vec2			anchor;
 	float				zForce;
 	float				z;
-    VerticalAnchor      vAnchor;
+    
+	glm::vec2			anchorOffset;
+	VerticalAnchor      vAnchor;
     HorizontalAnchor    hAnchor;
     AnchorType          anchorXType;
     AnchorType          anchorYType;
+
+	glm::vec2           size;
     UnitType            xType;
     UnitType            yType;
 
@@ -68,6 +85,7 @@ public:
     float               aspectRatio;
 
 	// Calculated screen coordinates, size and rotation in pixels
+	Rect				screenBounds;
     glm::vec2           screenPosition;
     glm::vec2           screenSize;
     float				screenRotation;
@@ -76,8 +94,7 @@ public:
 	// Blank string if no action
     std::string         ClickAction;
 
-	std::vector<Model*> models;
+	//std::vector<Model*> models;
 protected:
-	void calculateScreenPosition();
 	virtual void setupModels();
 };

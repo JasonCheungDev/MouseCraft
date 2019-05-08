@@ -10,17 +10,12 @@
 #include <vector>
 #include <array>
 #include "Shader.h"
+
+// todo:
+#include "../UI/UIComponent.h"
 #define FONT_MANAGER_DEFAULT_FONT "res/fonts/arial.ttf"
 #define FONT_MANAGER_DEFAULT_FONTSIZE 48
 #define FREETYPE_DYNAMIC_WIDTH 0
-
-struct Rect
-{
-	float left;
-	float top;
-	float right;
-	float bot;
-};
 
 // A freetype character 
 struct Character {
