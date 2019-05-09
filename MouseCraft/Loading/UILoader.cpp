@@ -1,7 +1,7 @@
 #include "UILoader.h"
 #include "../UI/UIComponent.h"
-#include "../UI/TextComponent.h"
-#include "../UI/ImageComponent.h"
+#include "../UI/UIText.h"
+#include "../UI/UIImage.h"
 #include "../Core/EntityManager.h"
 #include <sstream>
 #include "../Graphics/Color.h"
@@ -187,7 +187,7 @@ Entity* UILoader::loadUI(std::string path, float width, float height) {
 			srcString = "../UI/images/" + std::string(src->Value());
 		}
 
-		newComponent = new ImageComponent(srcString, w, h, offX, offY);
+		newComponent = new UIImage(srcString, w, h, offX, offY);
 		newComponent->xType = xUnit;
 		newComponent->yType = yUnit;
 	}
@@ -209,7 +209,7 @@ Entity* UILoader::loadUI(std::string path, float width, float height) {
 				sType = UNIT_PERCENT;
 		}
 
-		newComponent = new TextComponent(text, s, offX, offY);
+		newComponent = new UIText(text, s, offX, offY);
 		newComponent->yType = sType;
 	}
 

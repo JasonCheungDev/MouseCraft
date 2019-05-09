@@ -6,9 +6,9 @@
 #include "Rendering/RenderComponent.h"
 #include "Rendering/Camera.h"
 #include "Rendering/Lighting/DirectionalLight.h"
-#include "UI/ImageComponent.h"
-#include "UI/Canvas.h"
-#include "UI/TextComponent.h"
+#include "UI/UIImage.h"
+#include "UI/UIRoot.h"
+#include "UI/UIText.h"
 #include <string>
 
 void MainScene::InitScene() 
@@ -38,7 +38,7 @@ void MainScene::InitScene()
 	e_light->AddComponent(c_light);
 	e_light->transform.setLocalRotation(glm::vec3(0.42f, 0, 0));
 	
-	//auto c_img = ComponentFactory::Create<ImageComponent>();
+	//auto c_img = ComponentFactory::Create<UIImage>();
 	//c_img->loadImage("res/textures/araragi_karen.png");
 	//auto e_img = EntityManager::Instance().Create();
 	//e_img->AddComponent(c_img);
@@ -48,7 +48,7 @@ void MainScene::InitScene()
 	auto e_canvas = EntityManager::Instance().Create();
 	e_canvas->AddComponent(c_canvas);
 
-	auto c_uimg = ComponentFactory::Create<ImgComponent>(std::string("res/textures/araragi_karen.png"), 1.0f, 1.0f, 0.0f, 0.0f);
+	auto c_uimg = ComponentFactory::Create<UIImage>(std::string("res/textures/araragi_karen.png"), 1.0f, 1.0f, 0.0f, 0.0f);
 	c_uimg->size = { 0.5f, 0.5f };
 	c_uimg->hAnchor = HorizontalAnchor::ANCHOR_HCENTER;
 	c_uimg->vAnchor = VerticalAnchor::ANCHOR_VCENTER;
@@ -59,7 +59,7 @@ void MainScene::InitScene()
 	e_canvas->AddChild(e_uimg);
 	//e_uimg->transform.scale(2.0f);
 
-	auto c_uimg2 = ComponentFactory::Create<ImgComponent>(std::string("res/textures/bob_ross.png"), 1.0f, 1.0f, 0.0f, 0.0f);
+	auto c_uimg2 = ComponentFactory::Create<UIImage>(std::string("res/textures/bob_ross.png"), 1.0f, 1.0f, 0.0f, 0.0f);
 	c_uimg2->hAnchor = HorizontalAnchor::ANCHOR_RIGHT;
 	c_uimg2->vAnchor = VerticalAnchor::ANCHOR_BOTTOM;
 	c_uimg2->size = { 0.5f, 0.5f };
@@ -68,7 +68,7 @@ void MainScene::InitScene()
 
 	e_uimg->AddChild(e_uimg2);
 
-	auto c_utxt = ComponentFactory::Create<TxtComponent>("Hello World", 1.0f, 0.0, 0.0);
+	auto c_utxt = ComponentFactory::Create<UIText>("Hello World", 1.0f, 0.0, 0.0);
 	c_utxt->hAnchor = HorizontalAnchor::ANCHOR_HCENTER;
 	auto e_txt = EntityManager::Instance().Create();
 	e_txt->AddComponent(c_utxt);

@@ -3,10 +3,10 @@
 #include <stack>
 #include <iostream>
 #include <vector>
-#include "ImageComponent.h"
-#include "TextComponent.h"
+#include "UIImage.h"
+#include "UIText.h"
 #include "../ComponentMan.h"
-#include "Canvas.h"
+#include "UIRoot.h"
 
 UIManager::UIManager(){}
 

@@ -8,9 +8,9 @@ class Texture;
 /**
 Type of UIComponent that displays an image file
 */
-class ImgComponent : public UIComponent {
+class UIImage : public UIComponent {
 public:
-	ImgComponent(std::string imagePath, float width, float height, float x, float y);
+	UIImage(std::string imagePath, float width, float height, float x, float y);
     
 	bool IsTransparent() override;
 	

@@ -235,9 +235,9 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimedDestruction.cpp" />
     <ClCompile Include="TransformAnimator.cpp" />
-    <ClCompile Include="UI\Canvas.cpp" />
-    <ClCompile Include="UI\ImageComponent.cpp" />
-    <ClCompile Include="UI\TextComponent.cpp" />
+    <ClCompile Include="UI\UIRoot.cpp" />
+    <ClCompile Include="UI\UIImage.cpp" />
+    <ClCompile Include="UI\UIText.cpp" />
     <ClCompile Include="UI\UIComponent.cpp" />
     <ClCompile Include="UI\UIManager.cpp" />
     <ClCompile Include="Util\CpuProfiler.cpp" />
@@ -342,9 +342,9 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimedDestruction.h" />
     <ClInclude Include="TransformAnimator.h" />
-    <ClInclude Include="UI\Canvas.h" />
-    <ClInclude Include="UI\ImageComponent.h" />
-    <ClInclude Include="UI\TextComponent.h" />
+    <ClInclude Include="UI\UIRoot.h" />
+    <ClInclude Include="UI\UIImage.h" />
+    <ClInclude Include="UI\UIText.h" />
     <ClInclude Include="UI\UIComponent.h" />
     <ClInclude Include="UI\UIManager.h" />
     <ClInclude Include="Util\OpenGLProfiler.h" />

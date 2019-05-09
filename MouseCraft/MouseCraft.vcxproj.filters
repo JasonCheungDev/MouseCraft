@@ -348,7 +348,7 @@
     <ClCompile Include="CubeMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UI\ImageComponent.cpp">
+    <ClCompile Include="UI\UIImage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UI\UIComponent.cpp">
@@ -357,10 +357,10 @@
     <ClCompile Include="UI\UIManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UI\Canvas.cpp">
+    <ClCompile Include="UI\UIText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UI\TextComponent.cpp">
+    <ClCompile Include="UI\UIRoot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -668,7 +668,7 @@
     <ClInclude Include="CubeMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UI\ImageComponent.h">
+    <ClInclude Include="UI\UIImage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UI\UIComponent.h">
@@ -677,10 +677,10 @@
     <ClInclude Include="UI\UIManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UI\Canvas.h">
+    <ClInclude Include="UI\UIText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UI\TextComponent.h">
+    <ClInclude Include="UI\UIRoot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

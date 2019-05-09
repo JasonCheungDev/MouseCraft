@@ -16,8 +16,8 @@
 #include "../ComponentMan.h"
 #include "../Core/OmegaEngine.h"
 #include "TextRenderer.h"
-#include "../UI/ImageComponent.h"
-#include "../UI/TextComponent.h"
+#include "../UI/UIImage.h"
+#include "../UI/UIText.h"
 #include "../Texture.h"
 
 RenderingSystem::RenderingSystem() : System()
@@ -429,7 +429,7 @@ void RenderingSystem::RenderUIImagesPass()
 	//}
 
 	imageShader->use();
-	auto imgs = ComponentMan<ImgComponent>::Instance().All();
+	auto imgs = ComponentMan<UIImage>::Instance().All();
 	for (auto& i : imgs)
 	{
 		i->Resize();
@@ -453,7 +453,7 @@ void RenderingSystem::RenderUIImagesPass()
 		glBindVertexArray(0);
 	}
 
-	auto txts = ComponentMan<TxtComponent>::Instance().All();
+	auto txts = ComponentMan<UIText>::Instance().All();
 	for (auto& t : txts)
 	{
 		t->Resize();

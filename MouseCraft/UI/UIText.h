@@ -7,12 +7,12 @@
 Type of UIComponent that renders text to the panel.
 This component overrides UIComponent sizing with the text size.
 */
-class TxtComponent : public UIComponent {
+class UIText : public UIComponent {
 public:
 	// default font type to use
     static const std::string DEFAULT_FONT;
 
-    TxtComponent(std::string text, float fontSize, float x, float y, std::string fontPath = DEFAULT_FONT);
+    UIText(std::string text, float fontSize, float x, float y, std::string fontPath = DEFAULT_FONT);
 
 	// Current text
 	const std::string GetText() const;
