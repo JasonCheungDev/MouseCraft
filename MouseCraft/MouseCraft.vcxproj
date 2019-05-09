@@ -177,6 +177,8 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClCompile Include="Core\Vector2D.cpp" />
     <ClCompile Include="GL\glad.c" />
     <ClCompile Include="Event\EventManager.cpp" />
+    <ClCompile Include="Rendering\FrameBuffer.cpp" />
+    <ClCompile Include="Rendering\GBuffer.cpp" />
     <ClCompile Include="Rendering\ModelGen.cpp" />
     <ClCompile Include="Rendering\OutlineComponent.cpp" />
     <ClCompile Include="Common\HealthComponent.cpp" />
@@ -254,6 +256,8 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClInclude Include="Event\EventName.h" />
     <ClInclude Include="Event\ISubscriber.h" />
     <ClInclude Include="Rendering\Color.h" />
+    <ClInclude Include="Rendering\FrameBuffer.h" />
+    <ClInclude Include="Rendering\GBuffer.h" />
     <ClInclude Include="Rendering\Image.h" />
     <ClInclude Include="Rendering\ModelGen.h" />
     <ClInclude Include="Rendering\OutlineComponent.h" />

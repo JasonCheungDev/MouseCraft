@@ -11,6 +11,8 @@
 #include "Lighting\PointLight.h"
 #include "../Core/System.h"
 #include "PostProcess\PostProcess.h"
+#include "FrameBuffer.h"
+#include "GBuffer.h"
 
 class RenderingSystem : public System
 {
@@ -31,11 +33,10 @@ private:
 	OpenGLProfiler profiler;
 	CpuProfiler cpuProfiler;
 	unsigned int quadVAO, cubeVAO;
-	unsigned int FBO, posTex, nrmTex, colTex, dphTex, finWriteTex, finReadTex;
-	unsigned int ppWriteFBO, ppReadFBO;
+	GBuffer* gbuffer;
+	FrameBuffer* ppWriteFBO;
+	FrameBuffer* ppReadFBO;
 	unsigned int screenWidth, screenHeight; 
-	unsigned int attachments[3] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 };
-	unsigned int ppAttachments[1] = { GL_COLOR_ATTACHMENT0 };
 
 	std::map<std::string, std::unique_ptr<PostProcess>> _postProcesses;
 
