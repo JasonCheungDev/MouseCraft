@@ -7,6 +7,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/quaternion.hpp>
 #include <glm/gtx/euler_angles.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
 
 glm::vec3 Transform::getLocalPosition() const
 {
@@ -48,6 +49,16 @@ glm::vec3 Transform::getLocalScale() const
 void Transform::setLocalScale(glm::vec3 scale)
 {
 	_localScale = scale;
+}
+
+void Transform::setLocalTransformation(glm::mat4 transform)
+{
+	// warning: assuming matrix bottom-right value is 1. If not divide everything in matrix by that value. 
+	glm::vec3 skew;
+	glm::vec4 perspective;
+	glm::decompose(transform, _localScale, _localQuat, _localPosition, skew, perspective);
+	_localRotation = glm::eulerAngles(_localQuat);
+	_localTransformation = transform;
 }
 
 glm::vec3 Transform::getWorldPosition() const

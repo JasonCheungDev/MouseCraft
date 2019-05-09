@@ -33,14 +33,14 @@ RenderingSystem::RenderingSystem() : System()
 	cpuProfiler.StartTimer(7);
 
 	// initialize default shaders  
-	geometryShader = new Shader("shaders/geometry_vertex.glsl", "shaders/geometry_fragment.glsl");
-	compDLightShader = new Shader("shaders/comp_vertex.glsl", "shaders/comp_dl_fragment.glsl");
-	compPLightShader = new Shader("shaders/comp_vertex.glsl", "shaders/comp_pl_fragment.glsl");
-	shadowmapShader = new Shader("shaders/shadowmap_vertex.glsl", "shaders/shadowmap_fragment.glsl");
-	imageShader = new Shader("shaders/image_vertex.glsl", "shaders/image_fragment.glsl");
-	postShader = new Shader("shaders/post_vertex.glsl", "shaders/post_fragment.glsl");
-	postToScreenShader = new Shader("shaders/post2screen_vertex.glsl", "shaders/post2screen_fragment.glsl");
-	skyboxShader = new Shader("shaders/skybox_vertex.glsl", "shaders/skybox_fragment.glsl");
+	geometryShader = new Shader("res/shaders/geometry_vertex.glsl", "res/shaders/geometry_fragment.glsl");
+	compDLightShader = new Shader("res/shaders/comp_vertex.glsl", "res/shaders/comp_dl_fragment.glsl");
+	compPLightShader = new Shader("res/shaders/comp_vertex.glsl", "res/shaders/comp_pl_fragment.glsl");
+	shadowmapShader = new Shader("res/shaders/shadowmap_vertex.glsl", "res/shaders/shadowmap_fragment.glsl");
+	imageShader = new Shader("res/shaders/image_vertex.glsl", "res/shaders/image_fragment.glsl");
+	postShader = new Shader("res/shaders/post_vertex.glsl", "res/shaders/post_fragment.glsl");
+	postToScreenShader = new Shader("res/shaders/post2screen_vertex.glsl", "res/shaders/post2screen_fragment.glsl");
+	skyboxShader = new Shader("res/shaders/skybox_vertex.glsl", "res/shaders/skybox_fragment.glsl");
 
 	// initialize frame buffers for geometry rendering pass 
 	// InitializeFrameBuffers(); waiting for screen size
@@ -56,13 +56,13 @@ RenderingSystem::RenderingSystem() : System()
 	addPostProcess("FXAA", std::move(fxaa));
 	// fog 
 	auto fogPp = std::make_unique<PostProcess>();	// too lazy to make a dedicated class
-	fogPp->shader = std::make_unique<Shader>("shaders/pp_base_vertex.glsl", "shaders/pp_fog_fragment.glsl");
+	fogPp->shader = std::make_unique<Shader>("res/shaders/pp_base_vertex.glsl", "res/shaders/pp_fog_fragment.glsl");
 	fogPp->settings = std::make_unique<Material>();	// u_FogDensity, u_FogStart, u_FogColor
 	fogPp->enabled = false;
 	addPostProcess("Fog", std::move(fogPp));
 	// outline
 	auto outlinePp = std::make_unique<PostProcess>();	// too lazy to make a dedicated class
-	outlinePp->shader = std::make_unique<Shader>("shaders/pp_base_vertex.glsl", "shaders/pp_outline_fragment.glsl");
+	outlinePp->shader = std::make_unique<Shader>("res/shaders/pp_base_vertex.glsl", "res/shaders/pp_outline_fragment.glsl");
 	outlinePp->settings = std::make_unique<Material>();	// u_FogDensity, u_FogStart, u_FogColor
 	outlinePp->enabled = true;
 	addPostProcess("Outline", std::move(outlinePp));
@@ -161,6 +161,8 @@ void RenderingSystem::RenderGeometryPass()
 			glBindVertexArray(r->mesh->VAO);
 			glDrawElements(GL_TRIANGLES, r->mesh->indices.size(), GL_UNSIGNED_INT, 0);
 			glBindVertexArray(0);
+
+
 			/* Proper way
 			if (custom shader has been set) then
 				shader use
@@ -181,7 +183,7 @@ void RenderingSystem::RenderShadowMapsPass()
 	for (auto& dl : components)
 	{
 		shadowmapShader->use();
-		shadowmapShader->setMat4("u_LightSpaceMatrix", dl->getLightSpaceMatrix());
+		shadowmapShader->setMat4(SHADER_LIGHTSPACE, dl->getLightSpaceMatrix());
 		dl->PrepareShadowmap(shadowmapShader);
 
 		// go thru each component 
@@ -192,7 +194,7 @@ void RenderingSystem::RenderShadowMapsPass()
 			
 			// above 2 lines is equivalent to below (but below is 2-4x faster for some reason).
 			glUniformMatrix4fv(
-				glGetUniformLocation(shadowmapShader->programId, "u_Model"),
+				glGetUniformLocation(shadowmapShader->programId, SHADER_MODEL.c_str()),
 				1,
 				GL_FALSE,
 				&rc->GetEntity()->transform.getWorldTransformation()[0][0]);
@@ -222,14 +224,13 @@ void RenderingSystem::RenderDirectionalLightingPass()
 	glDrawBuffers(1, ppAttachments);
 
 	compDLightShader->use();
-	compDLightShader->setInt("u_PosTex", 0);	// set order 
-	compDLightShader->setInt("u_NrmTex", 1);
-	compDLightShader->setInt("u_ColTex", 2);
-	compDLightShader->setInt("u_DphTex", 3);
-	compDLightShader->setInt("u_ShadowMap", 4);
-	compDLightShader->setVec3("u_ViewPosition", activeCamera->GetEntity()->transform.getWorldPosition());
 
 	// enable the sampler2D shader variables 
+	compDLightShader->setInt(SHADER_FB_POS, 0);	// set order 
+	compDLightShader->setInt(SHADER_FB_NRM, 1);
+	compDLightShader->setInt(SHADER_FB_COL, 2);
+	compDLightShader->setInt(SHADER_FB_DPH, 3);
+	compDLightShader->setInt(SHADER_FB_SHD, 4);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, posTex);
 	glActiveTexture(GL_TEXTURE1);
@@ -239,24 +240,34 @@ void RenderingSystem::RenderDirectionalLightingPass()
 	glActiveTexture(GL_TEXTURE3);
 	glBindTexture(GL_TEXTURE_2D, dphTex);
 
+	// Apply directional lights ontop of each other 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_ONE, GL_ONE);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
+	// settings for all lights
+	compDLightShader->setVec3(SHADER_VIEW_POS, activeCamera->GetEntity()->transform.getWorldPosition());
+
 	auto dlights = ComponentManager<DirectionalLight>::Instance().All();
 	for (auto& dl : dlights)
 	{
-		compDLightShader->setVec3("u_LightPos", dl->GetEntity()->transform.getWorldPosition());
-		compDLightShader->setMat4("u_LightSpaceMatrix", dl->getLightSpaceMatrix());
+		compDLightShader->setMat4(SHADER_LIGHTSPACE, dl->getLightSpaceMatrix());
+		compDLightShader->setVec3(SHADER_LIGHT_POS, dl->GetEntity()->transform.getWorldPosition());
+		compDLightShader->setVec3(SHADER_LIGHT_DIR, dl->GetEntity()->transform.getWorldForward());
+		compDLightShader->setVec3(SHADER_LIGHT_COLOR, dl->color);
+		compDLightShader->setFloat(SHADER_LIGHT_AMBIENT_INTENSITY, dl->ambientIntensity);
+		compDLightShader->setFloat(SHADER_SHADOW_NEAR, dl->shadowMapNear);
+		compDLightShader->setFloat(SHADER_SHADOW_NEAR, dl->shadowMapFar);
+
 		glActiveTexture(GL_TEXTURE4);
-		glBindTexture(GL_TEXTURE_2D, dynamic_cast<DirectionalLight*>(dl)->TexId);
+		glBindTexture(GL_TEXTURE_2D, dl->GetShadowMapID());
 
 		glBindVertexArray(quadVAO);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-		glBindVertexArray(0);
 	}
 
+	glBindVertexArray(0);
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -270,16 +281,17 @@ void RenderingSystem::RenderPointLightingPass()
 	glBindFramebuffer(GL_FRAMEBUFFER, ppWriteFBO);
 	glDrawBuffers(1, ppAttachments);
 
+
 	compPLightShader->use();
-	compPLightShader->setInt("u_PosTex", 0);	// set order 
-	compPLightShader->setInt("u_NrmTex", 1);
-	compPLightShader->setInt("u_ColTex", 2);
-	compPLightShader->setInt("u_DphTex", 3);
-	compPLightShader->setInt("u_ShadowMap", 4);
-	compPLightShader->setVec3("u_ViewPosition", activeCamera->GetEntity()->transform.getWorldPosition());
+	compPLightShader->setInt(SHADER_FB_POS, 0);	// set order 
+	compPLightShader->setInt(SHADER_FB_NRM, 1);
+	compPLightShader->setInt(SHADER_FB_COL, 2);
+	compPLightShader->setInt(SHADER_FB_DPH, 3);
+	compPLightShader->setInt(SHADER_FB_SHD, 4);
+	compPLightShader->setVec3(SHADER_VIEW_POS, activeCamera->GetEntity()->transform.getWorldPosition());
 	// we're rendering from camera this time - using light volumes
-	compPLightShader->setMat4("u_Projection", projection);
-	compPLightShader->setMat4("u_View", view);
+	compPLightShader->setMat4(SHADER_PROJECTION, projection);
+	compPLightShader->setMat4(SHADER_VIEW, view);
 
 	// enable the sampler2D shader variables 
 	glActiveTexture(GL_TEXTURE0);
@@ -339,8 +351,8 @@ void RenderingSystem::RenderSkyboxPass()
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LEQUAL);
 		skyboxShader->use();
-		skyboxShader->setMat4("u_Projection", projection);
-		skyboxShader->setMat4("u_View", glm::mat4(glm::mat3(view)));	// view -> mat3 (remove translation) -> mat4 (compatable format)
+		skyboxShader->setMat4(SHADER_PROJECTION, projection);
+		skyboxShader->setMat4(SHADER_VIEW, glm::mat4(glm::mat3(view)));	// view -> mat3 (remove translation) -> mat4 (compatable format)
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTexture);
 		// draw 
@@ -369,10 +381,10 @@ void RenderingSystem::RenderPostProcessPass()
 
 		pp.second->shader->use();
 		// set order 
-		pp.second->shader->setInt("u_PosTex", 0);
-		pp.second->shader->setInt("u_NrmTex", 1);
-		pp.second->shader->setInt("u_ColTex", 2);
-		pp.second->shader->setInt("u_DphTex", 3);
+		pp.second->shader->setInt(SHADER_FB_POS, 0);
+		pp.second->shader->setInt(SHADER_FB_NRM, 1);
+		pp.second->shader->setInt(SHADER_FB_COL, 2);
+		pp.second->shader->setInt(SHADER_FB_DPH, 3);
 		pp.second->shader->setInt("u_FinTex", 4);
 
 		glActiveTexture(GL_TEXTURE0);
@@ -439,7 +451,7 @@ void RenderingSystem::RenderUIImagesPass()
 
 		//imageShader->setVec2("u_Size", size / 2.0f);
 		imageShader->setMat4("u_Model", transform);
-		imageShader->setMat4("u_Projection", uiProjection);
+		imageShader->setMat4(SHADER_PROJECTION, uiProjection);
 		imageShader->setVec4("u_Tint", i->color.vec4());
 		//imageShader->setFloat("u_Opacity", image->opacity);
 
@@ -534,7 +546,7 @@ void RenderingSystem::InitializeFrameBuffers()
 	// color (albedo) texture
 	glGenTextures(1, &colTex);
 	glBindTexture(GL_TEXTURE_2D, colTex);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, screenWidth, screenHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, screenWidth, screenHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, colTex, 0);

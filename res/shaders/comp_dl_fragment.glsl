@@ -13,15 +13,15 @@ uniform sampler2D u_ShadowMap;
 out layout(location = 0) vec4 o_Col;
 
 // Lighting 
-uniform float u_AmbientIntensity = 1.0;
 uniform vec3 u_ViewPosition;
-// Shadows 
 uniform mat4 u_LightSpaceMatrix;    
 uniform vec3 u_LightPos;
 uniform vec3 u_LightDir;
-
-float near = 0.1;
-float far  = 50.0; 
+uniform vec3 u_LightColor;
+uniform float u_AmbientIntensity = 1.0;
+// Shadows 
+uniform float u_ShadowNear = 0.1;
+uniform float u_ShadowFar  = 50.0; 
 float shadowFadeThreshold = 0.95;
 float minbias = 0.002;  // minimum shadow bias (for planes almost perpendicular to d.light) 
 float maxbias = 0.002;   // maximum shadow bias (for planes with a steep slope to d.light)
@@ -32,7 +32,7 @@ float LinearizeDepth(float depth)
     // Formula: https://learnopengl.com/Advanced-OpenGL/Depth-testing
     // Detailed: https://stackoverflow.com/questions/6652253/getting-the-true-z-value-from-the-depth-buffer
     float z = depth * 2.0 - 1.0; // back to NDC 
-    return (2.0 * near * far) / (far + near - z * (far - near));	
+    return (2.0 * u_ShadowNear * u_ShadowFar) / (u_ShadowFar + u_ShadowNear - z * (u_ShadowFar - u_ShadowNear));	
 }
 
 float ShadowCalculation(vec4 lightSpaceFrag)
@@ -141,32 +141,39 @@ float ShadowCalculationSoft(vec4 lightSpaceFrag)
 void main() 
 {
     // retrieve data from gbuffer 
-	vec3 pos = texture(u_PosTex, f_Uv).rgb;
-	vec3 nrm = texture(u_NrmTex, f_Uv).rgb; 
-	vec4 col = vec4(texture(u_ColTex, f_Uv).rgb, 1.0); 
-    float depth = texture(u_DphTex, f_Uv).x;
-
-    // todo: no lighting yet :@) 
+	vec3 pos = texture(u_PosTex, f_Uv).rgb;            // surface position
+	vec3 nrm = normalize(texture(u_NrmTex, f_Uv).rgb); // surface normal
+	vec3 col = texture(u_ColTex, f_Uv).rgb;            // surface color
+    float depth = texture(u_DphTex, f_Uv).x;           // surface depth from camera
+    float specularIntensity = texture(u_ColTex, f_Uv).a; // surface shininess
+   
     if (depth >= 1.0)
     {
         discard;
     }
 
-    // asdf
+    // fake lighting 
+    vec3 ambient = u_AmbientIntensity * u_LightColor; 
+    
+    // measure of how directly light is hitting the surface (eg. how well it scatters)
+    float diffuseStrength = -dot(nrm, u_LightDir);    
+    vec3 diffuse = u_LightColor * diffuseStrength;
 
-    vec3 lightColor = vec3(1.0);
-    // ambient
-    vec3 ambient = (0.10 * col).rgb;
-    // diffuse 
-    // vec3 lightDir = normalize(u_LightPos - pos); 
-    float diff = 0.5; 
-    // max(dot(lightDir, nrm), 0.0);
-    vec3 diffuse = diff * lightColor;
+    // shininess when light bounces directly into our eyes
+    vec3 viewDir = normalize(u_ViewPosition - pos); // reversed (to prevent negative sign later)
+    vec3 reflectDir = reflect(u_LightDir, nrm);
+    float specPower = pow(max(dot(viewDir, reflectDir), 0), 32);
+    vec3 specular = specularIntensity * specPower * u_LightColor; 
 
     // shadow 
     float bias = 0.002; 
     float shadow = ShadowCalcFade(u_LightSpaceMatrix * vec4(pos, 1.0), bias, LinearizeDepth(depth));
     // float shadow = ShadowCalculation(u_LightSpaceMatrix * vec4(pos, 1.0));
-    vec3 lighting = (ambient + (1.0 - shadow) * (diffuse)) * col.rgb;   // not sure what this last * col is for. 
+    //vec3 lighting = (1.0 - shadow) * (ambient + diffuse + specular) * col.rgb;  //* col.rgb;   // not sure what this last * col is for. 
+
+    vec3 lighting = (ambient + diffuse + specular) * col; 
     o_Col = vec4(lighting, 1.0);
 }
+
+// Note: 
+// vec3 reflection = u_LightDir - 2 * dot(u_LightDir, nrm) * nrm;

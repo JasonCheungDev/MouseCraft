@@ -9,7 +9,7 @@ class FxaaPP : public PostProcess
 public:
 	FxaaPP() : PostProcess()
 	{
-		shader = std::make_unique<Shader>("shaders/pp_base_vertex.glsl", "shaders/pp_fxaa_fragment.glsl");
+		shader = std::make_unique<Shader>("res/shaders/pp_base_vertex.glsl", "res/shaders/pp_fxaa_fragment.glsl");
 		settings = std::make_unique<Material>();
 	}
 	~FxaaPP() {};

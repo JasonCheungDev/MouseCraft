@@ -36,6 +36,9 @@ public:
 	// Sets the local scale.
 	void setLocalScale(glm::vec3 scale);
 
+	// Sets the local transformation matrix, position, rotation, and scale.
+	void setLocalTransformation(glm::mat4 transform);
+
 	// Gets the world position based on the current world transformation.
 	glm::vec3 getWorldPosition() const;
 

@@ -6,6 +6,8 @@ using std::ifstream;
 using std::string;
 using std::vector;
 
+std::string ModelLoader::directory = "";
+
 /*
 Model* ModelLoader::loadModel(string filename) {
 	// Model loading adapted from https://learnopengl.com/Model-Loading/Model

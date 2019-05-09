@@ -54,7 +54,7 @@ void MainTest()
 
 int main(int argc, char* argv[])
 {
-	SetupSound();
+	// SetupSound();
 
 	MainTest();
 }

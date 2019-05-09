@@ -4,23 +4,10 @@
 #include <utility>
 #include <string>
 #include <map>
-
 #include <assimp\material.h>
-
 #include "Shader.h"
+#include "Texture.h"
 
-/* Testing out visual studio type documentation */
-
-
-
-struct TextureInfo
-{
-	std::string uniform;
-	unsigned int id; 
-	int width;
-	int height;
-	std::string path;	// prevent double loading of textures 
-};
 
 /// <summary>
 /// Customizable settings for a shader program. Each shader 
@@ -34,7 +21,7 @@ protected:
 	// Shader* shader;						
 
 	/// Textures that this material has 
-	std::vector<TextureInfo> textures;	// todo: use shared pointers for automatic gc 
+	std::vector<TextureShaderInfo> textures;	// todo: use shared pointers for automatic gc 
 	// std::pair<std::string, unsigned int> textures; 
 
 	/// Stores uniform values in the form of vector 3.
@@ -52,7 +39,6 @@ protected:
 // functions 
 public:
 	Material();
-	Material(Shader* shader);
 	~Material();
 
 	/// <summary>
@@ -69,16 +55,9 @@ public:
 	/// <return>Number of textures bound.</return>
 	virtual int LoadMaterial(const Shader* shader, unsigned int texStartLoc);
 
-	/// <summary>
-	/// WARNING: DEPRECATED - Use AssetLoader LoadTexture instead. 
-	/// Loads a texture from path.
-	/// </summary>
-	/// <return>True if success, false if failed.</return>
-	bool LoadTexture(const char* uniform, const char* path);
+	void AddTexture(TextureShaderInfo& info);
 
-	void AddTexture(TextureInfo info);
-
-	void AddTextures(std::vector<TextureInfo> infos);
+	void AddTextures(const std::vector<TextureShaderInfo>& infos);
 
 	void SetVec3(const char* uniform, glm::vec3 value);
 

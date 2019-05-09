@@ -27,7 +27,7 @@ MessageCallback(GLenum source,
 TextRenderer::TextRenderer()
 {
 	// initialize default shader
-	textShader = new Shader("shaders/text_vertex.glsl", "shaders/text_fragment.glsl");
+	textShader = new Shader("res/shaders/text_vertex.glsl", "res/shaders/text_fragment.glsl");
 
 	// initialize FreeType (for loading font files) 
 	if (FT_Init_FreeType(&ft))

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <glm/glm.hpp>
 #include "Image.h"
 
@@ -32,3 +33,9 @@ private:
 	unsigned int _id;
 };
 
+// simple wrapper to associate a texture with a shader's uniform
+struct TextureShaderInfo
+{
+	std::string uniform;
+	Texture* texture;
+};

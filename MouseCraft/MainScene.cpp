@@ -9,6 +9,7 @@
 #include "UI/UIImage.h"
 #include "UI/UIRoot.h"
 #include "UI/UIText.h"
+#include "Loading/ModelLoader.h"
 #include <string>
 
 void MainScene::InitScene() 
@@ -36,7 +37,7 @@ void MainScene::InitScene()
 	auto c_light = ComponentFactory::Create<DirectionalLight>();
 	auto e_light = EntityManager::Instance().Create();
 	e_light->AddComponent(c_light);
-	e_light->transform.setLocalRotation(glm::vec3(0.42f, 0, 0));
+	//e_light->transform.setLocalRotation(glm::vec3(0.42f, 0, 0));
 	
 	//auto c_img = ComponentFactory::Create<UIImage>();
 	//c_img->loadImage("res/textures/araragi_karen.png");
@@ -74,10 +75,15 @@ void MainScene::InitScene()
 	e_txt->AddComponent(c_utxt);
 	e_canvas->AddChild(e_txt);
 
-	root.AddChild(e_test);
+	auto e_tank = ModelLoader::Load("res/models/nanosuit/nanosuit.obj");
+	e_tank->transform.setLocalPosition(glm::vec3(0, -1, -5));
+	e_tank->transform.scale(0.2f);
+	root.AddChild(e_tank);
+
+	//root.AddChild(e_test);
 	root.AddChild(e_cam);
 	root.AddChild(e_light);
-	root.AddChild(e_canvas);
+	// root.AddChild(e_canvas);
 }
 
 void MainScene::Update(const float delta) 
