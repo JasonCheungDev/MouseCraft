@@ -35,10 +35,11 @@ unsigned int GBuffer::Read(Shader * shader)
 	return 4;
 }
 
-void GBuffer::Draw()
+void GBuffer::Draw(bool clear)
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
 	glDrawBuffers(3, attachments);	
+	if (clear) glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void GBuffer::GenerateFrameBuffer(unsigned int width, unsigned int height)

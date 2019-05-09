@@ -80,7 +80,7 @@ void MainScene::InitScene()
 	e_tank->transform.scale(0.2f);
 	root.AddChild(e_tank);
 
-	//root.AddChild(e_test);
+	root.AddChild(e_test);
 	root.AddChild(e_cam);
 	root.AddChild(e_light);
 	// root.AddChild(e_canvas);

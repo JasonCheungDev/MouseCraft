@@ -10,7 +10,7 @@ public:
 	GBuffer();
 	~GBuffer();
 	unsigned int Read(Shader* shader);
-	void Draw();
+	void Draw(bool clear = true);
 
 private:
 	void GenerateFrameBuffer(unsigned int width, unsigned int height);

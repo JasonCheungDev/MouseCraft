@@ -1,5 +1,6 @@
 #include "FrameBuffer.h"
 
+#include "../GL/glad.h"
 #include "../Core/OmegaEngine.h"
 
 FrameBuffer::FrameBuffer()
@@ -26,10 +27,11 @@ unsigned int FrameBuffer::Read(unsigned int textureSlot)
 	return 1;
 }
 
-void FrameBuffer::Draw()
+void FrameBuffer::Draw(bool clear)
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
 	glDrawBuffer(GL_COLOR_ATTACHMENT0);
+	if (clear) glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 unsigned int FrameBuffer::GetTexId()

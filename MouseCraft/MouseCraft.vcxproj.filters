@@ -357,6 +357,9 @@
     <ClCompile Include="Rendering\GBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Rendering\PostProcess\BloomPP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -651,6 +654,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Rendering\GBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\PostProcess\BloomPP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

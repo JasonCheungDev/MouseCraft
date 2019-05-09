@@ -183,6 +183,7 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClCompile Include="Rendering\OutlineComponent.cpp" />
     <ClCompile Include="Common\HealthComponent.cpp" />
     <ClCompile Include="Input\InputSystem.cpp" />
+    <ClCompile Include="Rendering\PostProcess\BloomPP.cpp" />
     <ClCompile Include="Rendering\Window.cpp" />
     <ClCompile Include="Loading\ImageLoader.cpp" />
     <ClCompile Include="Loading\TextureLoader.cpp" />
@@ -261,6 +262,7 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClInclude Include="Rendering\Image.h" />
     <ClInclude Include="Rendering\ModelGen.h" />
     <ClInclude Include="Rendering\OutlineComponent.h" />
+    <ClInclude Include="Rendering\PostProcess\BloomPP.h" />
     <ClInclude Include="Rendering\RenderUtil.h" />
     <ClInclude Include="Rendering\Window.h" />
     <ClInclude Include="Common\HealthComponent.h" />

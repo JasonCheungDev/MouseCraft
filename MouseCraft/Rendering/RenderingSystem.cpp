@@ -12,6 +12,7 @@
 #include "PostProcess/NegativePP.h"
 #include "PostProcess/BlurPP.h"
 #include "PostProcess/FxaaPP.h"
+#include "PostProcess/BloomPP.h"
 #include "../Core/ComponentManager.h"
 #include "../Core/OmegaEngine.h"
 #include "TextRenderer.h"
@@ -56,25 +57,31 @@ RenderingSystem::RenderingSystem() : System()
 	addPostProcess("FXAA", std::move(fxaa));
 	// fog 
 	auto fogPp = std::make_unique<PostProcess>();	// too lazy to make a dedicated class
-	fogPp->shader = std::make_unique<Shader>("res/shaders/pp_base_vertex.glsl", "res/shaders/pp_fog_fragment.glsl");
-	fogPp->settings = std::make_unique<Material>();	// u_FogDensity, u_FogStart, u_FogColor
+	fogPp->SetShader(std::make_unique<Shader>("res/shaders/pp_base_vertex.glsl", "res/shaders/pp_fog_fragment.glsl"));
+	fogPp->SetMaterial(std::make_unique<Material>());	// u_FogDensity, u_FogStart, u_FogColor
 	fogPp->enabled = false;
 	addPostProcess("Fog", std::move(fogPp));
 	// outline
 	auto outlinePp = std::make_unique<PostProcess>();	// too lazy to make a dedicated class
-	outlinePp->shader = std::make_unique<Shader>("res/shaders/pp_base_vertex.glsl", "res/shaders/pp_outline_fragment.glsl");
-	outlinePp->settings = std::make_unique<Material>();	// u_FogDensity, u_FogStart, u_FogColor
+	outlinePp->SetShader(std::make_unique<Shader>("res/shaders/pp_base_vertex.glsl", "res/shaders/pp_outline_fragment.glsl"));
+	outlinePp->SetMaterial(std::make_unique<Material>());	// u_FogDensity, u_FogStart, u_FogColor
 	outlinePp->enabled = true;
 	addPostProcess("Outline", std::move(outlinePp));
 	// blur 
-	auto blurHPp = std::make_unique<BlurPP>();
-	blurHPp->settings->SetBool("u_Horizontal", true);
-	blurHPp->enabled = false;
-	addPostProcess("BlurH", std::move(blurHPp));
-	auto blurVPp = std::make_unique<BlurPP>();
-	blurVPp->settings->SetBool("u_Horizontal", false);
-	blurVPp->enabled = false;
-	addPostProcess("BlurV", std::move(blurVPp));
+	//auto blurHPp = std::make_unique<BlurPP>();
+	//blurHPp->settings->SetBool("u_Horizontal", true);
+	//blurHPp->enabled = false;
+	//addPostProcess("BlurH", std::move(blurHPp));
+	//auto blurVPp = std::make_unique<BlurPP>();
+	//blurVPp->settings->SetBool("u_Horizontal", false);
+	//blurVPp->enabled = false;
+	//addPostProcess("BlurV", std::move(blurVPp));
+	auto negPp = std::make_unique<NegativePP>();
+	negPp->enabled = false;
+	addPostProcess("Negative", std::move(negPp));
+
+	auto bloomPp = std::make_unique<BloomPP>();
+	addPostProcess("Bloom", std::move(bloomPp));
 
 	// default skybox 
 	std::vector<std::string> skyboxFaces = {
@@ -123,15 +130,12 @@ void RenderingSystem::RenderGeometryPass()
 	// 1. First pass - Geometry into gbuffers 
 	// cleanup 
 	ppWriteFBO->Draw();
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	ppReadFBO->Draw();
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	geometryShader->use();
 
 	// bind geometry frame buffers 
 	gbuffer->Draw();
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
@@ -224,8 +228,7 @@ void RenderingSystem::RenderDirectionalLightingPass()
 	compDLightShader->use();
 
 	// don't render to backbuffer directly 
-	ppWriteFBO->Draw();
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// this if the first lighting pass, clear!
+	ppWriteFBO->Draw();	// this if the first lighting pass - clear
 
 	// read from gbuffer
 	unsigned int availableTextureSlot =
@@ -239,6 +242,7 @@ void RenderingSystem::RenderDirectionalLightingPass()
 
 	// settings for all lights
 	compDLightShader->setVec3(SHADER_VIEW_POS, activeCamera->GetEntity()->transform.getWorldPosition());
+	compDLightShader->setInt(SHADER_FB_SHD, availableTextureSlot);
 
 	auto dlights = ComponentManager<DirectionalLight>::Instance().All();
 	for (auto& dl : dlights)
@@ -272,7 +276,7 @@ void RenderingSystem::RenderPointLightingPass()
 	compPLightShader->use();
 
 	// don't render to backbuffer directly 
-	ppWriteFBO->Draw();
+	ppWriteFBO->Draw(false);
 
 	// read from gbuffer
 	unsigned int availableTextureSlot =
@@ -325,7 +329,7 @@ void RenderingSystem::RenderSkyboxPass()
 	if (skyboxTexture != 0)
 	{
 		// set render target
-		ppWriteFBO->Draw();
+		ppWriteFBO->Draw(false);
 		// load settings 
 		// glDisable(GL_DEPTH_TEST);
 		glEnable(GL_DEPTH_TEST);
@@ -349,31 +353,51 @@ void RenderingSystem::RenderPostProcessPass()
 	// post processing 
 	glDisable(GL_DEPTH_TEST);
 
+	// setup current rendered image to read from
+	std::swap(ppWriteFBO, ppReadFBO);
+
 	for (auto& pp : _postProcesses)
 	{
 		if (!pp.second->enabled) continue;
 
-		pp.second->shader->use();
 
-		// we keep on swapping the finished read/write texture so PP can read/write to current image 
-		std::swap(ppWriteFBO, ppReadFBO);				// allow pp to write to "current rendered" image (for next pp)
-		
-		// setup render target 
-		ppWriteFBO->Draw();
+		bool finished = false;
 
-		// setup reading textures 
-		unsigned int freeTexSlot = 0;
-		freeTexSlot += gbuffer->Read(pp.second->shader.get());
-		pp.second->shader->setInt("u_FinTex", freeTexSlot);
-		freeTexSlot += ppReadFBO->Read(freeTexSlot);
-		
-		// load post-process settings 
-		pp.second->settings->LoadMaterial(pp.second->shader.get(), freeTexSlot);
+		while (!finished)
+		{
+			unsigned int freeTexSlot = 0;
 
-		// render 
-		glBindVertexArray(quadVAO);
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-		glBindVertexArray(0);
+			// Load shader
+			pp.second->GetActiveShader()->use();
+
+			// Load gbuffer textures if requested 
+			if (pp.second->RequestingGBuffer())
+			{
+				freeTexSlot += gbuffer->Read(pp.second->GetActiveShader());
+			}
+
+			// Load back-buffer texture if requested
+			if (pp.second->RequestingBackBuffer())
+			{
+				pp.second->GetActiveShader()->setInt("u_FinTex", freeTexSlot);
+				freeTexSlot += ppReadFBO->Read(freeTexSlot);
+			}
+
+			// Set render target if requested 
+			if (pp.second->DrawingToBackBuffer())
+			{
+				ppWriteFBO->Draw(false);
+				std::swap(ppWriteFBO, ppReadFBO);	// swap finished texture so next PP can read/write to current image
+			}
+
+			// Final setup for this post-process pass 
+			finished = pp.second->Pass(freeTexSlot);
+
+			// render 
+			glBindVertexArray(quadVAO);
+			glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+			glBindVertexArray(0);
+		}
 	}
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
