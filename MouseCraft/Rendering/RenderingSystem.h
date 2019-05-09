@@ -10,9 +10,6 @@
 #include "Lighting\DirectionalLight.h"
 #include "Lighting\PointLight.h"
 #include "../Core/System.h"
-#include "UI\View.h"
-#include "UI\ImageComponent.h"
-#include "UI\TextComponent.h"
 #include "PostProcess\PostProcess.h"
 
 class RenderingSystem : public System
@@ -80,7 +77,6 @@ private:
 
 	void RenderEntityGeometry(Entity* e, glm::mat4 transform);
 	void RenderCompositionPass();
-	void RenderImage(Shader &s, ImageComponent* image);
 	void InitializeFrameBuffers();
 	void InitializeScreenQuad();
 	void InitializeScreenCube();

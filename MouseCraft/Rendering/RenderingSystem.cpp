@@ -419,7 +419,6 @@ void RenderingSystem::RenderUIImagesPass()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// render text components 
-	auto images = ComponentMan<ImageComponent>::Instance().All();
 	/*for (auto& i : images)
 		RenderImage(*imageShader, i);
 	*/
@@ -506,34 +505,6 @@ void RenderingSystem::DrawComponent(RenderComponent* component)
 	{
 		auto r = component->renderables[i];
 	}
-}
-
-void RenderingSystem::RenderImage(Shader & s, ImageComponent * image)
-{
-	s.use();
-
-	auto size = glm::vec2(image->width / 2, image->height / 2);		// size of box 
-	auto transform = image->GetEntity()->transform.getWorldTransformation();	// transform
-
-	// default 
-	if (image->alignment == TextAlignment::Left)
-		transform = glm::translate(transform, glm::vec3(size.x, 0, 0));
-	else if (image->alignment == TextAlignment::Right)
-		transform = glm::translate(transform, glm::vec3(-size.x, 0, 0));
-	// else alignment is center, don't do anything.
-
-	imageShader->setVec2("u_Size", size);
-	imageShader->setMat4("u_Model", transform);
-	imageShader->setMat4("u_Projection", uiProjection);
-	imageShader->setVec3("u_Tint", image->tint);
-	imageShader->setFloat("u_Opacity", image->opacity);
-
-	glBindVertexArray(quadVAO);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, image->imageId);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glBindVertexArray(0);
 }
 
 // initializes a framebuffer object for deferred rendering

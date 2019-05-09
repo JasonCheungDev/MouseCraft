@@ -1,6 +1,5 @@
 #pragma once
 
-#include "UI/View.h"
 #include "../GL/glad.h"
 #include <glm/glm.hpp>
 #include <ft2build.h>
@@ -16,6 +15,9 @@
 #define FONT_MANAGER_DEFAULT_FONT "res/fonts/arial.ttf"
 #define FONT_MANAGER_DEFAULT_FONTSIZE 48
 #define FREETYPE_DYNAMIC_WIDTH 0
+
+// Alignment for text
+enum class TextAlignment { Left, Center, Right };
 
 // A freetype character 
 struct Character {

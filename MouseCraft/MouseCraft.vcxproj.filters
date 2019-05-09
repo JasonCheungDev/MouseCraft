@@ -297,15 +297,6 @@
     <ClCompile Include="Rendering\PostProcess\PostProcess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Rendering\UI\ImageComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Rendering\UI\TextComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Rendering\UI\View.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Rendering\Constants.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -618,15 +609,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Rendering\PostProcess\PostProcess.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\UI\ImageComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\UI\TextComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\UI\View.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Rendering\Constants.h">

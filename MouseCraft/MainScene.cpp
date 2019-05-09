@@ -6,7 +6,6 @@
 #include "Rendering/RenderComponent.h"
 #include "Rendering/Camera.h"
 #include "Rendering/Lighting/DirectionalLight.h"
-#include "Rendering/UI/ImageComponent.h"
 #include "UI/ImageComponent.h"
 #include "UI/Canvas.h"
 #include "UI/TextComponent.h"
