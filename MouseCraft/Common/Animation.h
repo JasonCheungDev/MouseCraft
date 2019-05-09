@@ -1,8 +1,6 @@
 #pragma once
 
-#ifndef GLM_ENABLE_EXPERIMENTAL
-#define GLM_ENABLE_EXPERIMENTAL
-#endif // !GLM_ENABLE_EXPERIMENTAL
+#include "../OmegaEngineDefines.h"
 
 #include <map>
 #include <string>
@@ -11,7 +9,7 @@
 #include <glm/gtc/quaternion.hpp>
 #include <iostream>
 
-#include "json.hpp"
+#include <json.hpp>
 using json = nlohmann::json;
 
 struct Vec3Keyframe 

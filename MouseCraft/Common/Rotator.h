@@ -1,10 +1,10 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include "Core/UpdatableComponent.h"
+#include "../Core/UpdatableComponent.h"
 
-#include "Loading/PrefabLoader.h"
-#include "json.hpp"
+#include "../Loading/PrefabLoader.h"
+#include <json.hpp>
 using json = nlohmann::json;
 
 class Rotator : public UpdatableComponent

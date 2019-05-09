@@ -1,88 +1,68 @@
 #pragma once
-#include <algorithm>
-#include <vector>
-#include <memory>
-#include "Component.h"
-#include "../Event/ISubscriber.h"
-#include "../Event/EventManager.h"
 
-template <class T>
-class ComponentManager : public ISubscriber
+#include <vector>
+#include <algorithm>
+#include "Component.h"
+
+class IComponentManager
 {
 public:
+	virtual void Delete(int id) = 0;
+};
 
-	static auto& Instance()
+template<class ComponentType>
+class ComponentManager : public IComponentManager
+{
+// singleton 
+public:
+	static ComponentManager& Instance()
 	{
-		static ComponentManager<T> c;
+		static ComponentManager _instance;
+		return _instance;
+	}
+	ComponentManager(ComponentManager const&) = delete;
+	void operator=(ComponentManager const&) = delete;
+private:
+	ComponentManager() {};
+	~ComponentManager() {};
+
+// functions 
+public:
+	template<typename... Args>
+	ComponentType* Create(Args... args)
+	{
+		auto c = new ComponentType(args...);
+		_data.push_back(c);
 		return c;
 	}
 
-	template<typename ComponentType, typename... Args>
-	ComponentType* Create(Args... args)
+	void Delete(int id) override
 	{
-		static_assert(std::is_base_of<T, ComponentType>::value, "???");
-		auto* t = new ComponentType(args...);
-		_components.push_back(t);
-		return t;
+		auto it = std::find_if(_data.begin(), _data.end(), [id](ComponentType* c) { 
+			return static_cast<Component*>(c)->GetID() == id; 
+		});
+		delete(*it);
+		_data.erase(it);
 	}
 
-	void Add(T* component) { _components.push_back(component); }
-	void Remove(unsigned int id)
+	const std::vector<ComponentType*>& All()
 	{
-		auto t = std::find_if(_components.begin(), _components.end(), [&id](const Component* c) { return c->GetID() == id; });
-		if(t != _components.end())
-			_components.erase(t);
+		return _data;
 	}
 
-	// Inherited via ISubscriber
-	void Notify(EventName eventName, Param * params)
-	{
-		switch (eventName)
-		{
-			case COMPONENT_REMOVED:
-			{
-				auto* p = static_cast<TypeParam<Component*>*>(params);
-				unsigned int t = p->Param->GetID();
-				Remove(t);
-				break;
-			}
-			// lol rip the dream
-			case COMPONENT_ADDED:
-			{
-				auto* p = static_cast<TypeParam<Component*>*>(params);
-				auto* c = dynamic_cast<T*>(p->Param);
-				if (c == nullptr)
-					return;
-				Add(c);
-				break;
-			}
-			default:
-			{
-				break;
-			}
-		}
-	}
-
-	const std::vector<T*>& All()
-	{
-		return _components;
-	}
-
-	ComponentManager(const ComponentManager&) = delete;
-	ComponentManager& operator= (const ComponentManager) = delete;
-
+// variables 
 private:
-	std::vector<T*> _components;
+	// Current strategy is to use pointer array.
+	// This is to ensure pointers aren't invalidated.
+	std::vector<ComponentType*> _data;
 
-protected:
-	ComponentManager()
-	{
-		EventManager::Subscribe(COMPONENT_ADDED, this);
-		EventManager::Subscribe(COMPONENT_REMOVED, this);
-	}
-	~ComponentManager()
-	{
-		EventManager::Unsubscribe(COMPONENT_ADDED, this);
-		EventManager::Unsubscribe(COMPONENT_REMOVED, this);
-	}
+	// Consider: A double layered array, 1st array with continuous gapless data
+	// 2nd array with Handle pointers that point to continuous data.
+	// Whenever a component is destroyed the last element in the 1st array takes that spot,
+	// and the handle internal pointer is updated to point to that new spot. 
+	
+	// Be aware that array of pointers is fine so far (performs better or just as good as 
+	// continuous objects in MultiThreadTest project). Most likely need larger and more 
+	// fragmented data for cache efficiency to shine. 
 };
+

@@ -1,5 +1,5 @@
 #include "UIText.h"
-#include "../Graphics/ModelGen.h"
+#include "../Rendering/ModelGen.h"
 
 const std::string UIText::DEFAULT_FONT = "res/fonts/arial.ttf";
 

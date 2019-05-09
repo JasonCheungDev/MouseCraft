@@ -1,11 +1,9 @@
 #include "Transform.h"
+
+#include "../OmegaEngineDefines.h"
+
 #include <iostream>
-
-#define _USE_MATH_DEFINES
 #include <math.h>
-
-#define GLM_ENABLE_EXPERIMENTAL	// I have no idea why we can't put this in main
-
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/quaternion.hpp>
 #include <glm/gtx/euler_angles.hpp>

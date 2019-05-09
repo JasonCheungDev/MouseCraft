@@ -1,6 +1,6 @@
 #pragma once
 
-#define GLM_ENABLE_EXPERIMENTAL	// I have no idea why we can't put this in main
+#include "../OmegaEngineDefines.h"
 
 #include <vector>
 #include <unordered_map>

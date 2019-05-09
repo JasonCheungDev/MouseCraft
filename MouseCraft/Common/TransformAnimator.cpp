@@ -1,8 +1,8 @@
 #include "TransformAnimator.h"
 
-#include "Core/Entity.h"
-
-#include "Loading/ResourceCache.h"
+#include "../Core/Entity.h"
+#include "../Core/ComponentFactory.h"
+#include "../Loading/ResourceCache.h"
 
 TransformAnimator::TransformAnimator()
 {
@@ -90,7 +90,7 @@ bool TransformAnimator::GetOneShot() const
 
 Component * TransformAnimator::Create(json json)
 {
-	auto c = ComponentManager<UpdatableComponent>::Instance().Create<TransformAnimator>();
+	auto c = ComponentFactory::Create<TransformAnimator>();
 	c->_speed = json["speed"].get<float>();
 	c->_oneShot = json["one_shot"].get<bool>();
 

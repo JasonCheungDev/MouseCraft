@@ -1,8 +1,8 @@
 #include "NetworkSystem.h"
 
-#include "../Core/ComponentManager.h"
 #include "../Input/InputSystem.h"
 #include "../Core/OmegaEngine.h"
+#include "../Core/ComponentFactory.h"
 #include "NetState.h"
 #include <iostream>
 #include <string>
@@ -37,7 +37,7 @@ NetworkComponent * NetworkSystem::CreateComponent() {
 NetworkComponent * NetworkSystem::CreateComponent(unsigned int netID) {
     NetworkComponent::NetAuthority auth = _role == HOST ? NetworkComponent::NetAuthority::AUTHORITATIVE : NetworkComponent::NetAuthority::SIMULATED;
 
-    NetworkComponent *comp = ComponentManager<NetworkComponent>::Instance().Create<NetworkComponent, unsigned int, NetworkComponent::NetAuthority>(netID, auth);
+    NetworkComponent *comp = ComponentFactory::Create<NetworkComponent>(netID, auth);
     _componentList[netID] = comp;
 
     return comp;

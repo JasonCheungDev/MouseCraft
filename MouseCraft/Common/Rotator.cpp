@@ -1,6 +1,7 @@
 #include "Rotator.h"
 
-#include "Core/Entity.h"
+#include "../Core/Entity.h"
+#include "../Core/ComponentFactory.h"
 
 Rotator::Rotator()
 {
@@ -17,7 +18,7 @@ void Rotator::Update(float deltaTime)
 
 Component * Rotator::Create(json json)
 {
-	auto c = ComponentManager<UpdatableComponent>::Instance().Create<Rotator>();
+	auto c = ComponentFactory::Create<Rotator>();
 	c->rotationSpeed = glm::vec3(
 		json["speed"][0].get<float>(),
 		json["speed"][1].get<float>(),

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/UpdatableComponent.h"
+#include "../Core/UpdatableComponent.h"
 
 class TimedDestruction : public UpdatableComponent
 {

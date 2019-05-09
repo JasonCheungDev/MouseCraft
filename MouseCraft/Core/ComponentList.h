@@ -2,9 +2,9 @@
 
 #include <vector>
 #include "ComponentFactory.h"
-#include "Core/Component.h"
-#include "Core/Handle.h"
-#include "Event/EventManager.h"
+#include "Component.h"
+#include "Handle.h"
+#include "../Event/EventManager.h"
 
 template<class ComponentType>
 class ComponentList : public ISubscriber

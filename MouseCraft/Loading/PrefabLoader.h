@@ -3,8 +3,7 @@
 #include "../Core/Component.h"
 #include "../Core/Entity.h"
 #include "../Core/EntityManager.h"
-#include "../Core/ComponentManager.h"
-#include "../json.hpp"
+#include <json.hpp>
 #include "../Loading/ResourceCache.h"
 #include <glm/glm.hpp>
 #include <map>

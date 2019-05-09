@@ -1,7 +1,7 @@
 #include "MainScene.h"
 
 #include "Core/EntityManager.h"
-#include "ComponentFactory.h"
+#include "Core/ComponentFactory.h"
 #include "Rendering/CubeMesh.h"
 #include "Rendering/RenderComponent.h"
 #include "Rendering/Camera.h"

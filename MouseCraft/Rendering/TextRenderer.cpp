@@ -3,9 +3,9 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
-#include "../GL/glad.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "../GL/glad.h"
 #include "Shader.h"
 
 void GLAPIENTRY

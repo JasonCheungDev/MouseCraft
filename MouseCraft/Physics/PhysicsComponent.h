@@ -7,7 +7,7 @@
 #include "../Event/Subject.h"
 #include "PhysicsManager.h"
 #include "../Loading/PrefabLoader.h"
-#include "../json.hpp"
+#include <json.hpp>
 using json = nlohmann::json;
 
 constexpr auto FALL_FORWARD_VELOCITY = 20;

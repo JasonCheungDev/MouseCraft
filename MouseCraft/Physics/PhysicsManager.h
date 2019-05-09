@@ -7,7 +7,6 @@
 #include <utility>
 #include <set>
 #include "../Core/System.h"
-#include "../Core/ComponentManager.h"
 #include "PhysicsComponent.h"
 #include <glm/glm.hpp>
 #include "PhysObjectType.h"

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../OmegaEngineDefines.h"
+
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <climits>
@@ -9,9 +11,17 @@
 #include "../Event/EventManager.h"
 #include "../Util/CpuProfiler.h"
 
+#ifndef MAX_PLAYERS
 #define MAX_PLAYERS 4
+#endif // !MAX_PLAYERS
+
+#ifndef JOYSTICK_DEADZONE
 #define JOYSTICK_DEADZONE 0.1
+#endif // !JOYSTICK_DEADZONE
+
+#ifndef DEBUG_PLAYER
 #define DEBUG_PLAYER 10
+#endif // !DEBUG_PLAYER
 
 // Defines the possible axis this game supports.
 // Note: Order matters, should always be Master, Horizontal, Vertical.

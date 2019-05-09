@@ -1,9 +1,9 @@
 #pragma once
 
 #include <map>
-#include "Core/Component.h"
-#include "Event/EventManager.h"
-#include "ComponentMan.h"
+#include "Component.h"
+#include "ComponentManager.h"
+#include "../Event/EventManager.h"
 
 class ComponentFactory
 {
@@ -40,10 +40,10 @@ public:
 	ComponentType* CreateComponent(Args... args)
 	{
 		// create component 
-		auto newComponent = ComponentMan<ComponentType>::Instance().Create(args...);
+		auto newComponent = ComponentManager<ComponentType>::Instance().Create(args...);
 		
 		// add to directory 
-		_componentDirectory[newComponent] = &ComponentMan<ComponentType>::Instance();
+		_componentDirectory[newComponent] = &ComponentManager<ComponentType>::Instance();
 
 		// raise event
 		EventManager::Notify(EventName::COMPONENT_ADDED, new TypeParam<Component*>(newComponent));
@@ -64,7 +64,7 @@ public:
 	}
 
 	// returns the component directory. only call this if you know what you're doing.
-	const std::map<Component*, IComponentMan*>& GetComponentDirectory()
+	const std::map<Component*, IComponentManager*>& GetComponentDirectory()
 	{
 		return _componentDirectory;
 	}
@@ -72,6 +72,6 @@ public:
 // variables 
 private:
 	// points to the IComponentManager that is managing Component with ID. 
-	std::map<Component*, IComponentMan*> _componentDirectory;
+	std::map<Component*, IComponentManager*> _componentDirectory;
 };
 

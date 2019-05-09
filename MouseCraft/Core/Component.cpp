@@ -1,7 +1,6 @@
 #include "Component.h"
 #include <iostream>
 #include "../Event/EventManager.h"
-#include "ComponentManager.h"
 #include "Entity.h"
 
 unsigned int Component::_curID = 0;
@@ -9,15 +8,11 @@ unsigned int Component::_curID = 0;
 Component::Component() : _id(Component::_curID++)
 {
 	// std::cout << "Component created" << std::endl;
-	//TypeParam<Component*> param(this);
-	//EventManager::Notify(COMPONENT_ADDED, &param, false);
 }
 
 Component::~Component()
 {
 	// std::cout << "Component destroyed" << std::endl;
-	TypeParam<Component*> param(this);
-	EventManager::Notify(COMPONENT_REMOVED, &param, false);
 }
 
 // Note: Looks kind of strange but this is to prevent components

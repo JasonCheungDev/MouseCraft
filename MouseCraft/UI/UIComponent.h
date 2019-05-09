@@ -8,7 +8,8 @@
 #include <glm/vec4.hpp>
 #include "../Core/Component.h"
 #include "../Core/Entity.h"
-#include "../Graphics/Color.h"
+#include "../Core/Rect.h"
+#include "../Rendering/Color.h"
 
 class UIRoot;
 
@@ -28,21 +29,6 @@ enum AnchorType {
 // The unit type for the size of the UIComponent
 enum UnitType {
     UNIT_PIXEL, UNIT_PERCENT, UNIT_SCALE
-};
-
-struct Rect
-{
-	float left;
-	float top;
-	float right;
-	float bottom;
-
-	float getWidth() { return abs(right - left); }
-	float getHeight() { return abs(top - bottom); }
-	glm::vec2 getSize() { return glm::vec2(getWidth(), getHeight()); }
-	float getXCenter() { return (left + right) / 2;}
-	float getYCenter() { return (bottom + top) / 2; }
-	glm::vec2 getCenter() { return glm::vec2(getXCenter(), getYCenter()); }
 };
 
 /**

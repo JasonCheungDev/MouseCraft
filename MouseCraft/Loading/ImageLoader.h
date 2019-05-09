@@ -1,5 +1,5 @@
 #pragma once
-#include "../Graphics/Image.h"
+#include "../Rendering/Image.h"
 #include <string>
 
 class ImageLoader {

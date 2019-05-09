@@ -1,7 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include "Graphics/Image.h"
+#include "Image.h"
 
 class Texture
 {

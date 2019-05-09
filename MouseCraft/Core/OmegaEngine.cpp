@@ -4,7 +4,7 @@
 #include "../gl/glad.h"
 #include "TaskScheduler.h"
 #include "../Event/EventManager.h"
-#include "../Graphics/Window.h" 
+#include "../Rendering/Window.h" 
 
 OmegaEngine::~OmegaEngine()
 {

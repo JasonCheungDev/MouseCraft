@@ -1,5 +1,5 @@
 #include "UIImage.h"
-#include "../Texture.h"
+#include "../Rendering/Texture.h"
 #include "../Loading/TextureLoader.h"
 
 UIImage::UIImage(std::string imagePath, float width, float height, float x, float y) :

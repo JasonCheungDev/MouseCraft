@@ -1,20 +1,30 @@
 #pragma once
 
-#include "../GL/glad.h"
-#include <glm/glm.hpp>
-#include <ft2build.h>
-#include <freetype/freetype.h>
+#include "../OmegaEngineDefines.h"
+
 #include <string>
 #include <map>
 #include <vector>
 #include <array>
+#include "../GL/glad.h"
+#include <glm/glm.hpp>
+#include <ft2build.h>
+#include <freetype/freetype.h>
 #include "Shader.h"
+#include "../Core/Rect.h"
 
-// todo:
-#include "../UI/UIComponent.h"
+#ifndef FONT_MANAGER_DEFAULT_FONT
 #define FONT_MANAGER_DEFAULT_FONT "res/fonts/arial.ttf"
+#endif // !FONT_MANAGER_DEFAULT_FONT
+
+#ifndef FONT_MANAGER_DEFAULT_FONTSIZE
 #define FONT_MANAGER_DEFAULT_FONTSIZE 48
+#endif // !FONT_MANAGER_DEFAULT_FONTSIZE
+
+#ifndef FREETYPE_DYNAMIC_WIDTH
 #define FREETYPE_DYNAMIC_WIDTH 0
+#endif // !FREETYPE_DYNAMIC_WIDTH
+
 
 // Alignment for text
 enum class TextAlignment { Left, Center, Right };

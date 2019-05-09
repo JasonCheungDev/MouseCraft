@@ -1,5 +1,5 @@
 #include "UIComponent.h"
-#include "../Graphics/ModelGen.h"
+#include "../Rendering/ModelGen.h"
 #include <iostream>
 #include "../Core/OmegaEngine.h"
 

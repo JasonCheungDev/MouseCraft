@@ -1,5 +1,8 @@
 #include "PhysicsManager.h"
 
+#include "../Core/ComponentManager.h"
+#include "../Core/ComponentFactory.h"
+
 PhysicsManager* PhysicsManager::pmInstance;
 
 PhysicsManager::PhysicsManager()
@@ -133,7 +136,7 @@ void PhysicsManager::setupGrid(int w, int h, int scale)
 
 PhysicsComponent* PhysicsManager::createObject(float x, float y, float w, float h, float r, PhysObjectType::PhysObjectType t)
 {
-	PhysicsComponent* physicsComp = ComponentManager<PhysicsComponent>::Instance().Create<PhysicsComponent>(t, 0, r, w, h);
+	PhysicsComponent* physicsComp = ComponentFactory::Create<PhysicsComponent>(t,0,r,w,h);
 
 	b2BodyDef bodyDef;
 	bodyDef.position.Set(x, y);
@@ -217,7 +220,7 @@ PhysicsComponent* PhysicsManager::createObject(float x, float y, float w, float 
 //For this function the position should be the top left corner
 PhysicsComponent* PhysicsManager::createGridObject(float x, float y, int w, int h, PhysObjectType::PhysObjectType t)
 {
-	PhysicsComponent* physicsComp = ComponentManager<PhysicsComponent>::Instance().Create<PhysicsComponent>(t, 0, 0, w, h);
+	PhysicsComponent* physicsComp = ComponentFactory::Create<PhysicsComponent>(t,0,0,w,h);
 
 	b2BodyDef bodyDef;
 	bodyDef.active = true;	//wait for component to be active (valid state)

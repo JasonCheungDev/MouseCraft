@@ -5,14 +5,14 @@
 #include <vector>
 #include "UIImage.h"
 #include "UIText.h"
-#include "../ComponentMan.h"
+#include "../Core/ComponentManager.h"
 #include "UIRoot.h"
 
 UIManager::UIManager(){}
 
 void UIManager::Update(float dt) 
 {
-	auto canvases = ComponentMan<UIRoot>::Instance().All();
+	auto canvases = ComponentManager<UIRoot>::Instance().All();
 	for (auto& canvas : canvases)
 		if (canvas->GetActive())
 			canvas->Resize();

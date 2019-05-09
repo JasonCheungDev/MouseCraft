@@ -1,5 +1,7 @@
 #include "ImageLoader.h"
-#define STB_IMAGE_IMPLEMENTATION
+
+#include "../OmegaEngineDefines.h"
+
 #include "stb_image.h"
 #include <iostream>
 

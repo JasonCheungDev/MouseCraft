@@ -3,8 +3,8 @@
 #include <string>
 #include <vector>
 #include <glm/glm.hpp>
-#include "../Texture.h"
-#include "../CubeMap.h"
+#include "../Rendering/Texture.h"
+#include "../Rendering/CubeMap.h"
 
 class TextureLoader
 {

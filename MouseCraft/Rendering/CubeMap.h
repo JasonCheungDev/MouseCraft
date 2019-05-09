@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <glm/glm.hpp>
-#include "Graphics/Image.h"
+#include "Image.h"
 
 class CubeMap
 {

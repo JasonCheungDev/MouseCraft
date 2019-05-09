@@ -4,7 +4,7 @@
 #include "../UI/UIImage.h"
 #include "../Core/EntityManager.h"
 #include <sstream>
-#include "../Graphics/Color.h"
+#include "../Rendering/Color.h"
 
 //using namespace tinyxml2;
 

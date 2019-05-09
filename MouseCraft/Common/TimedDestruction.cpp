@@ -1,6 +1,6 @@
 #include "TimedDestruction.h"
 
-#include "Core/Entity.h"
+#include "../Core/Entity.h"
 
 TimedDestruction::TimedDestruction()
 {

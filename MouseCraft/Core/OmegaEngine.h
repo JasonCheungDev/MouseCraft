@@ -1,6 +1,6 @@
 #pragma once
 
-#define SDL_MAIN_HANDLED
+#include "../OmegaEngineDefines.h"
 
 #include <typeindex>
 #include <typeinfo>
@@ -19,11 +19,15 @@
 #include "Scene.h"
 #include "../Util/CpuProfiler.h"
 #include "StatusAction.h"
-#include "../Graphics/Window.h"
+#include "../Rendering/Window.h"
 
-// Screen dimension constants
-const int SCREEN_WIDTH = 1280;
-const int SCREEN_HEIGHT = 720;
+#ifndef SCREEN_WIDTH
+#define SCREEN_WIDTH 1280
+#endif // !SCREEN_WIDTH
+
+#ifndef SCREEN_HEIGHT
+#define SCREEN_HEIGHT 720
+#endif // !SCREEN_HEIGHT
 
 class OmegaEngine
 {

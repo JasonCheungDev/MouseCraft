@@ -5,20 +5,18 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
-#include "Shader.h"
 #include "Constants.h"
-#include "PostProcess\PostProcess.h"
-#include "PostProcess\NegativePP.h"
-#include "PostProcess\BlurPP.h"
-#include "PostProcess\FxaaPP.h"
-//#include "../Core/Game.h"
-// #include "../Core/ComponentManager.h"
-#include "../ComponentMan.h"
+#include "Shader.h"
+#include "Texture.h"
+#include "PostProcess/PostProcess.h"
+#include "PostProcess/NegativePP.h"
+#include "PostProcess/BlurPP.h"
+#include "PostProcess/FxaaPP.h"
+#include "../Core/ComponentManager.h"
 #include "../Core/OmegaEngine.h"
 #include "TextRenderer.h"
 #include "../UI/UIImage.h"
 #include "../UI/UIText.h"
-#include "../Texture.h"
 
 RenderingSystem::RenderingSystem() : System()
 {
@@ -143,7 +141,7 @@ void RenderingSystem::RenderGeometryPass()
 	geometryShader->setMat4(SHADER_VIEW, view);
 	
 	// go thru each component 
-	auto components = ComponentMan<RenderComponent>::Instance().All();
+	auto components = ComponentManager<RenderComponent>::Instance().All();
 	
 	for (auto& rc : components)
 	{
@@ -178,8 +176,8 @@ void RenderingSystem::RenderGeometryPass()
 void RenderingSystem::RenderShadowMapsPass()
 {
 	// 2nd Pass - lighting shadow map   
-	auto components = ComponentMan<DirectionalLight>::Instance().All();
-	auto render_components = ComponentMan<RenderComponent>::Instance().All();
+	auto components = ComponentManager<DirectionalLight>::Instance().All();
+	auto render_components = ComponentManager<RenderComponent>::Instance().All();
 	for (auto& dl : components)
 	{
 		shadowmapShader->use();
@@ -246,7 +244,7 @@ void RenderingSystem::RenderDirectionalLightingPass()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
-	auto dlights = ComponentMan<DirectionalLight>::Instance().All();
+	auto dlights = ComponentManager<DirectionalLight>::Instance().All();
 	for (auto& dl : dlights)
 	{
 		compDLightShader->setVec3("u_LightPos", dl->GetEntity()->transform.getWorldPosition());
@@ -298,7 +296,7 @@ void RenderingSystem::RenderPointLightingPass()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
-	auto plights = ComponentMan<PointLight>::Instance().All();
+	auto plights = ComponentManager<PointLight>::Instance().All();
 	for (auto& pl : plights)
 	{
 		compPLightShader->setVec3(SHADER_LIGHT_POS, pl->GetEntity()->transform.getWorldPosition());
@@ -429,7 +427,7 @@ void RenderingSystem::RenderUIImagesPass()
 	//}
 
 	imageShader->use();
-	auto imgs = ComponentMan<UIImage>::Instance().All();
+	auto imgs = ComponentManager<UIImage>::Instance().All();
 	for (auto& i : imgs)
 	{
 		i->Resize();
@@ -453,7 +451,7 @@ void RenderingSystem::RenderUIImagesPass()
 		glBindVertexArray(0);
 	}
 
-	auto txts = ComponentMan<UIText>::Instance().All();
+	auto txts = ComponentManager<UIText>::Instance().All();
 	for (auto& t : txts)
 	{
 		t->Resize();
@@ -723,7 +721,7 @@ void RenderingSystem::Update(float dt)
 
 	// use first main camera
 	SetCamera(nullptr);
-	auto _cams = ComponentMan<Camera>::Instance().All();
+	auto _cams = ComponentManager<Camera>::Instance().All();
 	for (auto& c : _cams)
 	{
 		if (c->isMain)

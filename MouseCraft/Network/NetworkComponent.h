@@ -5,7 +5,7 @@
 #include <queue>
 #include "NetState.h"
 
-#include "../json.hpp"
+#include <json.hpp>
 #include "../Loading/PrefabLoader.h"
 
 using json = nlohmann::json;
