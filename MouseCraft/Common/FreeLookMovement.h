@@ -10,7 +10,7 @@ class FreeLookMovement : public UpdatableComponent, public ISubscriber
 public:
 	FreeLookMovement();
 	~FreeLookMovement();
-	virtual void Update(float deltaTime);
+	virtual void FixedUpdate(float deltaTime, int steps) override;
 	float moveSpeed = 2.5f;
 	float turnSpeed = 1.0f;
 	void Notify(EventName eventName, Param* params) override;

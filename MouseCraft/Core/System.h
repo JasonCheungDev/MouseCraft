@@ -6,5 +6,6 @@ public:
 	System();
 	~System();
 	
-	virtual void Update(float dt) = 0;
+	virtual void Update(float dt) {};
+	virtual void FixedUpdate(float dt, int steps) {};
 };

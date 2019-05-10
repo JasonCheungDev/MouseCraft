@@ -14,16 +14,16 @@ FreeLookMovement::~FreeLookMovement()
 {
 }
 
-void FreeLookMovement::Update(float deltaTime)
+void FreeLookMovement::FixedUpdate(float deltaTime, int steps)
 {
+	std::cout << deltaTime << std::endl;
+
 	glm::vec2 move = moveInput * moveSpeed * deltaTime;
 	GetEntity()->t().translate(GetEntity()->t().forward() * -move.y);
 	GetEntity()->t().translate(GetEntity()->t().right() * move.x);
 
 	glm::vec2 turn = -turnInput * turnSpeed * deltaTime;
 	GetEntity()->t().rotate(glm::vec3(turn.y, turn.x, 0));
-
-	std::cout << move.x << std::endl;
 }
 
 void FreeLookMovement::Notify(EventName eventName, Param* params)

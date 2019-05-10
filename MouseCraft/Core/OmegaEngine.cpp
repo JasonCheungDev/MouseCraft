@@ -111,13 +111,16 @@ Entity* OmegaEngine::GetRoot() const
 
 void OmegaEngine::sequential_loop()
 {
+	typedef std::chrono::duration<float> seconds;
+
 	auto timestamp = std::chrono::high_resolution_clock::now();
+	auto fixedTimeStamp = timestamp;
+	auto fixedTimeStep = std::chrono::milliseconds(1000) / 120;
 
 	while (_isRunning)
 	{
 		auto now = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<float> delta = now - timestamp;
-		auto deltaSeconds = delta.count();
+		seconds deltaSeconds = now - timestamp;
 		timestamp = now;
 
 		_profiler.StartTimer(0);
@@ -131,7 +134,7 @@ void OmegaEngine::sequential_loop()
 		}
 		else
 		{
-			_activeScene->Update(deltaSeconds);
+			_activeScene->Update(deltaSeconds.count());
 		}
 		_profiler.StopTimer(1);
 
@@ -172,9 +175,19 @@ void OmegaEngine::sequential_loop()
 		precomputeTransforms(&_activeScene->root);
 		_profiler.StopTimer(3);
 
+		// Fixed update 
+		auto fixedDelta = now - fixedTimeStamp;		// find the overall delay from last fixed update 
+		auto steps = fixedDelta / fixedTimeStep;	// determine number of steps to perform 
+		auto fixedStep = fixedTimeStep * steps;		// calculate overall time to step 
+		seconds fixedStepSeconds = fixedStep;		// cast to seconds 
+		fixedTimeStamp += fixedStep;				// update last fixed update 
+		
+		auto fDeltaParam = new TypeParam<std::pair<float,int>>(std::make_pair(fixedStepSeconds.count(), steps));
+		EventManager::Notify(EventName::COMPONENT_F_UPDATE, fDeltaParam);
+
 		// PHASE 2: Component Update
 		_profiler.StartTimer(4);
-		auto deltaParam = new TypeParam<float>(deltaSeconds);	// Consider: Using unique-pointer for self-destruct
+		auto deltaParam = new TypeParam<float>(deltaSeconds.count());	// Consider: Using unique-pointer for self-destruct
 		EventManager::Notify(EventName::COMPONENT_UPDATE, deltaParam);	// serial
 		delete(deltaParam);
 		_profiler.StopTimer(4);
@@ -185,7 +198,11 @@ void OmegaEngine::sequential_loop()
 		_profiler.StartTimer(5);
 		for (auto& s : _systems)
 		{
-			s->Update(deltaSeconds);
+			s->FixedUpdate(fixedStepSeconds.count(), steps);
+		}
+		for (auto& s : _systems)
+		{
+			s->Update(deltaSeconds.count());
 		}
 		_profiler.StopTimer(5);
 
