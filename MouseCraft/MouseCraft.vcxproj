@@ -161,9 +161,9 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
   <ItemGroup>
     <ClCompile Include="Common\FreeLookMovement.cpp" />
     <ClCompile Include="Common\Animation.cpp" />
+    <ClCompile Include="Common\PhysicsMover.cpp" />
     <ClCompile Include="Core\System.cpp" />
     <ClCompile Include="Core\UpdateSystem.cpp" />
-    <ClCompile Include="PhysicsMover.cpp" />
     <ClCompile Include="Physics\PhysicsUtil.cpp" />
     <ClCompile Include="PrefabScene.cpp" />
     <ClCompile Include="Rendering\CubeMap.cpp" />
@@ -248,13 +248,13 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
   <ItemGroup>
     <ClInclude Include="Common\FreeLookMovement.h" />
     <ClInclude Include="Common\Animation.h" />
+    <ClInclude Include="Common\PhysicsMover.h" />
     <ClInclude Include="Core\ComponentFactory.h" />
     <ClInclude Include="Core\Rect.h" />
     <ClInclude Include="Core\System.h" />
     <ClInclude Include="Core\UpdateSystem.h" />
     <ClInclude Include="Core\Vector2D.h" />
     <ClInclude Include="OmegaEngineDefines.h" />
-    <ClInclude Include="PhysicsMover.h" />
     <ClInclude Include="Physics\PhysicsUtil.h" />
     <ClInclude Include="PrefabScene.h" />
     <ClInclude Include="Rendering\CubeMap.h" />

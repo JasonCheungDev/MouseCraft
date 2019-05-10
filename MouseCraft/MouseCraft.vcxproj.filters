@@ -363,9 +363,6 @@
     <ClCompile Include="Common\FreeLookMovement.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicsMover.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Core\System.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -373,6 +370,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Physics\PhysicsUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\PhysicsMover.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -680,13 +680,13 @@
     <ClInclude Include="Physics\PhysicsUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsMover.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Core\System.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\UpdateSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\PhysicsMover.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
