@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <iostream>
 #include "Core/OmegaEngine.h"
+#include "Core/UpdateSystem.h"
 #include "Input/InputSystem.h"
 #include "Loading/PrefabLoader.h"
 #include "Network/NetworkSystem.h"
@@ -41,7 +42,8 @@ void MainTest()
 	rs->SetSize(OmegaEngine::Instance().getWindow()->getWidth(), OmegaEngine::Instance().getWindow()->getHeight());
 
 	//Add the systems
-	OmegaEngine::Instance().AddSystem(PhysicsManager::instance());
+	OmegaEngine::Instance().AddSystem(new UpdateSystem());
+	OmegaEngine::Instance().AddSystem(&PhysicsManager::Instance());
 	OmegaEngine::Instance().AddSystem(rs);
 	OmegaEngine::Instance().AddSystem(inputSystem);
 	OmegaEngine::Instance().AddSystem(NetworkSystem::Instance());

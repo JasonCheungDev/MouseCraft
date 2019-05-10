@@ -161,6 +161,10 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
   <ItemGroup>
     <ClCompile Include="Common\FreeLookMovement.cpp" />
     <ClCompile Include="Common\Animation.cpp" />
+    <ClCompile Include="Core\System.cpp" />
+    <ClCompile Include="Core\UpdateSystem.cpp" />
+    <ClCompile Include="PhysicsMover.cpp" />
+    <ClCompile Include="Physics\PhysicsUtil.cpp" />
     <ClCompile Include="PrefabScene.cpp" />
     <ClCompile Include="Rendering\CubeMap.cpp" />
     <ClCompile Include="Event\Handler.cpp" />
@@ -170,7 +174,6 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClCompile Include="Core\Component.cpp" />
     <ClCompile Include="Core\Entity.cpp" />
     <ClCompile Include="Core\Handle.cpp" />
-    <ClCompile Include="Core\System.cpp" />
     <ClCompile Include="Core\Task.cpp" />
     <ClCompile Include="Core\TaskScheduler.cpp" />
     <ClCompile Include="Core\Transform.cpp" />
@@ -247,8 +250,12 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClInclude Include="Common\Animation.h" />
     <ClInclude Include="Core\ComponentFactory.h" />
     <ClInclude Include="Core\Rect.h" />
+    <ClInclude Include="Core\System.h" />
+    <ClInclude Include="Core\UpdateSystem.h" />
     <ClInclude Include="Core\Vector2D.h" />
     <ClInclude Include="OmegaEngineDefines.h" />
+    <ClInclude Include="PhysicsMover.h" />
+    <ClInclude Include="Physics\PhysicsUtil.h" />
     <ClInclude Include="PrefabScene.h" />
     <ClInclude Include="Rendering\CubeMap.h" />
     <ClInclude Include="Event\Handler.h" />
@@ -276,7 +283,6 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClInclude Include="Core\Entity.h" />
     <ClInclude Include="Core\Handle.h" />
     <ClInclude Include="Core\RootEntity.h" />
-    <ClInclude Include="Core\System.h" />
     <ClInclude Include="Core\Task.h" />
     <ClInclude Include="Core\TaskScheduler.h" />
     <ClInclude Include="Core\Transform.h" />

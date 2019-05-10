@@ -35,6 +35,4 @@ void FreeLookMovement::Notify(EventName eventName, Param* params)
 		else if (data.axis == Axis::RIGHT)
 			turnInput = data.GetClamped();
 	}
-
-	UpdatableComponent::Notify(eventName, params);
 }

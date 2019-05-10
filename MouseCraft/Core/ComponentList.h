@@ -24,10 +24,8 @@ private:
 		for (auto& kvp : ComponentFactory::Instance().GetComponentDirectory())
 		{
 			auto c = dynamic_cast<ComponentType*>(kvp.first);
-			if (c) 
-				_data.push_back();
+			if (c) _data.push_back(c);
 		}
-
 		EventManager::Subscribe(EventName::COMPONENT_ADDED, this);
 	};
 	~ComponentList()
@@ -46,9 +44,9 @@ public:
 	{
 		if (name == EventName::COMPONENT_ADDED)
 		{
-			auto component = static_cast<TypeParam<Component*>*>(params)->Param;
+			auto* component = static_cast<TypeParam<Component*>*>(params)->Param;
 			auto myType = dynamic_cast<ComponentType*>(component);
-			if (myType)
+			if (myType) 
 			{
 				_data.push_back(myType);
 			}
@@ -67,6 +65,6 @@ public:
 
 // variables
 private:
-	std::vector<HandlePointer<ComponentType>*> _data;
+	std::vector<ComponentType*> _data;
 };
 

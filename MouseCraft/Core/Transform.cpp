@@ -225,7 +225,7 @@ float Transform::getAngle2D(glm::vec2 dir)
 {
 	auto rotation = glm::atan(dir.x / dir.y);
 	if (dir.y >= 0)
-		rotation += M_PI;
+		rotation += glm::pi<float>();
 	return rotation;
 }
 

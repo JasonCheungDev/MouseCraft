@@ -3,7 +3,6 @@
 // !!!!! DO NO REMOVE !!!!!
 #define GLM_ENABLE_EXPERIMENTAL	
 #define SDL_MAIN_HANDLED
-#define _USE_MATH_DEFINES
 #define STB_IMAGE_IMPLEMENTATION
 
 // Remove below comments if you wish to change the default values

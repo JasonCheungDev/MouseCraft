@@ -147,9 +147,6 @@
     <ClCompile Include="Core\Entity.cpp">
       <Filter>Resource Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Core\System.cpp">
-      <Filter>Resource Files\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Core\Transform.cpp">
       <Filter>Resource Files\Core</Filter>
     </ClCompile>
@@ -366,6 +363,18 @@
     <ClCompile Include="Common\FreeLookMovement.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
+    <ClCompile Include="PhysicsMover.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\System.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\UpdateSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -402,9 +411,6 @@
       <Filter>Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="Core\Entity.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\System.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="Core\Transform.h">
@@ -670,6 +676,18 @@
     </ClInclude>
     <ClInclude Include="Common\FreeLookMovement.h">
       <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsMover.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\UpdateSystem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
