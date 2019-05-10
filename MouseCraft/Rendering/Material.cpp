@@ -62,6 +62,11 @@ void Material::AddTexture(TextureShaderInfo& info)
 	textures.push_back(info);
 }
 
+void Material::AddTexture(const std::string& uniform, Texture* texture)
+{
+	textures.push_back({ uniform, texture });
+}
+
 void Material::AddTextures(const std::vector<TextureShaderInfo>& infos)
 {
 	textures.insert(textures.end(), infos.begin(), infos.end());

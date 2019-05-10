@@ -20,16 +20,25 @@ uniform float u_SpecularIntensity = 1.0f;
 
 void main() 
 {
-	vec3 normal = texture(u_TexNormal, f_Uv).xyz;
-	normal = normalize(normal * 2.0 - 1.0); // convert 0...1 to -1...1
-	normal = normalize(f_TBN * normal);
-
+	// position 
     o_Pos = f_Pos;
-    o_Nrm = f_Nrm;
-	vec3 color;
-	if (u_NoTexture)
-		color = u_Diffuse;
+
+	// normals 
+	if (textureSize(u_TexNormal, 0) == vec2(1,1))
+	{
+		// no texture is bound 
+		o_Nrm = f_Nrm;
+	}
 	else 
-		color = texture(u_TexDiffuse, f_Uv).rgb * u_Diffuse;
+	{
+		// normal map is bound
+		vec3 normal = texture(u_TexNormal, f_Uv).xyz;
+		normal = normalize(normal * 2.0 - 1.0); // convert 0...1 to -1...1
+		normal = normalize(f_TBN * normal);
+		o_Nrm = normal;
+	}
+	
+	// albedo 
+	vec3 color = texture(u_TexDiffuse, f_Uv).rgb * u_Diffuse;
 	o_Col = vec4(color, u_SpecularIntensity);
 }

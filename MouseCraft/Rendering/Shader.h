@@ -4,6 +4,8 @@
 #include "../GL/glad.h"
 #include <glm\glm.hpp>
 
+class Material;
+
 class Shader
 {
 public:
@@ -14,6 +16,8 @@ public:
 	~Shader();
 
 	void use(); 
+
+	Material* defaultSettings;
 
 	// https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/shader.h
 	// move this to implementation 

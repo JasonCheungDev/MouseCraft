@@ -20,24 +20,24 @@ PrefabScene::PrefabScene()
 	auto c_cam = ComponentFactory::Create<Camera>();
 	e_cam->AddComponent(c_cam);
 	auto c_player = 
-		ComponentFactory::Create<PhysicsMover>();
-		// ComponentFactory::Create<FreeLookMovement>();
+		//ComponentFactory::Create<PhysicsMover>();
+		ComponentFactory::Create<FreeLookMovement>();
 	e_cam->AddComponent(c_player);
 	auto c_phys = ComponentFactory::Create<PhysicsComponent>(1.0f, 1.0f);
-	e_cam->AddComponent(c_phys);
+	//e_cam->AddComponent(c_phys);
 
 	auto c_light = ComponentFactory::Create<DirectionalLight>();
 	auto e_light = EntityManager::Instance().Create();
 	e_light->AddComponent(c_light);
 	root.AddChild(e_light);
 
-	auto e = ModelLoader::Load("res/models/primitive/cube.obj");
+	auto e = ModelLoader::Load("res/models/primitive/cylinder.obj");
 	e->transform.setLocalPosition(glm::vec3(0, 0, -5));
 	root.AddChild(e);
 
-	//std::string path = "res/levels/demo";
-	//for (const auto& entry : fs::directory_iterator(path))
-	//	root.AddChild(PrefabLoader::LoadPrefab(entry.path().string()));
+	std::string path = "res/levels/demo";
+	for (const auto& entry : fs::directory_iterator(path))
+		root.AddChild(PrefabLoader::LoadPrefab(entry.path().string()));
 
 	int i = 0;
 }

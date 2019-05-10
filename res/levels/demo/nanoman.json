@@ -3,7 +3,7 @@
 		"type": "model",
 		"path": "res/models/nanosuit/nanosuit.obj"
 	},
-	"pos": [0,0,-5],
+	"pos": [0,-1,-5],
 	"scl": [0.25,0.25,0.25],
 	"rot": [0,0,0],
 	"components": [],

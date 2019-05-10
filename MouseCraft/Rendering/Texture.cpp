@@ -40,3 +40,4 @@ Texture::~Texture()
 {
 	glDeleteTextures(1, &_id);
 }
+

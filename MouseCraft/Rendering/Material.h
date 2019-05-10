@@ -57,6 +57,8 @@ public:
 
 	void AddTexture(TextureShaderInfo& info);
 
+	void AddTexture(const std::string& uniform, Texture* texture);
+
 	void AddTextures(const std::vector<TextureShaderInfo>& infos);
 
 	void SetVec3(const char* uniform, glm::vec3 value);

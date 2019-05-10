@@ -8,6 +8,7 @@
 #include "Constants.h"
 #include "Shader.h"
 #include "Texture.h"
+#include "Texture1x1.h"
 #include "PostProcess/PostProcess.h"
 #include "PostProcess/NegativePP.h"
 #include "PostProcess/BlurPP.h"
@@ -20,11 +21,35 @@
 #include "../UI/UIText.h"
 #include "../Loading/TextureLoader.h"
 
+
+
+void GLAPIENTRY
+MessageCallback(GLenum source,
+	GLenum type,
+	GLuint id,
+	GLenum severity,
+	GLsizei length,
+	const GLchar* message,
+	const void* userParam)
+{
+	fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
+		(type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
+		type, severity, message);
+}
+
+
+
+
 RenderingSystem::RenderingSystem() : System()
 {
+	//// During init, enable debug output
+	//glEnable(GL_DEBUG_OUTPUT);
+	//glDebugMessageCallback(MessageCallback, 0);
+
+
 	// system initialization 
 	// onlyReceiveFrameUpdates = true;
-
+	
 	// create profiler 
 	profiler.InitializeTimers(10);		// 1 for each pass so far 
 	cpuProfiler.InitializeTimers(10);	// 1 for each pass, 1 for general use, 1 for initialization
@@ -36,6 +61,13 @@ RenderingSystem::RenderingSystem() : System()
 
 	// initialize default shaders  
 	geometryShader = new Shader("res/shaders/geometry_vertex.glsl", "res/shaders/geometry_fragment.glsl");
+	Material* geometryDefaults		= new Material();
+	Texture1x1* diffuseDefaultTex	= new Texture1x1(glm::vec3(1.0f));
+	geometryDefaults->AddTexture(SHADER_TEX_DIFFUSE, diffuseDefaultTex);
+	Texture1x1* normalDefaultTex	= new Texture1x1(glm::vec3(0.0f, 0.0f, 1.0f));
+	geometryDefaults->AddTexture(SHADER_TEX_NORMAL, normalDefaultTex);
+	geometryShader->defaultSettings = geometryDefaults;
+
 	compDLightShader = new Shader("res/shaders/comp_vertex.glsl", "res/shaders/comp_dl_fragment.glsl");
 	compPLightShader = new Shader("res/shaders/comp_vertex.glsl", "res/shaders/comp_pl_fragment.glsl");
 	shadowmapShader = new Shader("res/shaders/shadowmap_vertex.glsl", "res/shaders/shadowmap_fragment.glsl");
@@ -43,6 +75,7 @@ RenderingSystem::RenderingSystem() : System()
 	postShader = new Shader("res/shaders/post_vertex.glsl", "res/shaders/post_fragment.glsl");
 	postToScreenShader = new Shader("res/shaders/post2screen_vertex.glsl", "res/shaders/post2screen_fragment.glsl");
 	skyboxShader = new Shader("res/shaders/skybox_vertex.glsl", "res/shaders/skybox_fragment.glsl");
+
 
 	// initialize frame buffers for geometry rendering pass 
 	// InitializeFrameBuffers(); waiting for screen size

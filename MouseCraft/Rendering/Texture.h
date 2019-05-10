@@ -27,11 +27,17 @@ public:
 	// Texture ID on the GPU. 
 	unsigned int GetId() { return _id; };
 
-private:
+protected:
+	// Special ctor for extending classes to override texture creation.
+	Texture() {};
+
+protected:
 	glm::ivec2 _size;
 	unsigned int _channels;
 	unsigned int _id;
 };
+
+
 
 // simple wrapper to associate a texture with a shader's uniform
 struct TextureShaderInfo
