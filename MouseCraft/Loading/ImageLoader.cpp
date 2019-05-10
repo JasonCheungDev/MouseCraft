@@ -11,7 +11,7 @@ Image* ImageLoader::loadImage(string filename) {
 	int width;
 	int height;
 	int channels;
-	stbi_set_flip_vertically_on_load(true);
+	// stbi_set_flip_vertically_on_load(true);
 	unsigned char* data = stbi_load(filename.c_str(), &width, &height, &channels, 0);
 	if (!data) {
 		std::cerr << "Problem opening file " << filename << std::endl;

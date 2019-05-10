@@ -16,8 +16,6 @@ FreeLookMovement::~FreeLookMovement()
 
 void FreeLookMovement::FixedUpdate(float deltaTime, int steps)
 {
-	std::cout << deltaTime << std::endl;
-
 	glm::vec2 move = moveInput * moveSpeed * deltaTime;
 	GetEntity()->t().translate(GetEntity()->t().forward() * -move.y);
 	GetEntity()->t().translate(GetEntity()->t().right() * move.x);

@@ -13,6 +13,7 @@
 #include "PostProcess\PostProcess.h"
 #include "FrameBuffer.h"
 #include "GBuffer.h"
+#include "CubeMap.h"
 
 class RenderingSystem : public System
 {
@@ -27,8 +28,6 @@ public:
 	Shader* postToScreenShader;	// default shader to move final texture to back buffer
 	Shader* skyboxShader;		// default shader for skybox
 
-	unsigned int skyboxTexture;
-
 private:
 	OpenGLProfiler profiler;
 	CpuProfiler cpuProfiler;
@@ -37,6 +36,7 @@ private:
 	FrameBuffer* ppWriteFBO;
 	FrameBuffer* ppReadFBO;
 	unsigned int screenWidth, screenHeight; 
+	CubeMap* skyboxTexture;
 
 	std::map<std::string, std::unique_ptr<PostProcess>> _postProcesses;
 
@@ -56,7 +56,7 @@ public:
 	void addPostProcess(const std::string name, std::unique_ptr<PostProcess> postProcess);
 	void removePostProcess(const std::string name);
 	PostProcess* getPostProcess(const std::string name);
-	void setSkybox(unsigned int cubemapId);
+	void setSkybox(CubeMap* cubemap);
 
 private: 
 	

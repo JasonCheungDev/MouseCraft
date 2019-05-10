@@ -4,6 +4,7 @@
 #include <iostream>
 #include <filesystem>
 #include "Loading/PrefabLoader.h"
+#include "Loading/ModelLoader.h"
 #include "Core/ComponentFactory.h"
 #include "Rendering/Camera.h"
 #include "Rendering/Lighting/DirectionalLight.h"
@@ -24,9 +25,11 @@ PrefabScene::PrefabScene()
 	e_light->AddComponent(c_light);
 	root.AddChild(e_light);
 
-	std::string path = "res/levels/demo";
-	for (const auto& entry : fs::directory_iterator(path))
-		root.AddChild(PrefabLoader::LoadPrefab(entry.path().string()));
+	root.AddChild(ModelLoader::Load("res/models/primitive/cube.obj"));
+
+	//std::string path = "res/levels/demo";
+	//for (const auto& entry : fs::directory_iterator(path))
+	//	root.AddChild(PrefabLoader::LoadPrefab(entry.path().string()));
 
 	int i = 0;
 }

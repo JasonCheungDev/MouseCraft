@@ -74,7 +74,7 @@ CubeMap* TextureLoader::LoadCubeMap(std::vector<std::string> facesPath)
 		return cubemap;
 
 	// Create cubemap otherwise
-	std::vector<Image*> images(6);
+	std::vector<Image*> images;
 	for (unsigned int i = 0; i < 6; i++)
 		images.push_back(ImageLoader::loadImage(facesPath[i]));
 
@@ -92,7 +92,7 @@ CubeMap* TextureLoader::LoadCubeMap(std::vector<std::string> facesPath)
 
 CubeMap* TextureLoader::LoadCubeMapCopy(std::vector<std::string> facesPath)
 {
-	std::vector<Image*> images(6);
+	std::vector<Image*> images;
 	for (unsigned int i = 0; i < 6; i++)
 		images.push_back(ImageLoader::loadImage(facesPath[i]));
 

@@ -18,6 +18,7 @@
 #include "TextRenderer.h"
 #include "../UI/UIImage.h"
 #include "../UI/UIText.h"
+#include "../Loading/TextureLoader.h"
 
 RenderingSystem::RenderingSystem() : System()
 {
@@ -85,15 +86,16 @@ RenderingSystem::RenderingSystem() : System()
 
 	// default skybox 
 	std::vector<std::string> skyboxFaces = {
-		"textures/cubemaps/skybox/right.jpg",
-		"textures/cubemaps/skybox/left.jpg",
-		"textures/cubemaps/skybox/up.jpg",
-		"textures/cubemaps/skybox/down.jpg",
-		"textures/cubemaps/skybox/front.jpg",
-		"textures/cubemaps/skybox/back.jpg"
+		"res/textures/cubemaps/skybox/right.jpg",
+		"res/textures/cubemaps/skybox/left.jpg",
+		"res/textures/cubemaps/skybox/up.jpg",
+		"res/textures/cubemaps/skybox/down.jpg",
+		"res/textures/cubemaps/skybox/front.jpg",
+		"res/textures/cubemaps/skybox/back.jpg"
 	};
 	// auto skyboxTexId = Game::instance().loader.LoadCubemap(skyboxFaces);
-	// setSkybox(skyboxTexId);
+	
+	setSkybox(TextureLoader::LoadCubeMap(skyboxFaces));
 
 	cpuProfiler.StopTimer(7);
 }
@@ -326,7 +328,7 @@ void RenderingSystem::RenderPointLightingPass()
 void RenderingSystem::RenderSkyboxPass()
 {
 	// skybox pass 
-	if (skyboxTexture != 0)
+	if (skyboxTexture)
 	{
 		// set render target
 		ppWriteFBO->Draw(false);
@@ -338,7 +340,7 @@ void RenderingSystem::RenderSkyboxPass()
 		skyboxShader->setMat4(SHADER_PROJECTION, projection);
 		skyboxShader->setMat4(SHADER_VIEW, glm::mat4(glm::mat3(view)));	// view -> mat3 (remove translation) -> mat4 (compatable format)
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTexture);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTexture->GetId());
 		// draw 
 		glBindVertexArray(cubeVAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -742,9 +744,9 @@ PostProcess* RenderingSystem::getPostProcess(const std::string name)
 	return (pp != _postProcesses.end()) ? pp->second.get() : nullptr;
 }
 
-void RenderingSystem::setSkybox(unsigned int cubemapId)
+void RenderingSystem::setSkybox(CubeMap* cubemap)
 {
-	skyboxTexture = cubemapId;
+	skyboxTexture = cubemap;
 }
 
 //void RenderingSystem::onComponentCreated(std::type_index t, Component* c)
