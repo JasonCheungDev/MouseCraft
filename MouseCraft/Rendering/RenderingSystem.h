@@ -6,9 +6,6 @@
 #include "Renderable.h"
 #include "RenderComponent.h"
 #include "Camera.h"
-#include "Lighting\Light.h"
-#include "Lighting\DirectionalLight.h"
-#include "Lighting\PointLight.h"
 #include "../Core/System.h"
 #include "PostProcess\PostProcess.h"
 #include "FrameBuffer.h"
@@ -20,8 +17,10 @@ class RenderingSystem : public System
 public:
 	Camera* activeCamera; 
 	Shader* geometryShader;		// default geometry shader 
-	Shader* compDLightShader;	// default composition shader for directional lights
-	Shader* compPLightShader;	// default composition shader for point lights
+	Shader* ambientLightShader;	// default composition shader for ambient lights
+	Shader* directionalLightShader;	// default composition shader for directional lights
+	Shader* pointLightShader;	// default composition shader for point lights
+	Shader* spotLightShader;	// default composition shader for spot lights
 	Shader* shadowmapShader;	// default shadowmap shader 
 	Shader* imageShader;		// default UI shader 
 	Shader* postShader;			// default postprocessing shader 
@@ -62,9 +61,13 @@ private:
 	
 	void RenderGeometryPass();
 
+	void RenderAmbientLightingPass();
+
 	void RenderDirectionalLightingPass();	// composition
 		
 	void RenderPointLightingPass();			// composition 
+
+	void RenderSpotLightingPass();
 
 	void RenderShadowMapsPass();
 

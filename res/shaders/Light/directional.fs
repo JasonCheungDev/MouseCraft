@@ -1,7 +1,6 @@
 #version 420 core 
 
 in vec2 f_Uv; 
-in vec4 f_LightPos;
 
 // Remember to set texture location via uniforms 
 uniform sampler2D u_PosTex; 

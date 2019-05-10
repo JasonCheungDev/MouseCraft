@@ -1,0 +1,59 @@
+{
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [
+		{
+			"type": "AmbientLight",
+			"color": [1.0, 0.8, 0.0],
+			"intensity": 0.1
+		}
+	],
+	"entities": [
+		{
+			"pos": [0,0,0],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [
+				{
+					"type": "AmbientLight",
+					"color": [0.0, 0.0, 1.0],
+					"intensity": 0.2
+				}
+			],
+			"entities": [
+			]
+		},
+		{
+			"pos": [-3,0,-4.2],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [
+				{
+					"type": "PointLight",
+					"color": [1.0, 0.0, 0.0],
+					"intensity": 1.0,
+					"range": 2.5
+				}
+			],
+			"entities": [
+			]
+		},
+		{
+			"pos": [0,-1,-3],
+			"scl": [1,1,1],
+			"rot": [-0.6,0,0],
+			"components": [
+				{
+					"type": "SpotLight",
+					"color": [1.0, 0.0, 0.0],
+					"intensity": 1.0,
+					"range": 4.2,
+					"angle": 30.0
+				}
+			],
+			"entities": [
+			]
+		}
+	]
+}

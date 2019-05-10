@@ -7,6 +7,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Light.h"
 #include "../../Core/Entity.h"
+#include "../../Loading/PrefabLoader.h"
+
+#include <json.hpp>
+using json = nlohmann::json;
 
 class DirectionalLight : public Light
 {
@@ -25,5 +29,18 @@ public:
 	virtual void CleanupShadowmap(Shader* shader) override;
 
 	glm::mat4 getLightSpaceMatrix() override;
+
+private:
+	/* TEMPLATE
+	{
+		"type": "DirectionalLight",
+		"color": [1.0, 1.0, 1.0],
+		"intensity": 1.0,
+		"ambient": 0.0,
+	}
+	*/
+	static Component* Create(json json);
+	static ComponentRegistrar reg;
+
 };
 

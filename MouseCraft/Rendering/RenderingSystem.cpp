@@ -9,6 +9,11 @@
 #include "Shader.h"
 #include "Texture.h"
 #include "Texture1x1.h"
+#include "Lighting/Light.h"
+#include "Lighting/AmbientLight.h"
+#include "Lighting/DirectionalLight.h"
+#include "Lighting/PointLight.h"
+#include "Lighting/SpotLight.h"
 #include "PostProcess/PostProcess.h"
 #include "PostProcess/NegativePP.h"
 #include "PostProcess/BlurPP.h"
@@ -68,8 +73,10 @@ RenderingSystem::RenderingSystem() : System()
 	geometryDefaults->AddTexture(SHADER_TEX_NORMAL, normalDefaultTex);
 	geometryShader->defaultSettings = geometryDefaults;
 
-	compDLightShader = new Shader("res/shaders/comp_vertex.glsl", "res/shaders/comp_dl_fragment.glsl");
-	compPLightShader = new Shader("res/shaders/comp_vertex.glsl", "res/shaders/comp_pl_fragment.glsl");
+	ambientLightShader		= new Shader("res/shaders/screen.vs", "res/shaders/Light/ambient.fs");
+	directionalLightShader	= new Shader("res/shaders/screen.vs", "res/shaders/Light/directional.fs");
+	pointLightShader		= new Shader("res/shaders/screen.vs", "res/shaders/Light/point.fs");
+	spotLightShader			= new Shader("res/shaders/screen.vs", "res/shaders/Light/spot.fs");
 	shadowmapShader = new Shader("res/shaders/shadowmap_vertex.glsl", "res/shaders/shadowmap_fragment.glsl");
 	imageShader = new Shader("res/shaders/image_vertex.glsl", "res/shaders/image_fragment.glsl");
 	postShader = new Shader("res/shaders/post_vertex.glsl", "res/shaders/post_fragment.glsl");
@@ -256,18 +263,48 @@ void RenderingSystem::RenderShadowMapsPass()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+void RenderingSystem::RenderAmbientLightingPass()
+{
+	auto lights = ComponentManager<AmbientLight>::Instance().All();
+	
+	if (lights.size() == 0)
+		return;
+
+	// prepare data for drawing 
+	glm::vec3 addition = glm::vec3();
+	for (auto& al : lights)
+		addition += al->color * al->intensity;
+	
+	// draw 
+	ambientLightShader->use();
+
+	gbuffer->Read(ambientLightShader);
+	ppWriteFBO->Draw(false);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_ONE, GL_ONE);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+
+	ambientLightShader->setVec3(SHADER_LIGHT_COLOR, addition);
+
+	glBindVertexArray(quadVAO);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+}
+
 void RenderingSystem::RenderDirectionalLightingPass()
 {
 	// 3rd pass - composision
 
-	compDLightShader->use();
+	directionalLightShader->use();
 
 	// don't render to backbuffer directly 
-	ppWriteFBO->Draw();	// this if the first lighting pass - clear
+	ppWriteFBO->Draw(false);	// this if the first lighting pass - clear
 
 	// read from gbuffer
 	unsigned int availableTextureSlot =
-		gbuffer->Read(compDLightShader);
+		gbuffer->Read(directionalLightShader);
 
 	// Apply directional lights ontop of each other 
 	glEnable(GL_BLEND);
@@ -276,19 +313,19 @@ void RenderingSystem::RenderDirectionalLightingPass()
 	glDepthFunc(GL_LEQUAL);
 
 	// settings for all lights
-	compDLightShader->setVec3(SHADER_VIEW_POS, activeCamera->GetEntity()->transform.getWorldPosition());
-	compDLightShader->setInt(SHADER_FB_SHD, availableTextureSlot);
+	directionalLightShader->setVec3(SHADER_VIEW_POS, activeCamera->GetEntity()->transform.getWorldPosition());
+	directionalLightShader->setInt(SHADER_FB_SHD, availableTextureSlot);
 
 	auto dlights = ComponentManager<DirectionalLight>::Instance().All();
 	for (auto& dl : dlights)
 	{
-		compDLightShader->setMat4(SHADER_LIGHTSPACE, dl->getLightSpaceMatrix());
-		compDLightShader->setVec3(SHADER_LIGHT_POS, dl->GetEntity()->transform.getWorldPosition());
-		compDLightShader->setVec3(SHADER_LIGHT_DIR, dl->GetEntity()->transform.getWorldForward());
-		compDLightShader->setVec3(SHADER_LIGHT_COLOR, dl->color);
-		compDLightShader->setFloat(SHADER_LIGHT_AMBIENT_INTENSITY, dl->ambientIntensity);
-		compDLightShader->setFloat(SHADER_SHADOW_NEAR, dl->shadowMapNear);
-		compDLightShader->setFloat(SHADER_SHADOW_NEAR, dl->shadowMapFar);
+		directionalLightShader->setMat4(SHADER_LIGHTSPACE, dl->getLightSpaceMatrix());
+		directionalLightShader->setVec3(SHADER_LIGHT_POS, dl->GetEntity()->transform.getWorldPosition());
+		directionalLightShader->setVec3(SHADER_LIGHT_DIR, dl->GetEntity()->transform.getWorldForward());
+		directionalLightShader->setVec3(SHADER_LIGHT_COLOR, dl->color);
+		directionalLightShader->setFloat(SHADER_LIGHT_AMBIENT_INTENSITY, dl->ambientIntensity);
+		directionalLightShader->setFloat(SHADER_SHADOW_NEAR, dl->shadowMapNear);
+		directionalLightShader->setFloat(SHADER_SHADOW_NEAR, dl->shadowMapFar);
 
 		glActiveTexture(GL_TEXTURE0 + availableTextureSlot);
 		glBindTexture(GL_TEXTURE_2D, dl->GetShadowMapID());
@@ -301,27 +338,24 @@ void RenderingSystem::RenderDirectionalLightingPass()
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	profiler.StopTimer(2);
-	cpuProfiler.StopTimer(2);
 }
 
 void RenderingSystem::RenderPointLightingPass()
 {
-	compPLightShader->use();
+	pointLightShader->use();
 
 	// don't render to backbuffer directly 
 	ppWriteFBO->Draw(false);
 
 	// read from gbuffer
 	unsigned int availableTextureSlot =
-		gbuffer->Read(compDLightShader);
+		gbuffer->Read(pointLightShader);
 
 	// compPLightShader->setInt(SHADER_FB_SHD, availableTextureSlot);
-	compPLightShader->setVec3(SHADER_VIEW_POS, activeCamera->GetEntity()->transform.getWorldPosition());
+	pointLightShader->setVec3(SHADER_VIEW_POS, activeCamera->GetEntity()->transform.getWorldPosition());
 	// we're rendering from camera this time - using light volumes
-	compPLightShader->setMat4(SHADER_PROJECTION, projection);
-	compPLightShader->setMat4(SHADER_VIEW, view);
+	pointLightShader->setMat4(SHADER_PROJECTION, projection);
+	pointLightShader->setMat4(SHADER_VIEW, view);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_ONE, GL_ONE);
@@ -331,16 +365,16 @@ void RenderingSystem::RenderPointLightingPass()
 	auto plights = ComponentManager<PointLight>::Instance().All();
 	for (auto& pl : plights)
 	{
-		compPLightShader->setVec3(SHADER_LIGHT_POS, pl->GetEntity()->transform.getWorldPosition());
-		compPLightShader->setVec3(SHADER_LIGHT_COLOR, pl->color);
-		compPLightShader->setFloat(SHADER_LIGHT_INTENSITY, pl->intensity);
-		compPLightShader->setFloat(SHADER_LIGHT_RANGE, pl->range);
+		pointLightShader->setVec3(SHADER_LIGHT_POS, pl->GetEntity()->transform.getWorldPosition());
+		pointLightShader->setVec3(SHADER_LIGHT_COLOR, pl->color);
+		pointLightShader->setFloat(SHADER_LIGHT_INTENSITY, pl->intensity);
+		pointLightShader->setFloat(SHADER_LIGHT_RANGE, pl->range);
 
 		// scale model matrix (for light volume) one more time for light range 
-		auto model = glm::scale(
-			pl->GetEntity()->transform.getWorldTransformation(),
-			glm::vec3(pl->range));
-		compPLightShader->setMat4(SHADER_MODEL, model);
+		//auto model = glm::scale(
+		//	pl->GetEntity()->transform.getWorldTransformation(),
+		//	glm::vec3(pl->range));
+		//pointLightShader->setMat4(SHADER_MODEL, model);
 
 		// we're using a cube instead of a sphere b/c of less vertices 
 		//glBindVertexArray(cubeVAO);
@@ -349,8 +383,61 @@ void RenderingSystem::RenderPointLightingPass()
 
 		glBindVertexArray(quadVAO);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-		glBindVertexArray(0);
 	}
+	glBindVertexArray(0);
+
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
+void RenderingSystem::RenderSpotLightingPass()
+{
+	spotLightShader->use();
+
+	// don't render to backbuffer directly 
+	ppWriteFBO->Draw(false);
+
+	// read from gbuffer
+	unsigned int availableTextureSlot =
+		gbuffer->Read(spotLightShader);
+
+	// compPLightShader->setInt(SHADER_FB_SHD, availableTextureSlot);
+	spotLightShader->setVec3(SHADER_VIEW_POS, activeCamera->GetEntity()->transform.getWorldPosition());
+	// we're rendering from camera this time - using light volumes
+	spotLightShader->setMat4(SHADER_PROJECTION, projection);
+	spotLightShader->setMat4(SHADER_VIEW, view);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_ONE, GL_ONE);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+	
+	auto lights = ComponentManager<SpotLight>::Instance().All();
+	for (auto& pl : lights)
+	{
+		spotLightShader->setVec3(SHADER_LIGHT_POS, pl->GetEntity()->transform.getWorldPosition());
+		spotLightShader->setVec3(SHADER_LIGHT_DIR, pl->GetEntity()->transform.getWorldForward());
+		spotLightShader->setVec3(SHADER_LIGHT_COLOR, pl->color);
+		spotLightShader->setFloat(SHADER_LIGHT_INTENSITY, pl->intensity);
+		spotLightShader->setFloat(SHADER_LIGHT_RANGE, pl->range);
+		spotLightShader->setFloat(SHADER_LIGHT_ANGLE, glm::radians(pl->angle));
+
+		// scale model matrix (for light volume) one more time for light range 
+		//auto model = glm::scale(
+		//	pl->GetEntity()->transform.getWorldTransformation(),
+		//	glm::vec3(pl->range));
+		//spotLightShader->setMat4(SHADER_MODEL, model);
+
+		// we're using a cube instead of a sphere b/c of less vertices 
+		//glBindVertexArray(cubeVAO);
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		//glBindVertexArray(0);
+
+		glBindVertexArray(quadVAO);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	}
+	glBindVertexArray(0);
 
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
@@ -707,6 +794,8 @@ void RenderingSystem::Update(float dt)
 	profiler.StopTimer(2);
 	cpuProfiler.StopTimer(2);
 
+	RenderAmbientLightingPass();
+
 	profiler.StartTimer(3);
 	cpuProfiler.StartTimer(3);
 	RenderDirectionalLightingPass();	// 3rd pass (lighting)
@@ -718,6 +807,8 @@ void RenderingSystem::Update(float dt)
 	RenderPointLightingPass();			// 4rd pass (lighting)
 	profiler.StopTimer(4);
 	cpuProfiler.StopTimer(4);
+
+	RenderSpotLightingPass();
 
 	profiler.StartTimer(5);
 	cpuProfiler.StartTimer(5);

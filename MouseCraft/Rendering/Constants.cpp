@@ -38,6 +38,7 @@ const std::string SHADER_LIGHT_POS	   = "u_LightPos";
 const std::string SHADER_LIGHT_COLOR   = "u_LightColor";
 const std::string SHADER_LIGHT_RANGE   = "u_LightRange";
 const std::string SHADER_LIGHT_DIR     = "u_LightDir";
+const std::string SHADER_LIGHT_ANGLE   = "u_LightAngle";
 const std::string SHADER_LIGHT_INTENSITY = "u_LightIntensity";
 const std::string SHADER_LIGHT_AMBIENT_INTENSITY = "u_AmbientIntensity";
 // Shadows

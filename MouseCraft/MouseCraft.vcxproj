@@ -184,6 +184,7 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClCompile Include="Event\EventManager.cpp" />
     <ClCompile Include="Rendering\FrameBuffer.cpp" />
     <ClCompile Include="Rendering\GBuffer.cpp" />
+    <ClCompile Include="Rendering\Lighting\AmbientLight.cpp" />
     <ClCompile Include="Rendering\ModelGen.cpp" />
     <ClCompile Include="Rendering\OutlineComponent.cpp" />
     <ClCompile Include="Common\HealthComponent.cpp" />
@@ -233,6 +234,7 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClCompile Include="Rendering\Texture.cpp" />
     <ClCompile Include="Common\TimedDestruction.cpp" />
     <ClCompile Include="Common\TransformAnimator.cpp" />
+    <ClCompile Include="Rendering\Lighting\SpotLight.cpp" />
     <ClCompile Include="UI\UIRoot.cpp" />
     <ClCompile Include="UI\UIImage.cpp" />
     <ClCompile Include="UI\UIText.cpp" />
@@ -272,6 +274,7 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClInclude Include="Rendering\FrameBuffer.h" />
     <ClInclude Include="Rendering\GBuffer.h" />
     <ClInclude Include="Rendering\Image.h" />
+    <ClInclude Include="Rendering\Lighting\AmbientLight.h" />
     <ClInclude Include="Rendering\ModelGen.h" />
     <ClInclude Include="Rendering\OutlineComponent.h" />
     <ClInclude Include="Rendering\PostProcess\BloomPP.h" />
@@ -339,6 +342,7 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClInclude Include="Rendering\Texture.h" />
     <ClInclude Include="Common\TimedDestruction.h" />
     <ClInclude Include="Common\TransformAnimator.h" />
+    <ClInclude Include="Rendering\Lighting\SpotLight.h" />
     <ClInclude Include="UI\UIRoot.h" />
     <ClInclude Include="UI\UIImage.h" />
     <ClInclude Include="UI\UIText.h" />

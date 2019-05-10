@@ -36,6 +36,7 @@ extern const std::string SHADER_LIGHT_POS;
 extern const std::string SHADER_LIGHT_COLOR;
 extern const std::string SHADER_LIGHT_RANGE;
 extern const std::string SHADER_LIGHT_DIR;
+extern const std::string SHADER_LIGHT_ANGLE;
 extern const std::string SHADER_LIGHT_INTENSITY;	// not used (could mean fall off though?)
 extern const std::string SHADER_LIGHT_AMBIENT_INTENSITY;
 // Shadows

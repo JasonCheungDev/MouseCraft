@@ -1,6 +1,7 @@
 #include "DirectionalLight.h"
 
 #include "../Constants.h"
+#include "../../Core/ComponentFactory.h"
 
 DirectionalLight::DirectionalLight() : Light()
 {
@@ -37,8 +38,6 @@ void DirectionalLight::PrepareShadowmap(Shader * shader)
 	glViewport(0, 0, SHADOWMAP_RESOLUTION, SHADOWMAP_RESOLUTION);
 	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 	glClear(GL_DEPTH_BUFFER_BIT);
-
-
 }
 
 void DirectionalLight::CleanupShadowmap(Shader * shader)
@@ -54,4 +53,15 @@ glm::mat4 DirectionalLight::getLightSpaceMatrix()
 	//glm::mat4 view = glm::lookAt(GetEntity()->position, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
 	glm::mat4 view = GetEntity()->transform.getWorldTransformation();
 	return projection * glm::inverse(view);
+}
+
+ComponentRegistrar DirectionalLight::reg("DirectionalLight", &DirectionalLight::Create);
+
+Component * DirectionalLight::Create(json json)
+{
+	auto c = ComponentFactory::Create<DirectionalLight>();
+	c->color = glm::vec3(json["color"][0].get<float>(), json["color"][1].get<float>(), json["color"][2].get<float>());
+	c->intensity = json["intensity"].get<float>();
+	c->ambientIntensity = json["ambient"].get<float>();
+	return c;
 }

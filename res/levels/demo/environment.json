@@ -9,7 +9,7 @@
 				"type": "model",
 				"path": "res/models/primitive/plane.obj"
 			},
-			"pos": [0,-1,-5],
+			"pos": [0,0,-5],
 			"scl": [10,1,10],
 			"rot": [0,0,0],
 			"components": [],

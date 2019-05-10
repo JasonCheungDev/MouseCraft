@@ -1,7 +1,10 @@
 #version 450 core 
 
+/* This shader illuminates an area regardless of correctness (will illuminate occuluded surfaces).
+Looks good for "heating" up an area.
+*/
+
 in vec2 f_Uv; 
-in vec4 f_LightPos;
 
 // Remember to set texture location via uniforms 
 uniform sampler2D u_PosTex; 
@@ -42,47 +45,15 @@ void main()
 	vec3 col = texture(u_ColTex, f_Uv).rgb; 
     float depth = texture(u_DphTex, f_Uv).x;
 
-    // todo: no lighting yet :@) 
-    if (depth >= 1.0)
+    float distance = length(u_LightPos - pos);
+
+    if (distance > u_LightRange)
     {
         discard;
     }
 
-    float distance = length(u_LightPos - pos);
-
-    //if (distance > u_LightRange)
-    //{
-    //    o_Col = vec4(vec3(0), 1.0);
-    //    return;
-    //}
-
-    /* exponential  
-    floa5t attenutation = 1.0 / (1.0  
-        + atten_linear * distance  
-        + atten_quadratic * (distance * distance));
-    */
-
-	// upwards parabola (softer, better)
-	// float attenutation = (1 / (u_LightRange * u_LightRange)) * (distance * distance - 2 * u_LightRange * distance + u_LightRange * u_LightRange);
-
-    // upside down parabola 
-    // float attenutation = ((distance * distance) / -(u_LightRange * u_LightRange)) + 1.0;
-
-	// sigmoid function (good)
-	// float attenutation = brightness / (1 + exp(4 * distance / radius - 4));
-
-	vec3 fragToEye = normalize(u_ViewPosition - pos);
-	vec3 lightDir = normalize(pos - u_LightPos);
-	float yes = dot(lightDir, nrm);
-	if (yes < 0)
-	{
-		float attenutation = u_LightIntensity / (1 + exp(4 * distance / u_LightRange - 4));
-		vec3 diffuse = u_LightColor * attenutation; // *col;
-		o_Col = vec4(diffuse, 1.0);
-	}
-	else
-	{
-		discard;
-	}
-
+    // linear 
+    float attenutation = 1.0 - min(1.0, max(0.0, distance / u_LightRange));
+ 	vec3 diffuse = (u_LightColor * attenutation);
+	o_Col = vec4(diffuse, 1.0);
 }
