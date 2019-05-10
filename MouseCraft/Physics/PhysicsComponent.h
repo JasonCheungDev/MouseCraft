@@ -12,14 +12,25 @@
 
 using json = nlohmann::json;
 
+// Physically simulate this entity's transform.
+// WARNING: Should always be placed on root (or under an entity with identity transform). 
 class PhysicsComponent : public Component
 {
 // functions 
 public:
+	// Creates a physics component at entity's LOCAL position (on initialization).
+	PhysicsComponent(float w, float h, bool startAtTransform);
+
+	// Creates a physics component at transform location.
 	PhysicsComponent(float w, float h, Transform& transform);
+
+	// Create a physics component at physics world location.
 	PhysicsComponent(float w, float h, float x = 0.0f, float y = 0.0f, float r = 0.0f);
+	
 	~PhysicsComponent();
 	
+	void OnInitialized() override;
+
 	// Sets the entity position to where the body is right now
 	void initPosition();
 	
@@ -47,6 +58,7 @@ public:
 	float rotation, width, height;
 	b2Body* body;
 	PhysObjectType::PhysObjectType pType;
+	bool startAtWorld = false;
 	Subject<> stopMoving;
 	Subject<> resumeMoving;
 	Subject<PhysicsComponent*> onCollide;	//for collision between bodies
@@ -54,6 +66,16 @@ public:
 	Subject<PhysicsComponent*> onBounce;	//for hitbox checking
 
 private:
+
+	/*
+	{
+		"type": "Physics",
+		"size": [1.0,1.0],			// width, height
+		"body": "dynamic",			// dynamic, static, kinematic
+		// OPTIONAL					// (if missing it will use entity position)
+		"transform": [1.0,1.0,0.0],	// x, y, rotation
+	}
+	*/
 	static Component* Create(json json);
 	static ComponentRegistrar reg;
 };

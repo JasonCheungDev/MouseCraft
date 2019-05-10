@@ -31,18 +31,23 @@ void Entity::Initialize()
 {
 	if (!_initialized)
 	{
+		// update position right away
+		transform.computeLocalTransformation();
+		if (GetParent())
+			transform.computeWorldTransformation(GetParent()->transform.getWorldTransformation());
+		else
+			transform.computeWorldTransformation();
+
+		// initialize components 
 		for (auto& c : _components)
-		{
 			c->Initialize();
-		}
+		
 		_initialized = true;
 	}
 
 	// (ensure) initialize children 
 	for (auto& e : _children)
-	{
 		e->Initialize();
-	}
 }
 
 bool Entity::GetActive() const

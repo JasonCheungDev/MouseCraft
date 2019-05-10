@@ -59,7 +59,9 @@ void PhysicsManager::FixedUpdate(float dt, int steps)
 	{
 		if (pc->GetActive())
 		{
-			pc->GetEntity()->transform.setLocalPosition(b2gl3(pc->body->GetPosition()));
+			// retain existing y-height
+			auto pos = glm::vec3(pc->body->GetPosition().x, pc->GetEntity()->t().pos().y, pc->body->GetPosition().y);
+			pc->GetEntity()->transform.setLocalPosition(pos);
 			pc->velocity = b2gl2(b->GetLinearVelocity());
 		}
 	}
@@ -190,6 +192,7 @@ void PhysicsManager::InitializeBody(PhysicsComponent * physicsComponent, float x
 	b2Body* body;
 	body = world->CreateBody(&bodyDef);
 	body->CreateFixture(&fixtureDef);
+	body->SetUserData(physicsComponent);
 
 	physicsComponent->body = body;
 }

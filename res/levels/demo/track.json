@@ -37,7 +37,13 @@
 			"pos": [20,5,0],
 			"scl": [20,10,40],
 			"rot": [0,0,0],
-			"components": [],
+			"components": [
+				{
+					"type": "Physics",
+					"size": [20,40],
+					"body": "static"			
+				}
+			],
 			"entities": []
 		},
 		{

@@ -2,6 +2,14 @@
 
 #include "PhysicsManager.h"
 #include "PhysicsUtil.h"
+#include "../Loading/PrefabLoader.h"
+#include "../Core/ComponentFactory.h"
+
+PhysicsComponent::PhysicsComponent(float w, float h, bool startAtTransform)
+	: PhysicsComponent(w, h, 0, 0, 0)
+{
+	startAtWorld = startAtTransform;
+}
 
 PhysicsComponent::PhysicsComponent(float w, float h, Transform & transform) :
 	PhysicsComponent(w, h, transform.getWorldPosition().x, transform.getWorldPosition().y, transform.getWorldRotation().y)
@@ -18,6 +26,15 @@ PhysicsComponent::PhysicsComponent(float w, float h, float x, float y, float r) 
 PhysicsComponent::~PhysicsComponent()
 {
 	body->GetWorld()->DestroyBody(body);
+}
+
+void PhysicsComponent::OnInitialized()
+{
+	if (startAtWorld)
+		moveBody(glm::vec2(
+			GetEntity()->t().wPos().x, 
+			GetEntity()->t().wPos().z), 
+			GetEntity()->t().wRot().y);
 }
 
 void PhysicsComponent::initPosition()
@@ -38,7 +55,7 @@ void PhysicsComponent::makeDynamic()
 
 void PhysicsComponent::makeStatic()
 {
-	body->SetType(b2BodyType::b2_dynamicBody);
+	body->SetType(b2BodyType::b2_staticBody);
 }
 
 void PhysicsComponent::makeKinematic()
@@ -55,62 +72,24 @@ void PhysicsComponent::removeCollisions()
 
 Component* PhysicsComponent::Create(json json)
 {
-	// TODO:
-	return nullptr;
-	/*
-	std::string physType = json["physType"].get<std::string>();
-	PhysObjectType::PhysObjectType properType = PhysObjectType::NOTHING;
+	PhysicsComponent* component;
 
-	if (physType == "OBSTACLE_UP")
-		properType = PhysObjectType::OBSTACLE_UP;
-	else if (physType == "OBSTACLE_DOWN")
-		properType = PhysObjectType::OBSTACLE_DOWN;
-	else if (physType == "CONTRAPTION_UP")
-		properType = PhysObjectType::CONTRAPTION_UP;
-	else if (physType == "CONTRAPTION_DOWN")
-		properType = PhysObjectType::CONTRAPTION_DOWN;
-	else if (physType == "PLATFORM")
-		properType = PhysObjectType::PLATFORM;
-	else if (physType == "PART")
-		properType = PhysObjectType::PART;
-	else if (physType == "PROJECTILE_UP")
-		properType = PhysObjectType::PROJECTILE_UP;
-	else if (physType == "PROJECTILE_DOWN")
-		properType = PhysObjectType::PROJECTILE_DOWN;
-	else if (physType == "CAT_UP")
-		properType = PhysObjectType::CAT_UP;
-	else if (physType == "CAT_DOWN")
-		properType = PhysObjectType::CAT_DOWN;
-	else if (physType == "MOUSE_UP")
-		properType = PhysObjectType::MOUSE_UP;
-	else if (physType == "MOUSE_DOWN")
-		properType = PhysObjectType::MOUSE_DOWN;
-
-	switch (properType)
-	{
-	case PhysObjectType::OBSTACLE_UP:
-	case PhysObjectType::OBSTACLE_DOWN:
-	case PhysObjectType::CONTRAPTION_UP:
-	case PhysObjectType::CONTRAPTION_DOWN:
-	case PhysObjectType::PLATFORM:
-	case PhysObjectType::PART:
-		return PhysicsManager::instance()->createGridObject(json["xPos"].get<float>(), json["yPos"].get<float>(),
-			json["width"].get<int>(), json["height"].get<float>(), properType);
-		break;
-	case PhysObjectType::PROJECTILE_UP:
-	case PhysObjectType::PROJECTILE_DOWN:
-	case PhysObjectType::CAT_UP:
-	case PhysObjectType::CAT_DOWN:
-	case PhysObjectType::MOUSE_UP:
-	case PhysObjectType::MOUSE_DOWN:
-		return PhysicsManager::instance()->createObject(json["xPos"].get<float>(), json["yPos"].get<float>(),
-			json["width"].get<float>(), json["height"].get<float>(), json["rotation"].get<float>(), properType);
-		break;
-	}
+	float width = json["size"][0].get<float>();
+	float height = json["size"][1].get<float>();
 	
-	return nullptr;
-	*/
+	if (json.find("transform") != json.end())
+		component = ComponentFactory::Create<PhysicsComponent>(width, height, 
+			json["transform"][0].get<float>(), json["transform"][1].get<float>(), json["transform"][2].get<float>());
+	else
+		component = ComponentFactory::Create<PhysicsComponent>(width, height, true);
+
+	if (json["body"].get<std::string>() == "static")
+		component->makeStatic();
+	else if (json["body"].get<std::string>() == "kinematic")
+		component->makeKinematic();
+
+	return component;
 }
 
 // !!! which key you want to load 
-ComponentRegistrar PhysicsComponent::reg("PhysicsComponent", &PhysicsComponent::Create);
+ComponentRegistrar PhysicsComponent::reg("Physics", &PhysicsComponent::Create);
