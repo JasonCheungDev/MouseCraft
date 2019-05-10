@@ -19,5 +19,5 @@ void main()
     // also gamma correct while we're at it       
 	// result = pow(result, vec3(1.0 / gamma));
 
-	o_Color = vec4(color + bloomColor, 0);
+	o_Color = vec4(color + bloomColor, 1.0);
 }

@@ -96,6 +96,6 @@ private:
 	}
 	*/
 	static Component* Create(json json);
-	static PrefabRegistrar reg;
+	static ComponentRegistrar reg;
 };
 

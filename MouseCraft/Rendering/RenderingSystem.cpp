@@ -386,7 +386,7 @@ void RenderingSystem::RenderPostProcessPass()
 			// Set render target if requested 
 			if (pp.second->DrawingToBackBuffer())
 			{
-				ppWriteFBO->Draw(false);
+				ppWriteFBO->Draw();
 				std::swap(ppWriteFBO, ppReadFBO);	// swap finished texture so next PP can read/write to current image
 			}
 
@@ -647,6 +647,7 @@ void RenderingSystem::Update(float dt)
 	if (activeCamera == nullptr)
 	{
 		std::cerr << "ERROR: No camera has been set for rendering" << std::endl;
+		return;
 	}
 
 

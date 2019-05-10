@@ -181,4 +181,4 @@ Component* PhysicsComponent::Create(json json)
 }
 
 // !!! which key you want to load 
-PrefabRegistrar PhysicsComponent::reg("PhysicsComponent", &PhysicsComponent::Create);
+ComponentRegistrar PhysicsComponent::reg("PhysicsComponent", &PhysicsComponent::Create);

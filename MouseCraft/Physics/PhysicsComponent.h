@@ -30,7 +30,7 @@ public:
 	void landed();
 
 	static Component* Create(json json);
-	static PrefabRegistrar reg;
+	static ComponentRegistrar reg;
 
 	Vector2D velocity;
 	float zPos, zVelocity, rotation, width, height;

@@ -159,7 +159,9 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Common\FreeLookMovement.cpp" />
     <ClCompile Include="Common\Animation.cpp" />
+    <ClCompile Include="PrefabScene.cpp" />
     <ClCompile Include="Rendering\CubeMap.cpp" />
     <ClCompile Include="Event\Handler.cpp" />
     <ClCompile Include="Event\Observer.cpp" />
@@ -241,11 +243,13 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClCompile Include="Loading\TextLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Common\FreeLookMovement.h" />
     <ClInclude Include="Common\Animation.h" />
     <ClInclude Include="Core\ComponentFactory.h" />
     <ClInclude Include="Core\Rect.h" />
     <ClInclude Include="Core\Vector2D.h" />
     <ClInclude Include="OmegaEngineDefines.h" />
+    <ClInclude Include="PrefabScene.h" />
     <ClInclude Include="Rendering\CubeMap.h" />
     <ClInclude Include="Event\Handler.h" />
     <ClInclude Include="Event\Observer.h" />

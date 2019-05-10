@@ -12,6 +12,7 @@
 //#include "UI/UIManager.h"
 #include "Rendering/RenderingSystem.h"
 #include "MainScene.h"
+#include "PrefabScene.h"
 
 SoundManager* noise;
 
@@ -33,7 +34,6 @@ void MainTest()
 
 	OmegaEngine::Instance().initialize();
 
-	OmegaEngine::Instance().ChangeScene(new MainScene());
 
 	InputSystem* inputSystem = new InputSystem();
 
@@ -42,11 +42,12 @@ void MainTest()
 
 	//Add the systems
 	OmegaEngine::Instance().AddSystem(PhysicsManager::instance());
-	//OmegaEngine::Instance().AddSystem(renderSystem);
 	OmegaEngine::Instance().AddSystem(rs);
 	OmegaEngine::Instance().AddSystem(inputSystem);
 	OmegaEngine::Instance().AddSystem(NetworkSystem::Instance());
 	//OmegaEngine::Instance().AddSystem(new UIManager());
+
+	OmegaEngine::Instance().ChangeScene(new PrefabScene());
 
 	//Start the game
 	OmegaEngine::Instance().Loop();

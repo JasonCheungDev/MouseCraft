@@ -10,6 +10,7 @@
 #include "../Core/EntityManager.h"
 #include "../Loading/TextureLoader.h"
 #include "../Loading/ResourceCache.h"
+#include "../Loading/PrefabLoader.h"
 #include "../Rendering/Mesh.h"
 #include "../Rendering/Material.h"
 #include "../Rendering/RenderComponent.h"
@@ -208,4 +209,11 @@ private:
 	{
 		return glm::vec3(from.x, from.y, from.x);
 	}
+
+#pragma region Prefab Loading
+
+	static Entity* LoadFromJson(json json);
+	static EntityRegistrar reg;
+
+#pragma endregion
 };

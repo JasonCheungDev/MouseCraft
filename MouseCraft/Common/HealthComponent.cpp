@@ -9,4 +9,4 @@ Component* HealthComponent::Create(json json)
 	return c_health;
 }
 
-PrefabRegistrar HealthComponent::reg("Health", &HealthComponent::Create);
+ComponentRegistrar HealthComponent::reg("Health", &HealthComponent::Create);

@@ -1,0 +1,11 @@
+{
+	"loader": {
+		"type": "model",
+		"path": "res/models/primitive/cube.obj"
+	},
+	"pos": [0,-1,-5],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": []
+}

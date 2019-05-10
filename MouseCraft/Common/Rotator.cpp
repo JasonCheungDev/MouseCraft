@@ -26,4 +26,4 @@ Component * Rotator::Create(json json)
 	return c;
 }
 
-PrefabRegistrar Rotator::reg("Rotator", &Rotator::Create);
+ComponentRegistrar Rotator::reg("Rotator", &Rotator::Create);

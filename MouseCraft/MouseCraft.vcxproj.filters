@@ -360,6 +360,12 @@
     <ClCompile Include="Rendering\PostProcess\BloomPP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PrefabScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\FreeLookMovement.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -658,6 +664,12 @@
     </ClInclude>
     <ClInclude Include="Rendering\PostProcess\BloomPP.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PrefabScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\FreeLookMovement.h">
+      <Filter>Header Files\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

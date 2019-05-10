@@ -1,0 +1,11 @@
+{
+	"loader": {
+		"type": "model",
+		"path": "res/models/nanosuit/nanosuit.obj"
+	},
+	"pos": [2,0,-4],
+	"scl": [0.25,0.25,0.25],
+	"rot": [0,0.23,0],
+	"components": [],
+	"entities": []
+}

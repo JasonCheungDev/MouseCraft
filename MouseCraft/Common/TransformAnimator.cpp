@@ -110,4 +110,4 @@ Component * TransformAnimator::Create(json json)
 	return c;
 }
 
-PrefabRegistrar TransformAnimator::reg("TransformAnimator", &TransformAnimator::Create);
+ComponentRegistrar TransformAnimator::reg("TransformAnimator", &TransformAnimator::Create);
