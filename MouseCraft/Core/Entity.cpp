@@ -31,8 +31,6 @@ void Entity::Initialize()
 {
 	if (!_initialized)
 	{
-		std::cout << "Entity already initialized" << std::endl;
-		
 		for (auto& c : _components)
 		{
 			c->Initialize();
@@ -212,6 +210,11 @@ void Entity::AddComponent(Component * component)
 {
 	component->SetEntity(this);
 	_components.push_back(component);
+	if (_initialized)
+	{
+		std::cout << "WARNING: Adding component to a live entity!" << std::endl;
+		component->Initialize();
+	}
 }
 
 void Entity::RemoveComponent(Component * c)

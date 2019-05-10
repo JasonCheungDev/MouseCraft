@@ -33,7 +33,7 @@ void OmegaEngine::ChangeScene(Scene* scene)
 {
 	//std::cerr << "WARNING: Engine::changeScene(scene) is not recommended, use changeScene<Scene>()" << std::endl;
 	_nextScene = scene;
-	transitionScenes();
+	_sceneChangeRequested = true;
 }
 
 void OmegaEngine::AddSystem(System * system)
@@ -234,6 +234,8 @@ void OmegaEngine::transitionScenes()
 	// transfer entities 
 	for (auto& e : transitionHolder.GetChildren())
 		_activeScene->root.AddChild(e);
+	// initialize
+	_activeScene->root.Initialize();
 }
 
 Window* OmegaEngine::getWindow() const
