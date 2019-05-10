@@ -7,7 +7,6 @@
 #include "../Shader.h"
 #include "../../Core/Entity.h"
 
-#define SHADOWMAP_RESOLUTION 1024
 
 // Use this struct for simple light handling 
 const int MAX_LIGHTS = 32;
@@ -24,8 +23,9 @@ public:
 	glm::vec3 color = glm::vec3(1.0, 1.0, 1.0);
 	float intensity = 1.0;
 	float range = 5.0;
-	float shadowMapNear = 0.1f;
-	float shadowMapFar = 40.0f;
+	float shadowMapNear = 0.1f;		// shadow near plane
+	float shadowMapFar = 40.0f;		// shadow far plane
+	float shadowFov = 20.0f;		// shadow field of view (perspective angles or othro pixels).
 
 public:
 	virtual void LoadUniforms(Shader* shader)	  = 0;

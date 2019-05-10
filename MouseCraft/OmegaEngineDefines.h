@@ -8,8 +8,8 @@
 // Remove below comments if you wish to change the default values
 
 // ==== Core ====
-// #define SCREEN_WIDTH 1280
-// #define SCREEN_HEIGHT 720
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 720
 
 // ==== Input ==== 
 // #define MAX_PLAYERS 4

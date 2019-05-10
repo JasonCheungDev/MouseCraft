@@ -17,6 +17,8 @@ public:
 
 	void use(); 
 
+	unsigned int LoadDefaults(unsigned int freeTexSlot);
+
 	Material* defaultSettings;
 
 	// https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/shader.h

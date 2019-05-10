@@ -44,3 +44,5 @@ const std::string SHADER_LIGHT_AMBIENT_INTENSITY = "u_AmbientIntensity";
 // Shadows
 const std::string SHADER_SHADOW_NEAR   = "u_ShadowNear";
 const std::string SHADER_SHADOW_FAR    = "u_ShadowFar";
+const std::string SHADER_NEAR		   = "u_Near";
+const std::string SHADER_FAR           = "u_Far";

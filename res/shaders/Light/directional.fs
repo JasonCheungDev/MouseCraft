@@ -22,8 +22,9 @@ uniform float u_AmbientIntensity = 1.0;
 uniform float u_ShadowNear = 0.1;
 uniform float u_ShadowFar  = 50.0; 
 float shadowFadeThreshold = 0.95;
-float minbias = 0.002;  // minimum shadow bias (for planes almost perpendicular to d.light) 
+float minbias = 0.0005;  // minimum shadow bias (for planes almost perpendicular to d.light) 
 float maxbias = 0.002;   // maximum shadow bias (for planes with a steep slope to d.light)
+float bias = 0.002;
 
 // takes in non-normalized (raw) depth coordinates
 float LinearizeDepth(float depth)
@@ -93,10 +94,11 @@ float ShadowCalcFade(vec4 lightSpaceFrag, float bias, float camDepth)
         }    
     }
     shadow /= 9.0;
+    
     // ----- fade -----
     // length(projCoordsRaw)    == fade values close to very edge of the shadow map (including out)
     // abs(closest * 2.0 - 1.0) == fade values close to near/far plane (including out)
-    float fade = max(length(projCoordsRaw), abs(closestDepth * 2.0 - 1.0));
+    float fade = max(length(projCoordsRaw), closestDepth);
     if (fade > shadowFadeThreshold)
 	{
 		float percent = (fade - shadowFadeThreshold) / (1.0 - shadowFadeThreshold);
@@ -133,7 +135,7 @@ float ShadowCalculationSoft(vec4 lightSpaceFrag)
     if (projCoords.z > 1.0)
         shadow = 0.0;   // out of frustrum far plane
 
-    return shadow;
+    return min(1.0, max(0.0, shadow));
 }
 
 
@@ -156,21 +158,21 @@ void main()
     
     // measure of how directly light is hitting the surface (eg. how well it scatters)
     float diffuseStrength = -dot(nrm, u_LightDir);    
-    vec3 diffuse = u_LightColor * diffuseStrength;
+    vec3 diffuse = u_LightColor * max(0, diffuseStrength);
 
     // shininess when light bounces directly into our eyes
     vec3 viewDir = normalize(u_ViewPosition - pos); // reversed (to prevent negative sign later)
     vec3 reflectDir = reflect(u_LightDir, nrm);
-    float specPower = pow(max(dot(viewDir, reflectDir), 0), 32);
+    float specPower = pow(max(0, dot(viewDir, reflectDir)), 32);
     vec3 specular = specularIntensity * specPower * u_LightColor; 
 
     // shadow 
-    float bias = 0.002; 
-    float shadow = ShadowCalcFade(u_LightSpaceMatrix * vec4(pos, 1.0), bias, LinearizeDepth(depth));
+    float scaledBias = max(maxbias * (1.0 - dot(nrm, u_LightDir)), minbias);
+    float shadow = ShadowCalcFade(u_LightSpaceMatrix * vec4(pos, 1.0), scaledBias, LinearizeDepth(depth));
     // float shadow = ShadowCalculation(u_LightSpaceMatrix * vec4(pos, 1.0));
     //vec3 lighting = (1.0 - shadow) * (ambient + diffuse + specular) * col.rgb;  //* col.rgb;   // not sure what this last * col is for. 
 
-    vec3 lighting = (ambient + diffuse + specular) * col; 
+    vec3 lighting = (ambient + diffuse + specular) * col * (1.0 - shadow); 
     o_Col = vec4(lighting, 1.0);
 }
 

@@ -96,3 +96,8 @@ void Shader::use()
 	if (defaultSettings)
 		defaultSettings->LoadMaterial(this, 0);
 }
+
+unsigned int Shader::LoadDefaults(unsigned int freeTexSlot)
+{
+	return defaultSettings->LoadMaterial(this, freeTexSlot);
+}

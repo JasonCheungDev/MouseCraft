@@ -184,6 +184,7 @@ void OmegaEngine::sequential_loop()
 		
 		auto fDeltaParam = new TypeParam<std::pair<float,int>>(std::make_pair(fixedStepSeconds.count(), steps));
 		EventManager::Notify(EventName::COMPONENT_F_UPDATE, fDeltaParam);
+		delete(fDeltaParam);
 
 		// PHASE 2: Component Update
 		_profiler.StartTimer(4);

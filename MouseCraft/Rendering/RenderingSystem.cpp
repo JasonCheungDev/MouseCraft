@@ -203,6 +203,7 @@ void RenderingSystem::RenderGeometryPass()
 		for (int i = 0; i < rc->renderables.size(); i++)
 		{
 			auto r = rc->renderables[i];
+			geometryShader->LoadDefaults(0);	//OOF
 			r->material->LoadMaterial(geometryShader, 0);
 			glBindVertexArray(r->mesh->VAO);
 			glDrawElements(GL_TRIANGLES, r->mesh->indices.size(), GL_UNSIGNED_INT, 0);
@@ -224,27 +225,19 @@ void RenderingSystem::RenderGeometryPass()
 void RenderingSystem::RenderShadowMapsPass()
 {
 	// 2nd Pass - lighting shadow map   
+	shadowmapShader->use();
+
 	auto components = ComponentManager<DirectionalLight>::Instance().All();
 	auto render_components = ComponentManager<RenderComponent>::Instance().All();
 	for (auto& dl : components)
 	{
-		shadowmapShader->use();
 		shadowmapShader->setMat4(SHADER_LIGHTSPACE, dl->getLightSpaceMatrix());
+		
 		dl->PrepareShadowmap(shadowmapShader);
 
 		// go thru each component 
 		for (auto& rc : render_components)
 		{
-			//auto model = rc->GetEntity()->transform.getWorldTransformation();		// this can be optimized 
-			//shadowmapShader->setMat4("u_Model", rc->GetEntity()->transform.getWorldTransformation());
-			
-			// above 2 lines is equivalent to below (but below is 2-4x faster for some reason).
-			glUniformMatrix4fv(
-				glGetUniformLocation(shadowmapShader->programId, SHADER_MODEL.c_str()),
-				1,
-				GL_FALSE,
-				&rc->GetEntity()->transform.getWorldTransformation()[0][0]);
-			
 			shadowmapShader->setMat4(SHADER_MODEL, rc->GetEntity()->transform.getWorldTransformation());
 
 			// go thru each renderable package 
@@ -253,10 +246,10 @@ void RenderingSystem::RenderShadowMapsPass()
 				auto r = rc->renderables[i];
 				glBindVertexArray(r->mesh->VAO);
 				glDrawElements(GL_TRIANGLES, r->mesh->indices.size(), GL_UNSIGNED_INT, 0);
-				glBindVertexArray(0);
 			}
 		}
 	}
+	glBindVertexArray(0);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, screenWidth, screenHeight);
@@ -422,6 +415,7 @@ void RenderingSystem::RenderSpotLightingPass()
 		spotLightShader->setFloat(SHADER_LIGHT_INTENSITY, pl->intensity);
 		spotLightShader->setFloat(SHADER_LIGHT_RANGE, pl->range);
 		spotLightShader->setFloat(SHADER_LIGHT_ANGLE, glm::radians(pl->angle));
+
 
 		// scale model matrix (for light volume) one more time for light range 
 		//auto model = glm::scale(

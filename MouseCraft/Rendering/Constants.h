@@ -42,6 +42,8 @@ extern const std::string SHADER_LIGHT_AMBIENT_INTENSITY;
 // Shadows
 extern const std::string SHADER_SHADOW_NEAR;
 extern const std::string SHADER_SHADOW_FAR;
+extern const std::string SHADER_NEAR;
+extern const std::string SHADER_FAR;
 
 class Constants
 {

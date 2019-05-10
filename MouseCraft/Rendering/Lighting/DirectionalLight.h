@@ -37,6 +37,12 @@ private:
 		"color": [1.0, 1.0, 1.0],
 		"intensity": 1.0,
 		"ambient": 0.0,
+		// OPTIONAL
+		"shadow": {
+			"near": 0.1,
+			"far": 40.0,
+			"fov": 20.0
+		}
 	}
 	*/
 	static Component* Create(json json);

@@ -3,15 +3,19 @@
 #include "../Input/InputSystem.h"
 #include "../Core/Entity.h"
 #include <iostream>
+#include <glm/gtx/string_cast.hpp>
 
 FreeLookMovement::FreeLookMovement()
 {
 	EventManager::Subscribe(EventName::INPUT_AXIS_2D, this);
+	EventManager::Subscribe(EventName::INPUT_BUTTON, this);
 }
 
 
 FreeLookMovement::~FreeLookMovement()
 {
+	EventManager::Unsubscribe(EventName::INPUT_AXIS_2D, this);
+	EventManager::Unsubscribe(EventName::INPUT_BUTTON, this);
 }
 
 void FreeLookMovement::FixedUpdate(float deltaTime, int steps)
@@ -34,5 +38,15 @@ void FreeLookMovement::Notify(EventName eventName, Param* params)
 			moveInput = data.GetClamped();
 		else if (data.axis == Axis::RIGHT)
 			turnInput = data.GetClamped();
+	}
+	else if (eventName == EventName::INPUT_BUTTON)
+	{
+		auto data = static_cast<TypeParam<ButtonEvent>*>(params)->Param;
+
+		if (data.button == Button::PRIMARY && data.isDown)
+		{
+			std::cout << "POS: " << glm::to_string(GetEntity()->transform.getWorldPosition()) << std::endl
+				<< "ROT: " << glm::to_string(GetEntity()->transform.getWorldRotation()) << std::endl;
+		}
 	}
 }

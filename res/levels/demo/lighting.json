@@ -11,6 +11,26 @@
 	],
 	"entities": [
 		{
+			"pos": [-7,18,-42],
+			"scl": [1,1,1],
+			"rot": [-0.57,-2.77,0],
+			"components": [
+				{
+					"type": "DirectionalLight",
+					"color": [1.0, 1.0, 1.0],
+					"intensity": 1.0,
+					"ambient": 0,
+					"shadow": {
+						"near": 0.1,
+						"far": 80.0,
+						"fov": 40.0
+					}
+				}
+			],
+			"entities": [
+			]
+		},
+		{
 			"pos": [0,0,0],
 			"scl": [1,1,1],
 			"rot": [0,0,0],
