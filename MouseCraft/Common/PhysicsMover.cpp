@@ -19,6 +19,7 @@ void PhysicsMover::OnInitialized()
 void PhysicsMover::FixedUpdate(float dt, int steps)
 {
 	physics->velocity = moveInput * speed;
+	
 }
 
 void PhysicsMover::Notify(EventName eventName, Param * params)

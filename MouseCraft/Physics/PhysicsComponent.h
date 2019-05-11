@@ -52,6 +52,10 @@ public:
 	// This action is irreversible (at the moment).
 	void removeCollisions();
 
+	void ApplyForce(glm::vec2 force);
+
+	void ApplyAngularForce(float force);
+
 // variables
 public: 
 	glm::vec2 velocity;

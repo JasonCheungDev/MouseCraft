@@ -42,7 +42,7 @@ void PhysicsManager::FixedUpdate(float dt, int steps)
 		// also update velocities while we're here
 		if (active)
 		{
-			pc->body->SetLinearVelocity(b2Vec2(pc->velocity.x, pc->velocity.y));
+			// pc->body->SetLinearVelocity(b2Vec2(pc->velocity.x, pc->velocity.y));
 		}
 	}
 
@@ -62,6 +62,8 @@ void PhysicsManager::FixedUpdate(float dt, int steps)
 			// retain existing y-height
 			auto pos = glm::vec3(pc->body->GetPosition().x, pc->GetEntity()->t().pos().y, pc->body->GetPosition().y);
 			pc->GetEntity()->transform.setLocalPosition(pos);
+			auto rot = glm::vec3(pc->GetEntity()->t().rot().x, pc->body->GetAngle(), pc->GetEntity()->t().rot().z);
+			pc->GetEntity()->transform.setLocalRotation(rot);
 			pc->velocity = b2gl2(b->GetLinearVelocity());
 		}
 	}

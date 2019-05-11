@@ -70,6 +70,16 @@ void PhysicsComponent::removeCollisions()
 	body->GetFixtureList()->SetFilterData(filter);
 }
 
+void PhysicsComponent::ApplyForce(glm::vec2 force)
+{
+	body->ApplyForce(gl2b2(force), body->GetWorldCenter(), true);
+}
+
+void PhysicsComponent::ApplyAngularForce(float force)
+{
+	body->ApplyTorque(force, true);
+}
+
 Component* PhysicsComponent::Create(json json)
 {
 	PhysicsComponent* component;

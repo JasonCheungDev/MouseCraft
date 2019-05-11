@@ -159,6 +159,7 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Car.cpp" />
     <ClCompile Include="Common\FreeLookMovement.cpp" />
     <ClCompile Include="Common\Animation.cpp" />
     <ClCompile Include="Common\PhysicsMover.cpp" />
@@ -249,6 +250,7 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClCompile Include="Loading\TextLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Car.h" />
     <ClInclude Include="Common\FreeLookMovement.h" />
     <ClInclude Include="Common\Animation.h" />
     <ClInclude Include="Common\PhysicsMover.h" />
