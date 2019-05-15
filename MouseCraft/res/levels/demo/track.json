@@ -1,0 +1,134 @@
+{
+	"pos": [0,-2,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+		{
+			"name": "floor",
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/plane.obj"
+			},
+			"pos": [20,0,0],
+			"scl": [40,1,60],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "floor2",
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/plane.obj"
+			},
+			"pos": [-2.5,0,0],
+			"scl": [5,1,10],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "center",
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/cube.obj"
+			},
+			"pos": [20,5,0],
+			"scl": [20,10,40],
+			"rot": [0,0,0],
+			"components": [
+				{
+					"type": "Physics",
+					"size": [20,40],
+					"body": "static"			
+				}
+			],
+			"entities": []
+		},
+		{
+			"name": "left_building",
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/cube.obj"
+			},
+			"pos": [-10,5,0],
+			"scl": [10,10,10],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "left_top",
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/cube.obj"
+			},
+			"pos": [-10,2.5,17.5],
+			"scl": [20,5,25],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "left_bot",
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/cube.obj"
+			},
+			"pos": [-10,2.5,-17.5],
+			"scl": [20,5,25],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "top_railing",
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/cube.obj"
+			},
+			"pos": [20,0.5,30],
+			"scl": [40,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "right_wall",
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/cube.obj"
+			},
+			"pos": [40,5,0],
+			"scl": [1,10,40],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "right_tunnel_top",
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/cube.obj"
+			},
+			"pos": [35,7.5,0],
+			"scl": [10,5,40],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "bottom_ridge",
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/cube.obj"
+			},
+			"pos": [10,-5,-45],
+			"scl": [60,10,10],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		}
+	]
+}
