@@ -1,7 +1,7 @@
 {
 	"loader": {
 		"type": "model",
-		"path": "res/models/creepy_cat/_Meshes/Wall_Angle_01.FBX"
+		"path": "res/external/creepy_cat/_Meshes/Wall_Angle_01.FBX"
 	},
 	"pos": [2.5,-1,-5],
 	"scl": [1,1,1],
