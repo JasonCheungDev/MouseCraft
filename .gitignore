@@ -331,4 +331,5 @@ ASALocalRun/
 .mfractor/
 
 !bin/
-mousecraft/res
+res/
+!mousecraft/res
