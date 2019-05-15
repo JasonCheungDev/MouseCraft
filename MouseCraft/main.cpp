@@ -14,6 +14,7 @@
 #include "Rendering/RenderingSystem.h"
 #include "MainScene.h"
 #include "PrefabScene.h"
+#include "RaceScene.h"
 
 SoundManager* noise;
 
@@ -49,7 +50,7 @@ void MainTest()
 	OmegaEngine::Instance().AddSystem(NetworkSystem::Instance());
 	//OmegaEngine::Instance().AddSystem(new UIManager());
 
-	OmegaEngine::Instance().ChangeScene(new PrefabScene());
+	OmegaEngine::Instance().ChangeScene(new RaceScene());
 
 	//Start the game
 	OmegaEngine::Instance().Loop();

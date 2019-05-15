@@ -29,7 +29,7 @@ public:
 private:
 	static std::string directory;
 
-	static void ProcessNode(Entity* entity, aiNode* node, const aiScene* scene);
+	static Entity* ProcessNode(Entity* entity, aiNode* node, const aiScene* scene);
 
 	// Helper function to create a Renderable from an assimp node (Mesh + Material)
 	static std::shared_ptr<Renderable> Processmesh(aiMesh* mesh, const aiScene* scene);

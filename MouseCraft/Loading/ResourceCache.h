@@ -25,12 +25,10 @@ public:
 	{
 		if (_cache.find(key) != _cache.end())
 		{
-			std::cout << "Resource cache found key: " << key << std::endl;
 			return _cache[key];
 		}
 		else
 		{
-			std::cout << "Resource cache could not find key: " << key << std::endl;
 			return nullptr;
 		}
 	}

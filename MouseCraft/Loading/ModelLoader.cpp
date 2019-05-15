@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <queue>
+#include "FileUtil.h"
 
 using std::ifstream;
 using std::string;
@@ -18,10 +19,20 @@ Entity * ModelLoader::Load(const std::string & path)
 {
 	// read file via assimp 
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path,
-		aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace |	// reformat vertices
-		aiProcess_OptimizeGraph | aiProcess_OptimizeMeshes);						// minimize nodes (and entities)
+	const aiScene* scene = importer.ReadFile(path, 
+		aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace 	// reformat vertices
+		| aiProcess_OptimizeGraph | aiProcess_OptimizeMeshes 					// minimize nodes (and entities)
+		// | aiProcess_GlobalScale												// this doesn't do anything except set root-node scale. (which we do manually later).
+	);
 
+	// retrieve file scale factor 
+	double scaleFactor = 1.0f;
+	if (scene->mMetaData)
+	{
+		scene->mMetaData->Get("UnitScaleFactor", scaleFactor) / 100.0;			
+		scaleFactor /= 100.0;													// assimp works in centimeters. If something is retrieved need to adjust
+	}
+	
 	// check for errors 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
@@ -32,11 +43,25 @@ Entity * ModelLoader::Load(const std::string & path)
 	// retrieve directory (used to load in other files such as textures)
 	ModelLoader::directory = path.substr(0, path.find_last_of('/') + 1);
 
-	// process root node recursively (gather all children)
-	auto rootEntity = EntityManager::Instance().Create();
+	// process root node recursively (gather all children). 
+	// each entity corresponds to a node in assimp's scenegraph.
+	// the root may have translatoin, rotation, and scale. 
+	Entity* modelRoot = ProcessNode(nullptr, scene->mRootNode, scene);
 
-	// Entity* rootEntity = new Entity();
-	ProcessNode(rootEntity, scene->mRootNode, scene);
+	// A housing entity with 0 position, 0 rotation, and 1 scale for convenient management. 
+	Entity* rootEntity = nullptr;
+
+	// check for errors 
+	if (modelRoot)
+	{
+		// center mesh 
+		modelRoot->transform.setLocalPosition(glm::vec3());
+		// adjust scaling 
+		modelRoot->transform.setLocalScale(modelRoot->transform.getLocalScale() * (float)scaleFactor);	// assimp works in centimetres
+		// finalize 
+		rootEntity = EntityManager::Instance().Create();
+		rootEntity->AddChild(modelRoot);
+	}
 
 	// cleanup and return 
 	ModelLoader::directory = "";
@@ -86,14 +111,21 @@ std::shared_ptr<Mesh> ModelLoader::LoadMesh(const std::string & path)
 	return mesh;
 }
 
-void ModelLoader::ProcessNode(Entity * entity, aiNode * node, const aiScene * scene)
+Entity* ModelLoader::ProcessNode(Entity* parent, aiNode * node, const aiScene * scene)
 {
+	if (node->mNumMeshes == 0 && node->mChildren == 0)
+		return nullptr;
+	
+	Entity* newEntity = EntityManager::Instance().Create();
+	newEntity->transform.setLocalTransformation(aiMatrix4x4ToGlm( node->mTransformation ));
+
 	// check if there is anything to draw for this node 
 	if (node->mNumMeshes > 0)
 	{
 		// add a render component 
 		auto c_render = ComponentFactory::Create<RenderComponent>();
-		entity->AddComponent(c_render);
+		newEntity->AddComponent(c_render);
+
 		// process each mesh located at the current node & add renderable packages 
 		for (unsigned int i = 0; i < node->mNumMeshes; i++)
 		{
@@ -107,11 +139,11 @@ void ModelLoader::ProcessNode(Entity * entity, aiNode * node, const aiScene * sc
 	// after we've processed all of the meshes (if any) we then recursively process each of the children nodes
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
 	{
-		Entity* newEntity = EntityManager::Instance().Create();
-		newEntity->transform.setLocalTransformation(aiMatrix4x4ToGlm(node->mTransformation));
-		entity->AddChild(newEntity);
-		ProcessNode(newEntity, node->mChildren[i], scene);
+		auto child = ProcessNode(newEntity, node->mChildren[i], scene);
+		if (child) newEntity->AddChild(child);
 	}
+
+	return newEntity;
 }
 
 std::shared_ptr<Renderable> ModelLoader::Processmesh(aiMesh * mesh, const aiScene * scene)
@@ -216,7 +248,7 @@ std::vector<TextureShaderInfo> ModelLoader::loadMaterialTextures(aiMaterial * ma
 	{
 		aiString str;
 		mat->GetTexture(type, 0, &str);
-		std::string filePath = ModelLoader::directory + str.C_Str();
+		std::string filePath = EvaluatePath( ModelLoader::directory + str.C_Str() );
 		textures.push_back({ typeName, TextureLoader::Load(filePath) });
 	}
 
@@ -239,3 +271,23 @@ Entity * ModelLoader::LoadFromJson(json json)
 }
 
 EntityRegistrar ModelLoader::reg("model", &ModelLoader::LoadFromJson);
+
+
+/* Assimp notes
+
+	double factor = 1.0f;
+	auto meta = scene->mMetaData;
+	auto success = scene->mMetaData->Get("UnitScaleFactor", factor);
+	success = importer.SetPropertyFloat(AI_CONFIG_GLOBAL_SCALE_FACTOR_KEY, 100.0f);
+
+	scene = importer.ApplyPostProcessing(
+		aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace 	// reformat vertices
+		| aiProcess_OptimizeGraph | aiProcess_OptimizeMeshes 					// minimize nodes (and entities)
+		// | aiProcess_GlobalScale
+	);
+
+	auto major = aiGetVersionMajor();
+	auto minor = aiGetVersionMinor();
+	auto rev = aiGetVersionRevision();
+
+*/

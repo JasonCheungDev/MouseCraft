@@ -122,9 +122,8 @@ Entity * PrefabLoader::Load(json json, Entity * parent)
 		e = EntityManager::Instance().Create();
 	}
 
-	auto asdfasdf = json.dump();
 	auto pos = glm::vec3(json["pos"][0].get<double>(), json["pos"][1].get<double>(), json["pos"][2].get<double>());
-	auto rot = glm::vec3(json["rot"][0].get<double>(), json["rot"][1].get<double>(), json["rot"][2].get<double>());
+	auto rot = glm::radians(glm::vec3(json["rot"][0].get<double>(), json["rot"][1].get<double>(), json["rot"][2].get<double>()));
 	auto scl = glm::vec3(json["scl"][0].get<double>(), json["scl"][1].get<double>(), json["scl"][2].get<double>());
 	e->transform.setLocalPosition(pos);
 	e->transform.setLocalRotation(rot);

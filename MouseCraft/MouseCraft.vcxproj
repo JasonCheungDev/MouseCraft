@@ -165,8 +165,10 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClCompile Include="Common\PhysicsMover.cpp" />
     <ClCompile Include="Core\System.cpp" />
     <ClCompile Include="Core\UpdateSystem.cpp" />
+    <ClCompile Include="Loading\FileUtil.cpp" />
     <ClCompile Include="Physics\PhysicsUtil.cpp" />
     <ClCompile Include="PrefabScene.cpp" />
+    <ClCompile Include="RaceScene.cpp" />
     <ClCompile Include="Rendering\CubeMap.cpp" />
     <ClCompile Include="Event\Handler.cpp" />
     <ClCompile Include="Event\Observer.cpp" />
@@ -259,9 +261,11 @@ XCOPY "$(SolutionDir)\res" "$(ProjectDir)\res\" /D /K /E /Y</Command>
     <ClInclude Include="Core\System.h" />
     <ClInclude Include="Core\UpdateSystem.h" />
     <ClInclude Include="Core\Vector2D.h" />
+    <ClInclude Include="Loading\FileUtil.h" />
     <ClInclude Include="OmegaEngineDefines.h" />
     <ClInclude Include="Physics\PhysicsUtil.h" />
     <ClInclude Include="PrefabScene.h" />
+    <ClInclude Include="RaceScene.h" />
     <ClInclude Include="Rendering\CubeMap.h" />
     <ClInclude Include="Event\Handler.h" />
     <ClInclude Include="Event\Observer.h" />
