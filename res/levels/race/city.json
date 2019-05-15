@@ -1,0 +1,306 @@
+{
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [2,0,84],
+			"scl": [4,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "ring_start",
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [-14,0,84],
+			"scl": [4,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [-26,0,78],
+			"scl": [4.2476,1,1.4142],
+			"rot": [0,-225,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [-32,0,64],
+			"scl": [5,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [-26,0,50],
+			"scl": [4.2476,1,1.4142],
+			"rot": [0,-315,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [-12,0,44],
+			"scl": [5,1,1],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "end_ring",
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [6,0,54],
+			"scl": [7,1,1.4142],
+			"rot": [0,-45,0],
+			"components": [],
+			"entities": []
+		},
+
+		{
+			"name": "winding_start",
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [22,0,64],
+			"scl": [4,1,1],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_corner_mesh_BL.fbx"
+			},
+			"pos": [32,0,64],
+			"scl": [1,1,1],
+			"rot": [0,-90,0],
+			"components": [],
+			"entities": []
+		},
+
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [32,0,54],
+			"scl": [4,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_corner_mesh_BL.fbx"
+			},
+			"pos": [32,0,44],
+			"scl": [1,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [42,0,44],
+			"scl": [4,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_corner_mesh_BL.fbx"
+			},
+			"pos": [52,0,44],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [52,0,54],
+			"scl": [4,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_corner_mesh_BL.fbx"
+			},
+			"pos": [52,0,64],
+			"scl": [1,1,1],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		},
+
+		{
+			"name": "winding_end",
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [62,0,64],
+			"scl": [4,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [72,0,38],
+			"scl": [12,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [58,0,12],
+			"scl": [6,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [44,0,24],
+			"scl": [5,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [22,0,36],
+			"scl": [10,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [0,0,12],
+			"scl": [11,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+
+		{
+			"name": "connectors",
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_corner_mesh_BL.fbx"
+			},
+			"pos": [72,0,64],
+			"scl": [1,1,1],
+			"rot": [0,-90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_corner_mesh_BL.fbx"
+			},
+			"pos": [72,0,12],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_corner_mesh_BL.fbx"
+			},
+			"pos": [44,0,12],
+			"scl": [1,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_corner_mesh_BL.fbx"
+			},
+			"pos": [44,0,36],
+			"scl": [1,1,1],
+			"rot": [0,-90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_corner_mesh_BL.fbx"
+			},
+			"pos": [0,0,36],
+			"scl": [1,1,1],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		}
+	]
+}

@@ -1,0 +1,155 @@
+{
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_connector_mesh.fbx"
+			},
+			"pos": [76,0,-64],
+			"scl": [1,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "first_bend",
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_mesh.fbx"
+			},
+			"pos": [94,0,-82],
+			"scl": [13.1,1,1],
+			"rot": [0,-135,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_connector_mesh.fbx"
+			},
+			"pos": [112,0,-100],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_mesh.fbx"
+			},
+			"pos": [126,0,-100],
+			"scl": [6,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_connector_mesh.fbx"
+			},
+			"pos": [140,0,-100],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "second_bend",
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_mesh.fbx"
+			},
+			"pos": [150,0,-90],
+			"scl": [7,1,1],
+			"rot": [0,-45,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "track_bridge_entrance",
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_connector_mesh.fbx"
+			},
+			"pos": [160,0,-80],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_mesh.fbx"
+			},
+			"pos": [160,0,-64],
+			"scl": [7,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_connector_mesh.fbx"
+			},
+			"pos": [160,0,-48],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "third_bend",
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_mesh.fbx"
+			},
+			"pos": [150,0,-38],
+			"scl": [7,1,1],
+			"rot": [0,45,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_connector_mesh.fbx"
+			},
+			"pos": [140,0,-28],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_mesh.fbx"
+			},
+			"pos": [128,0,-28],
+			"scl": [5,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_connector_mesh.fbx"
+			},
+			"pos": [116,0,-28],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		}
+	]
+}

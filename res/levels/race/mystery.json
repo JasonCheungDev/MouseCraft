@@ -1,0 +1,41 @@
+{
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [116,0,72],
+			"scl": [5,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor_corner_mesh_BL.fbx"
+			},
+			"pos": [116,0,84],
+			"scl": [1,1,1],
+			"rot": [0,-90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/floor.fbx"
+			},
+			"pos": [102,0,84],
+			"scl": [6,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		}
+	]
+}

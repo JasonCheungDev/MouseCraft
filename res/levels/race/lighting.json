@@ -13,7 +13,7 @@
 		{
 			"pos": [-7,18,-42],
 			"scl": [1,1,1],
-			"rot": [-0.57,-2.77,0],
+			"rot": [-15,-45,0],
 			"components": [
 				{
 					"type": "DirectionalLight",
