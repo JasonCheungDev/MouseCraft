@@ -13,19 +13,31 @@
 #include <sstream>
 using json = nlohmann::json;
 
-// datatype for string_key -> loader()
-typedef std::map<std::string, Component*(*)(json)> ComponentMap;
-typedef std::map<std::string, Entity*(*)(json)> EntityMap;
+
+// Helper class to automatically register a Component class to the PrefabLoader 
+struct ComponentRegistrar
+{
+	ComponentRegistrar(const std::string& jsonKey, Component*(*func)(json));;
+};
+
+// Helper class to automatically register a custom Entity loader to the PrefabLoader 
+struct EntityRegistrar
+{
+	EntityRegistrar(const std::string& jsonKey, Entity*(*func)(json));;
+};
 
 // Loads an entity with components and child entities specified by a json file. 
 class PrefabLoader
 {
 public:
-	PrefabLoader();
-	~PrefabLoader();
-	
 	// Dumps all registered loaders
 	static void DumpLoaders();
+
+	// Manually add a component loader
+	static void AddComponentLoader(const std::string& jsonKey, Component*(*func)(json));
+
+	// Manually add an entity loader 
+	static void AddEntityLoader(const std::string& jsonKey, Entity*(*func)(json));
 
 	// Load an entity with a json file
 	static Entity* LoadPrefab(std::string path);;
@@ -35,9 +47,13 @@ public:
 
 private:
 	// Recursive helper function to load an entity
-	static Entity* Load(json json, Entity* parent);
+	static Entity* Load(json json);
 
-protected:
+private:
+	// datatype for string_key -> loader()
+	typedef std::map<std::string, Component*(*)(json)> ComponentMap;
+	typedef std::map<std::string, Entity*(*)(json)> EntityMap;
+
 	static ComponentMap* getMap()
 	{
 		if (!componentMap)
@@ -50,32 +66,16 @@ protected:
 			entityMap = new EntityMap;
 		return entityMap;
 	}
-private:
+
 	static ComponentMap* componentMap;
 	static EntityMap* entityMap;
+
+	//register self to allow prefabs to load other prefabs
+	static Entity* EntityRegistrarLoader(json json);
+	static EntityRegistrar reg;
 };
 
-// Helper class to automatically register a Component class to the PrefabLoader 
-struct ComponentRegistrar : PrefabLoader
-{
-// note: Doesn't actually inherit from PrefabLoader just need access to the ComponentMap
-public:
-	ComponentRegistrar(const std::string& jsonKey, Component*(*func)(json))
-	{
-		getMap()->insert(std::make_pair(jsonKey, func));
-	};
-};
 
-// Helper class to automatically register a custom Entity loader to the PrefabLoader 
-struct EntityRegistrar : PrefabLoader
-{
-// note: Doesn't actually inherit from PrefabLoader just need access to the ComponentMap
-public:
-	EntityRegistrar(const std::string& jsonKey, Entity*(*func)(json))
-	{
-		getEntityMap()->insert(std::make_pair(jsonKey, func));
-	};
-};
 
 
 
