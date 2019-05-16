@@ -2,14 +2,17 @@
 
 
 
-PrefabLoader::PrefabLoader()
+ComponentRegistrar::ComponentRegistrar(const std::string & jsonKey, Component *(*func)(json))
 {
+	PrefabLoader::AddComponentLoader(jsonKey, func);
+}
+
+EntityRegistrar::EntityRegistrar(const std::string & jsonKey, Entity *(*func)(json))
+{
+	PrefabLoader::AddEntityLoader(jsonKey, func);
 }
 
 
-PrefabLoader::~PrefabLoader()
-{
-}
 
 void PrefabLoader::DumpLoaders()
 {
@@ -20,6 +23,16 @@ void PrefabLoader::DumpLoaders()
 	for (auto& kvp : *getEntityMap())
 		std::cout << kvp.first << std::endl;
 	std::cout << "===== END =====" << std::endl;
+}
+
+void PrefabLoader::AddComponentLoader(const std::string & jsonKey, Component *(*func)(json))
+{
+	getMap()->insert(std::make_pair(jsonKey, func));
+}
+
+void PrefabLoader::AddEntityLoader(const std::string & jsonKey, Entity *(*func)(json))
+{
+	getEntityMap()->insert(std::make_pair(jsonKey, func));
 }
 
 Entity * PrefabLoader::LoadPrefab(std::string path)
@@ -49,7 +62,7 @@ Entity * PrefabLoader::LoadPrefab(std::string path)
 	}
 
 	// load prefab 
-	auto parent = Load(json, nullptr);
+	auto parent = Load(json);
 
 	// return result
 	return parent;
@@ -98,7 +111,7 @@ Component * PrefabLoader::LoadComponent(std::string path)
 	}
 }
 
-Entity * PrefabLoader::Load(json json, Entity * parent)
+Entity * PrefabLoader::Load(json json)
 {
 	// entity & transform 
 	Entity* e = nullptr;
@@ -114,7 +127,7 @@ Entity * PrefabLoader::Load(json json, Entity * parent)
 		}
 		else
 		{
-			throw "ERROR: PrefabLoader entity loader not registered";
+			throw "ERROR: PrefabLoader entity loader not registered: " + json["loader"]["type"].get<std::string>();
 		}
 	}
 	else
@@ -149,12 +162,19 @@ Entity * PrefabLoader::Load(json json, Entity * parent)
 	auto children = json["entities"];
 	for (auto& j : children)
 	{
-		e->AddChild(Load(j, e));
+		e->AddChild(Load(j));
 	}
 
 	return e;
 }
 
-ComponentMap* PrefabLoader::componentMap;
+Entity * PrefabLoader::EntityRegistrarLoader(json json)
+{
+	return LoadPrefab(json["path"].get<std::string>());
+}
 
-EntityMap* PrefabLoader::entityMap;
+PrefabLoader::ComponentMap* PrefabLoader::componentMap;
+
+PrefabLoader::EntityMap* PrefabLoader::entityMap;
+
+EntityRegistrar PrefabLoader::reg("prefab", &PrefabLoader::EntityRegistrarLoader);
