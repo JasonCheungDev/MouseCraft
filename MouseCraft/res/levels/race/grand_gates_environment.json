@@ -1,0 +1,262 @@
+{
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+		{
+			"loader": {
+				"type": "prefab",
+				"path": "res/external/creepy_cat/Legos/ring.json"
+			},
+			"pos": [116,1,-10],
+			"scl": [0.6,0.6,0.6],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "prefab",
+				"path": "res/external/creepy_cat/Legos/ring.json"
+			},
+			"pos": [116,1,2],
+			"scl": [0.6,0.6,0.6],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "prefab",
+				"path": "res/external/creepy_cat/Legos/ring.json"
+			},
+			"pos": [116,1,14],
+			"scl": [0.6,0.6,0.6],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		},
+
+		{
+			"loader": {
+				"type": "prefab",
+				"path": "res/external/creepy_cat/Legos/ring.json"
+			},
+			"pos": [108,1,32],
+			"scl": [0.3,0.3,0.3],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "prefab",
+				"path": "res/external/creepy_cat/Legos/ring.json"
+			},
+			"pos": [124,1,32],
+			"scl": [0.3,0.3,0.3],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		},
+
+		{
+			"loader": {
+				"type": "prefab",
+				"path": "res/external/creepy_cat/Legos/ring.json"
+			},
+			"pos": [116,1,48],
+			"scl": [0.6,0.6,0.6],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		},
+
+
+
+		{
+			"name": "rings_little",
+			"loader": {
+				"type": "prefab",
+				"path": "res/external/creepy_cat/Legos/ring_half.json"
+			},
+			"pos": [116,1,-12],
+			"scl": [0.33,0.33,0.33],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "rings_little",
+			"loader": {
+				"type": "prefab",
+				"path": "res/external/creepy_cat/Legos/ring_half.json"
+			},
+			"pos": [116,1,-8],
+			"scl": [0.33,0.33,0.33],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "rings_little",
+			"loader": {
+				"type": "prefab",
+				"path": "res/external/creepy_cat/Legos/ring_half.json"
+			},
+			"pos": [116,1,-4],
+			"scl": [0.33,0.33,0.33],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "rings_little",
+			"loader": {
+				"type": "prefab",
+				"path": "res/external/creepy_cat/Legos/ring_half.json"
+			},
+			"pos": [116,1,0],
+			"scl": [0.33,0.33,0.33],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "rings_little",
+			"loader": {
+				"type": "prefab",
+				"path": "res/external/creepy_cat/Legos/ring_half.json"
+			},
+			"pos": [116,1,4],
+			"scl": [0.33,0.33,0.33],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "rings_little",
+			"loader": {
+				"type": "prefab",
+				"path": "res/external/creepy_cat/Legos/ring_half.json"
+			},
+			"pos": [116,1,8],
+			"scl": [0.33,0.33,0.33],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "rings_little",
+			"loader": {
+				"type": "prefab",
+				"path": "res/external/creepy_cat/Legos/ring_half.json"
+			},
+			"pos": [116,1,12],
+			"scl": [0.33,0.33,0.33],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "rings_little",
+			"loader": {
+				"type": "prefab",
+				"path": "res/external/creepy_cat/Legos/ring_half.json"
+			},
+			"pos": [116,1,16],
+			"scl": [0.33,0.33,0.33],
+			"rot": [0,180,0],
+			"components": [],
+			"entities": []
+		},
+
+
+
+		{
+			"name": "gates",
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/gate.fbx"
+			},
+			"pos": [116,-16,0],
+			"scl": [10,10,10],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "gates",
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/gate.fbx"
+			},
+			"pos": [116,-16,20],
+			"scl": [10,10,10],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "gates",
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/gate.fbx"
+			},
+			"pos": [116,-16,40],
+			"scl": [10,10,10],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "gate_entrance",
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/gate_thick.fbx"
+			},
+			"pos": [116,-7,-16],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "gate_exit",
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/gate_thick.fbx"
+			},
+			"pos": [116,-7,56],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+
+		{
+			"name": "center_art",
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [116,-3,32],
+			"scl": [32,24,32],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [116,-3,32],
+			"scl": [24,12,24],
+			"rot": [180,0,0],
+			"components": [],
+			"entities": []
+		}
+	]
+}
