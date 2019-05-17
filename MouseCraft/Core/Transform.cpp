@@ -17,6 +17,7 @@ glm::vec3 Transform::getLocalPosition() const
 void Transform::setLocalPosition(glm::vec3 position)
 {
 	_localPosition = position;
+	_invalidated = true;
 }
 
 glm::vec3 Transform::getLocalRotation() const
@@ -28,6 +29,7 @@ void Transform::setLocalRotation(glm::vec3 rotation)
 {
 	_localRotation = rotation;
 	_localQuat = glm::quat(rotation);
+	_invalidated = true;
 }
 
 glm::quat Transform::getLocalQuaternion() const
@@ -39,6 +41,7 @@ void Transform::setLocalRotation(glm::quat rotation)
 {
 	_localRotation = glm::eulerAngles(rotation);
 	_localQuat = rotation;
+	_invalidated = true;
 }
 
 glm::vec3 Transform::getLocalScale() const
@@ -49,6 +52,7 @@ glm::vec3 Transform::getLocalScale() const
 void Transform::setLocalScale(glm::vec3 scale)
 {
 	_localScale = scale;
+	_invalidated = true;
 }
 
 void Transform::setLocalTransformation(glm::mat4 transform)
@@ -170,6 +174,16 @@ glm::mat4 Transform::getWorldTransformation() const
 	return _worldTransformation;
 }
 
+bool Transform::getLocalInvalidated() const
+{
+	return _invalidated;
+}
+
+void Transform::setLocalInvalidation(bool invalidate)
+{
+	_invalidated = invalidate;
+}
+
 void Transform::face2D(glm::vec2 dir)
 {
 	setLocalRotation(glm::vec3(0, getAngle2D(dir), 0));
@@ -214,6 +228,8 @@ void Transform::computeLocalTransformation()
 	_localTransformation = _localTransformation * (glm::mat4)_localQuat;
 
 	_localTransformation = glm::scale(_localTransformation, _localScale);
+
+	_invalidated = false;
 }
 
 void Transform::computeWorldTransformation(glm::mat4 parent)

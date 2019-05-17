@@ -140,6 +140,6 @@ private:
 
 	void transitionScenes();
 
-	void precomputeTransforms(Entity* entity, glm::mat4 parentTransformation = glm::mat4(1.0f));
+	void precomputeTransforms(Entity* entity, bool recalculateWorld = false, glm::mat4 parentTransformation = glm::mat4(1.0f));
 };
 

@@ -1,0 +1,18 @@
+{
+    "vec3s":[
+        { "name":"uniform_name", "value": [1,2,3] },
+        { "name":"uniform_name", "value": [1,2,3] }
+    ],
+    "floats":[
+        { "name":"uniform_name", "value": 1.0 },
+        { "name":"uniform_name", "value": 2.0 }
+    ],
+    "ints":[
+        { "name":"uniform_name", "value": 1 },
+        { "name":"uniform_name", "value": 2 }
+    ],
+    "textures":[
+        { "name":"uniform_name", "value": "res/textures/box.png" },
+        { "name":"uniform_name", "value": "res/textures/bob_ross.png" }
+    ]    
+}
