@@ -1,6 +1,6 @@
 #include "PrefabLoader.h"
 
-
+#include "JsonLoader.h"
 
 ComponentRegistrar::ComponentRegistrar(const std::string & jsonKey, Component *(*func)(json))
 {
@@ -37,32 +37,11 @@ void PrefabLoader::AddEntityLoader(const std::string & jsonKey, Entity *(*func)(
 
 Entity * PrefabLoader::LoadPrefab(std::string path)
 {
-	std::string* data = ResourceCache<std::string>::Instance().Get(path);
-	json json;
-
-	// check if prefab was loaded before (avoid accessing disk)
-	if (data == nullptr)
-	{
-		// open file and parse json
-		std::ifstream ifs(path);
-		if (!ifs.good())
-		{
-			std::cerr << "ERROR: PrefabLoader could not find file: " << path << std::endl;
-			return nullptr;
-		}
-		std::stringstream ss;
-		ss << ifs.rdbuf();
-		ResourceCache<std::string>::Instance().Add(path, new std::string(ss.str()));
-
-		json = json::parse(ss.str());
-	}
-	else
-	{
-		json = json::parse(*data);
-	}
+	// load json 
+	json* j = JsonLoader::Load(path);
 
 	// load prefab 
-	auto parent = Load(json);
+	auto parent = Load(*j);
 
 	// return result
 	return parent;

@@ -168,8 +168,11 @@
     <ClCompile Include="Common\PhysicsMover.cpp" />
     <ClCompile Include="Core\System.cpp" />
     <ClCompile Include="Core\UpdateSystem.cpp" />
+    <ClCompile Include="Util\JsonGL.cpp" />
     <ClCompile Include="Loading\FileUtil.cpp" />
+    <ClCompile Include="Loading\JsonLoader.cpp" />
     <ClCompile Include="Loading\MaterialLoader.cpp" />
+    <ClCompile Include="Loading\ShaderLoader.cpp" />
     <ClCompile Include="Physics\PhysicsUtil.cpp" />
     <ClCompile Include="PrefabScene.cpp" />
     <ClCompile Include="RaceScene.cpp" />
@@ -265,8 +268,11 @@
     <ClInclude Include="Core\System.h" />
     <ClInclude Include="Core\UpdateSystem.h" />
     <ClInclude Include="Core\Vector2D.h" />
+    <ClInclude Include="Util\JsonGL.h" />
     <ClInclude Include="Loading\FileUtil.h" />
+    <ClInclude Include="Loading\JsonLoader.h" />
     <ClInclude Include="Loading\MaterialLoader.h" />
+    <ClInclude Include="Loading\ShaderLoader.h" />
     <ClInclude Include="OmegaEngineDefines.h" />
     <ClInclude Include="Physics\PhysicsUtil.h" />
     <ClInclude Include="PrefabScene.h" />

@@ -10,13 +10,13 @@
 class Renderable
 {
 public:
-	std::shared_ptr<Mesh> mesh;
-	std::shared_ptr<Material> material;
-	std::shared_ptr<Shader> shader;
+	std::shared_ptr<Mesh> mesh = nullptr;
+	std::shared_ptr<Material> material = nullptr;
+	Shader* shader = nullptr;
 
 public:
 	Renderable() {};
-	Renderable(std::shared_ptr<Mesh> mesh, std::shared_ptr<Material> material, std::shared_ptr<Shader> shader)
+	Renderable(std::shared_ptr<Mesh> mesh, std::shared_ptr<Material> material, Shader* shader)
 	{
 		this->mesh = mesh;
 		this->material = material;
