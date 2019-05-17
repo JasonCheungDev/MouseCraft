@@ -1,9 +1,11 @@
 #pragma once
 
-#include <fstream>
 #include "../Rendering/Material.h"
+#include "../Rendering/Texture1x1.h"
 #include "TextureLoader.h"
 #include "ResourceCache.h"
+#include "JsonLoader.h"
+#include "../Util/JsonGL.h"
 #include <json.hpp>
 using json = nlohmann::json;
 
@@ -15,27 +17,14 @@ public:
 
 	// Loads a material from path.
 	// Will return a preloaded texture if found.
-	static std::shared_ptr<Material> Load(const std::string & path)
+	static std::shared_ptr<Material> Load(const std::string & jsonPath)
 	{
-		auto material = ResourceCacheShared<Material>::Instance().Get(path);
+		auto material = ResourceCacheShared<Material>::Instance().Get(jsonPath);
 
 		if (material)
-		{
 			return material;
-		}
 		else
-		{
-			std::ifstream ifs(path);
-			if (!ifs.good())
-			{
-				std::cerr << "ERROR: PrefabLoader could not find component file: " << path << std::endl;
-				return nullptr;
-			}
-			json json;
-			ifs >> json;
-
-			return LoadFromJson(json);
-		}
+			return LoadFromJson(*JsonLoader::Load(jsonPath));
 	}
 
 	// Loads a material from path.
@@ -66,8 +55,32 @@ public:
 		auto textures = json["textures"];
 		for (auto& t : textures)
 		{
-			auto tex = TextureLoader::Load(t["value"].get<std::string>());
-			material->AddTexture(t["name"].get<std::string>(), tex);
+			if (t.find("generate") != t.end())
+			{
+				// generate 1x1 default texture 
+
+				if (t["generate"].size() == 1)
+				{
+					material->AddTexture(t["name"].get<std::string>(),
+						new Texture1x1(t["generate"][0].get<float>()));
+				}
+				else if (t["generate"].size() == 3)
+				{
+					material->AddTexture(t["name"].get<std::string>(),
+						new Texture1x1(jsonToVec3(t["generate"])));
+				}
+				else if (t["generate"].size() == 4)
+				{
+					material->AddTexture(t["name"].get<std::string>(),
+						new Texture1x1(jsonToVec4(t["generate"])));
+				}
+			}
+			else
+			{
+				// read texture file 
+				auto tex = TextureLoader::Load(t["value"].get<std::string>());
+				material->AddTexture(t["name"].get<std::string>(), tex);
+			}
 		}
 
 		return material;

@@ -30,11 +30,15 @@ public:
 	// Use specified material instead of the NEXT file's model.
 	// TODO: Override policy { REPLACE, DEFAULT, OVERRIDE } 
 	static void SetOverrideMaterial(std::shared_ptr<Material> material);
+	// Use specified shader instead for the NEXT file. 
+	static void SetOverrideShader(Shader* shader);
 
 private:
 	static std::string directory;
 
 	static std::shared_ptr<Material> overrideMaterial;
+
+	static Shader* overrideShader;
 
 	static Entity* ProcessNode(Entity* entity, aiNode* node, const aiScene* scene);
 

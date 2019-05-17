@@ -65,7 +65,7 @@ RenderingSystem::RenderingSystem() : System()
 	cpuProfiler.StartTimer(7);
 
 	// initialize default shaders  
-	geometryShader = new Shader("res/shaders/geometry_vertex.glsl", "res/shaders/geometry_fragment.glsl");
+	geometryShader = new Shader("res/shaders/geometry.vs", "res/shaders/geometry.fs");
 	Material* geometryDefaults		= new Material();
 	Texture1x1* diffuseDefaultTex	= new Texture1x1(glm::vec3(1.0f));
 	geometryDefaults->AddTexture(SHADER_TEX_DIFFUSE, diffuseDefaultTex);
@@ -203,20 +203,39 @@ void RenderingSystem::RenderGeometryPass()
 		for (int i = 0; i < rc->renderables.size(); i++)
 		{
 			auto r = rc->renderables[i];
-			geometryShader->LoadDefaults(0);	//OOF
-			r->material->LoadMaterial(geometryShader, 0);
+			
+			if (r->shader != nullptr)
+			{
+				// custom shader has been set
+				r->shader->use();
+				// ensure all uniforms have been set 
+				r->shader->setMat4(SHADER_PROJECTION, projection);
+				r->shader->setMat4(SHADER_VIEW, view);
+				r->shader->setMat4(SHADER_MODEL, model);
+				r->shader->setVec3(SHADER_DIFFUSE, glm::vec3(1, 1, 1));
+				r->shader->setVec3(SHADER_SPECULAR, glm::vec3(1, 1, 1));
+				r->shader->setVec3(SHADER_AMBIENT, glm::vec3(1, 1, 1));
+				// TODO: Default loading (see comment below for issue).
+				// auto freeTexSlot = r->shader->LoadDefaults(0);
+				// freeTexSlot += 
+				r->material->LoadMaterial(r->shader, 0);
+			}
+			else
+			{
+				geometryShader->LoadDefaults(0);	//OOF 
+				r->material->LoadMaterial(geometryShader, 0); // (we load at 0 b/c we need to override the default texture)
+			}
+
+			// draw 
 			glBindVertexArray(r->mesh->VAO);
 			glDrawElements(GL_TRIANGLES, r->mesh->indices.size(), GL_UNSIGNED_INT, 0);
 			glBindVertexArray(0);
 
-
-			/* Proper way
-			if (custom shader has been set) then
-				shader use
-				shader set model 
-				load material (shader) 
-				load mesh () 
-			*/
+			if (r->shader != nullptr)
+			{
+				// switch back to default shader 
+				geometryShader->use();
+			}
 		}
 	}
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);

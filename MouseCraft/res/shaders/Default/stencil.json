@@ -1,0 +1,4 @@
+{
+    "vertex":"res/shaders/geometry.vs",
+    "fragment":"res/shaders/geometry_stencil.fs"
+}
