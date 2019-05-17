@@ -81,6 +81,13 @@ public:
 	// Gets the world transformation matrix. 
 	glm::mat4 getWorldTransformation() const;
 
+	// Returns true if there has been a change to the local transform.
+	bool getLocalInvalidated() const; 
+
+	// Sets the invalidation status of this transform. 
+	// True will cause a recompute next frame, false will stop the recompute.
+	void setLocalInvalidation(bool invalidate);
+
 	// Face towards the direction vector 
 	void face2D(glm::vec2 dir);
 	void face2D(glm::vec3 dir);
@@ -150,4 +157,5 @@ private:
 	glm::vec3 _localScale = glm::vec3(1.0f);
 	glm::mat4 _localTransformation;
 	glm::mat4 _worldTransformation;
+	bool _invalidated = true;
 };

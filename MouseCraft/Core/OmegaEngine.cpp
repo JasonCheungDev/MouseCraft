@@ -243,22 +243,27 @@ Window* OmegaEngine::getWindow() const
 {
 	return _window;
 }
-void OmegaEngine::precomputeTransforms(Entity* entity, glm::mat4 parentTransformation)
+void OmegaEngine::precomputeTransforms(Entity* entity, bool recalculateWorld, glm::mat4 parentTransformation)
 {
 	// can use a enabled check here b/c of the scenegraph
 	if (!entity->GetEnabled())
 		return;
 
 	// calculate local transformation 
-	if (!entity->GetStatic())
+	// if (!entity->GetStatic())
+	if (entity->transform.getLocalInvalidated())
+	{
 		entity->transform.computeLocalTransformation();
-
+		recalculateWorld = true;
+	}
+	
 	// calculate world transformation 
-	entity->transform.computeWorldTransformation(parentTransformation);
+	if (recalculateWorld)
+		entity->transform.computeWorldTransformation(parentTransformation);
 	auto worldTransform = entity->transform.getWorldTransformation();
 
 	// propogate to all children 
 	auto children = entity->GetChildren();
 	for (auto c : children)
-		precomputeTransforms(c, worldTransform);
+		precomputeTransforms(c, recalculateWorld, worldTransform);
 }
