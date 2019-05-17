@@ -26,8 +26,15 @@ public:
 	// Loads only the first Mesh found in a model. 
 	static std::shared_ptr<Mesh> LoadMesh(const std::string& path);
 
+	// DEBUG
+	// Use specified material instead of the NEXT file's model.
+	// TODO: Override policy { REPLACE, DEFAULT, OVERRIDE } 
+	static void SetOverrideMaterial(std::shared_ptr<Material> material);
+
 private:
 	static std::string directory;
+
+	static std::shared_ptr<Material> overrideMaterial;
 
 	static Entity* ProcessNode(Entity* entity, aiNode* node, const aiScene* scene);
 

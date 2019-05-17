@@ -12,6 +12,8 @@ Texture::Texture(unsigned char* data, int width, int height, int channels)
 	GLenum format;
 	if (channels == 1)
 		format = GL_RED;
+	else if (channels == 2)	// WARNING: UNTESTED
+		format = GL_RG;
 	else if (channels == 3)
 		format = GL_RGB;
 	else if (channels == 4)

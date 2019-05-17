@@ -3,6 +3,7 @@
 #include <iostream>
 #include <queue>
 #include "FileUtil.h"
+#include "MaterialLoader.h"
 
 using std::ifstream;
 using std::string;
@@ -10,6 +11,7 @@ using std::vector;
 
 std::string ModelLoader::directory = "";
 
+std::shared_ptr<Material> ModelLoader::overrideMaterial = nullptr;
 
 // Checks all material textures of a given type and loads the textures if they're not loaded yet.
 // the required info is returned as a Texture struct.
@@ -65,6 +67,7 @@ Entity * ModelLoader::Load(const std::string & path)
 
 	// cleanup and return 
 	ModelLoader::directory = "";
+	ModelLoader::overrideMaterial = nullptr;
 	return rootEntity;
 }
 
@@ -111,6 +114,11 @@ std::shared_ptr<Mesh> ModelLoader::LoadMesh(const std::string & path)
 	return mesh;
 }
 
+void ModelLoader::SetOverrideMaterial(std::shared_ptr<Material> material)
+{
+	overrideMaterial = material;
+}
+
 Entity* ModelLoader::ProcessNode(Entity* parent, aiNode * node, const aiScene * scene)
 {
 	if (node->mNumMeshes == 0 && node->mChildren == 0)
@@ -151,7 +159,7 @@ std::shared_ptr<Renderable> ModelLoader::Processmesh(aiMesh * mesh, const aiScen
 	// create a renderable & material to house data in
 	std::shared_ptr<Renderable> renderable = std::make_shared<Renderable>();
 	renderable->mesh = ProcessMeshVertices(mesh, scene);
-	renderable->material = ProcessMeshMaterial(mesh, scene);
+	renderable->material = (overrideMaterial) ? overrideMaterial : ProcessMeshMaterial(mesh, scene);
 	// return a mesh object created from the extracted mesh data
 	return renderable;
 }
@@ -267,6 +275,11 @@ std::vector<TextureShaderInfo> ModelLoader::loadMaterialTextures(aiMaterial * ma
 
 Entity * ModelLoader::LoadFromJson(json json)
 {
+	// check for material overrides 
+	if (json.find("material") != json.end())
+	{
+		SetOverrideMaterial(MaterialLoader::Load(json["material"].get<std::string>()));
+	}
 	return ModelLoader::Load(json["path"].get<std::string>());
 }
 
