@@ -1,0 +1,53 @@
+{
+	"_note_": "This is a pack of 4 benches.",
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/bench.fbx"
+			},
+			"pos": [-3,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/bench.fbx"
+			},
+			"pos": [-1,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/bench.fbx"
+			},
+			"pos": [1,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/bench.fbx"
+			},
+			"pos": [3,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		}
+	]
+}

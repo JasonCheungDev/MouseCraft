@@ -1,0 +1,41 @@
+{
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/cube.fbx"
+			},
+			"pos": [0,0,0],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/cube.fbx"
+			},
+			"pos": [-1.45,-0.7,-1.5],
+			"scl": [0.93,1,0.775],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/cylinder.fbx"
+			},
+			"pos": [1,1.6,1],
+			"scl": [1.5,0.8,1.5],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		}
+	]
+}

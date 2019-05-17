@@ -1,0 +1,274 @@
+{
+	"_note_": "This is the center divider between the starting area and the winding path",
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [0,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [2,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [4,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [6,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [8,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [10,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [12,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [14,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [16,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [18,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [20,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [22,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [24,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [26,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [28,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [30,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [32,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [34,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [36,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [38,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [40,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [42,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [44,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/art_6.fbx"
+			},
+			"pos": [46,0,0],
+			"scl": [4,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		}
+	]
+}

@@ -1,0 +1,94 @@
+{
+	"pos": [0,-10.01,0],
+	"scl": [1,20,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+		{
+			"name": "terrace_grounds",
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/cube.obj"
+			},
+			"pos": [40,0,-32],
+			"scl": [92,1,12],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "city_terrace_grounds",
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/cube.obj"
+			},
+			"pos": [68,0,-20],
+			"scl": [36,1,12],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "city_grounds",
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/cube.obj"
+			},
+			"pos": [38,0,41],
+			"scl": [96,1,110],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "mystery_grounds",
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/cube.obj"
+			},
+			"pos": [108,0,76],
+			"scl": [44,1,40],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"name": "lighthouse_grounds",
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/cube.obj"
+			},
+			"pos": [-16,0,10],
+			"scl": [20,1,40],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+
+		{
+			"name": "lighthouse_tower_grounds",
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/octagon.obj"
+			},
+			"pos": [-16,-0.5,-10],
+			"scl": [24,1.0001,24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+
+		{
+			"name": "park_grounds",
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/octagon.obj"
+			},
+			"pos": [-13,-0.5,64],
+			"scl": [52,1.0001,52],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		}
+	]
+}

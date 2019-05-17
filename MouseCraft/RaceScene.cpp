@@ -38,7 +38,11 @@ RaceScene::RaceScene()
 
 	e_cam->t().setLocalPosition(glm::vec3(0, 5.0f, 0));
 
-	std::string path = "res/levels/race";
+	root.AddChild(PrefabLoader::LoadPrefab("res/external/karboosx/Legos/building_corner.json"));
+
+	root.AddChild(ModelLoader::Load("res/models/primitive/octagon.obj"));
+
+	std::string path = "res/levels/race/load";
 	for (const auto& entry : fs::directory_iterator(path))
 		root.AddChild(PrefabLoader::LoadPrefab(entry.path().string()));
 }

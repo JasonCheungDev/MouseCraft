@@ -1,0 +1,8 @@
+{
+    "vec3s":[],
+    "floats":[],
+    "ints":[],
+    "textures":[
+        { "name":"u_TexDiffuse", "value": "res/external/karboosx/Textures/base-color.png" }
+    ]    
+}

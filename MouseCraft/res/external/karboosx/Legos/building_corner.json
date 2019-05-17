@@ -8,7 +8,8 @@
 			"name": "center",
 			"loader": {
 				"type": "model",
-				"path": "res/external/karboosx/_Meshes/window_big_corner_far_plug.fbx"
+				"path": "res/external/karboosx/Models/window_big_corner_far_plug.fbx",
+				"material": "res/materials/karboosx_base.json"
 			},
 			"pos": [-2,0,-2],
 			"scl": [1,1,1],
@@ -19,18 +20,18 @@
 		{
 			"loader": {
 				"type": "model",
-				"path": "res/external/karboosx/_Meshes/wall_big_no_side_full_LOD1.fbx"
+				"path": "res/external/karboosx/Models/wall_big_no_side_full_LOD1.fbx"
 			},
 			"pos": [0,0,-2],
 			"scl": [1,1,1],
-			"rot": [0,180,0],
+			"rot": [0,0,0],
 			"components": [],
 			"entities": []
 		},
 		{
 			"loader": {
 				"type": "model",
-				"path": "res/external/karboosx/_Meshes/wall_big_no_side_full_LOD1.fbx"
+				"path": "res/external/karboosx/Models/wall_big_no_side_full_LOD1.fbx"
 			},
 			"pos": [-2,0,0],
 			"scl": [1,1,1],
@@ -42,11 +43,11 @@
 			"name": "right",
 			"loader": {
 				"type": "model",
-				"path": "res/external/karboosx/_Meshes/wall_big_no_side_full_LOD1.fbx"
+				"path": "res/external/karboosx/Models/wall_big_no_side_full_LOD1.fbx"
 			},
 			"pos": [4,0,-2],
 			"scl": [1,1,1],
-			"rot": [0,180,0],
+			"rot": [0,0,0],
 			"components": [],
 			"entities": []
 		},
@@ -54,7 +55,7 @@
 			"name": "left",
 			"loader": {
 				"type": "model",
-				"path": "res/external/karboosx/_Meshes/wall_big_no_side_full_LOD1.fbx"
+				"path": "res/external/karboosx/Models/wall_big_no_side_full_LOD1.fbx"
 			},
 			"pos": [-2,0,4],
 			"scl": [1,1,1],
@@ -66,11 +67,11 @@
 			"name": "concave",
 			"loader": {
 				"type": "model",
-				"path": "res/external/karboosx/_Meshes/window_big_corner_plug.fbx"
+				"path": "res/external/karboosx/Models/window_big_corner_plug.fbx"
 			},
-			"pos": [4,0,2],
+			"pos": [4,0,4],
 			"scl": [1,1,1],
-			"rot": [0,180,0],
+			"rot": [0,90,0],
 			"components": [],
 			"entities": []
 		}

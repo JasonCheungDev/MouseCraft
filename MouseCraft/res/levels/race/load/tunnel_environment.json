@@ -1,0 +1,41 @@
+{
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/cube.obj"
+			},
+			"pos": [50,2,74],
+			"scl": [80,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/cube.obj"
+			},
+			"pos": [50,2,94],
+			"scl": [80,4,4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/models/primitive/cube.obj"
+			},
+			"pos": [50,12,84],
+			"scl": [80,16,24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		}
+	]
+}

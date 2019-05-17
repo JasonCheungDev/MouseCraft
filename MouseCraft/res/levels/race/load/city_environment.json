@@ -1,0 +1,1122 @@
+{
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+		{
+			"name": "exterior_facade",
+			"pos": [0,0,0],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": [
+				{
+					"name": "center_lv1",
+					"pos": [0,0,0],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [10,0,-6],
+							"scl": [1,1,1],
+							"rot": [0,0,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [10,0,26],
+							"scl": [1,1,1],
+							"rot": [0,90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [34,0,26],
+							"scl": [1,1,1],
+							"rot": [0,180,0],
+							"components": [],
+							"entities": []
+						},
+						
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [26,0,-8],
+							"scl": [5,1,1],
+							"rot": [0,0,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [8,0,10],
+							"scl": [5,1,1],
+							"rot": [0,90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [18,0,28],
+							"scl": [5,1,1],
+							"rot": [0,180,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [36,0,10],
+							"scl": [5,1,1],
+							"rot": [0,270,0],
+							"components": [],
+							"entities": []
+						}
+					]
+				},
+				{
+					"name": "center_lv2",
+					"pos": [0,4,0],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [10,0,-6],
+							"scl": [1,1,1],
+							"rot": [0,0,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [10,0,26],
+							"scl": [1,1,1],
+							"rot": [0,90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [34,0,26],
+							"scl": [1,1,1],
+							"rot": [0,180,0],
+							"components": [],
+							"entities": []
+						},
+						
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [26,0,-8],
+							"scl": [5,1,1],
+							"rot": [0,0,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [8,0,10],
+							"scl": [5,1,1],
+							"rot": [0,90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [18,0,28],
+							"scl": [5,1,1],
+							"rot": [0,180,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [36,0,10],
+							"scl": [5,1,1],
+							"rot": [0,270,0],
+							"components": [],
+							"entities": []
+						}
+					]
+				},
+
+				{
+					"name": "connector_lv1",
+					"pos": [0,0,0],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [48,0,-8],
+							"scl": [6,1,1],
+							"rot": [0,0,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [58,0,4],
+							"scl": [9,1,1],
+							"rot": [0,180,0],
+							"components": [],
+							"entities": []
+						},
+						
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [34,0,2],
+							"scl": [1,1,1],
+							"rot": [0,0,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [82,0,2],
+							"scl": [1,1,1],
+							"rot": [0,-90,0],
+							"components": [],
+							"entities": []
+						}
+					]
+				},
+				{
+					"name": "connector_lv2",
+					"pos": [0,4,0],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [50,0,-8],
+							"scl": [7,1,1],
+							"rot": [0,0,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [58,0,-4],
+							"scl": [11,1,1],
+							"rot": [0,180,0],
+							"components": [],
+							"entities": []
+						}
+					]
+				},
+				
+
+				{
+					"name": "resturant_lv1",
+					"pos": [0,0,0],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [66,0,-6],
+							"scl": [1,1,1],
+							"rot": [0,180,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [66,0,-30],
+							"scl": [1,1,1],
+							"rot": [0,0,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [64,0,-18],
+							"scl": [3,1,1],
+							"rot": [0,90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [74,0,-32],
+							"scl": [1,1,1],
+							"rot": [0,0,0],
+							"components": [],
+							"entities": []
+						}
+					]
+				},
+				{
+					"name": "resturant_lv2",
+					"pos": [0,4,0],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [70,0,-6],
+							"scl": [1,1,1],
+							"rot": [0,180,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [70,0,-30],
+							"scl": [1,1,1],
+							"rot": [0,0,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [68,0,-18],
+							"scl": [3,1,1],
+							"rot": [0,90,0],
+							"components": [],
+							"entities": []
+						}
+					]
+				},
+				{
+					"name": "resturant_lv3",
+					"pos": [0,8,0],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [70,0,-6],
+							"scl": [1,1,1],
+							"rot": [0,90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [70,0,-30],
+							"scl": [1,1,1],
+							"rot": [0,0,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [68,0,-18],
+							"scl": [3,1,1],
+							"rot": [0,90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [74,0,-4],
+							"scl": [3,1,1],
+							"rot": [0,180,0],
+							"components": [],
+							"entities": []
+						}
+					]
+				},
+
+				{
+					"name": "lighthouse_lv1",
+					"pos": [0,0,0],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [-10,0,-6],
+							"scl": [1,1,1],
+							"rot": [0,-90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [-10,0,26],
+							"scl": [1,1,1],
+							"rot": [0,180,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [-22,0,26],
+							"scl": [1,1,1],
+							"rot": [0,90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [-22,0,-6],
+							"scl": [1,1,1],
+							"rot": [0,0,0],
+							"components": [],
+							"entities": []
+						},
+
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [-8,0,10],
+							"scl": [5,1,1],
+							"rot": [0,-90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [-24,0,10],
+							"scl": [5,1,1],
+							"rot": [0,90,0],
+							"components": [],
+							"entities": []
+						}
+					]
+				},
+				{
+					"name": "lighthouse_lv2",
+					"pos": [0,4,0],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [-10,0,-6],
+							"scl": [1,1,1],
+							"rot": [0,-90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [-10,0,26],
+							"scl": [1,1,1],
+							"rot": [0,180,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [-22,0,26],
+							"scl": [1,1,1],
+							"rot": [0,90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [-22,0,-6],
+							"scl": [1,1,1],
+							"rot": [0,0,0],
+							"components": [],
+							"entities": []
+						},
+
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [-8,0,10],
+							"scl": [5,1,1],
+							"rot": [0,-90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [-24,0,10],
+							"scl": [5,1,1],
+							"rot": [0,90,0],
+							"components": [],
+							"entities": []
+						}
+					]
+				},
+
+				{
+					"name": "lighthouse_tower",
+					"pos": [-16,0,-10],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/column.fbx"
+							},
+							"pos": [0,0,0],
+							"scl": [20,4,20],
+							"rot": [0,0,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/column.fbx"
+							},
+							"pos": [0,23,0],
+							"scl": [18,2,18],
+							"rot": [180,0,0],
+							"components": [],
+							"entities": []
+						}
+					]
+				},
+
+				{
+					"name": "middle_lv1",
+					"pos": [0,0,0],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [54,0,22],
+							"scl": [1,1,1],
+							"rot": [0,0,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [62,0,22],
+							"scl": [1,1,1],
+							"rot": [0,-90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [62,0,34],
+							"scl": [1,1,1],
+							"rot": [0,-180,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [54,0,34],
+							"scl": [1,1,1],
+							"rot": [0,-270,0],
+							"components": [],
+							"entities": []
+						}
+					]
+				},
+				{
+					"name": "middle_lv2",
+					"pos": [0,4,0],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [54,0,22],
+							"scl": [1,1,1],
+							"rot": [0,0,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [62,0,22],
+							"scl": [1,1,1],
+							"rot": [0,-90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [62,0,34],
+							"scl": [1,1,1],
+							"rot": [0,-180,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [54,0,34],
+							"scl": [1,1,1],
+							"rot": [0,-270,0],
+							"components": [],
+							"entities": []
+						}
+					]
+				},
+				{
+					"name": "middle_lv3",
+					"pos": [0,8,0],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [54,0,22],
+							"scl": [1,1,1],
+							"rot": [0,0,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [62,0,22],
+							"scl": [1,1,1],
+							"rot": [0,-90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [62,0,34],
+							"scl": [1,1,1],
+							"rot": [0,-180,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [54,0,34],
+							"scl": [1,1,1],
+							"rot": [0,-270,0],
+							"components": [],
+							"entities": []
+						}
+					]
+				},
+
+				{
+					"name": "grand_gates_lv1",
+					"pos": [0,0,0],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [82,0,-30],
+							"scl": [1,1,1],
+							"rot": [0,-90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [84,0,24],
+							"scl": [24,1,1],
+							"rot": [0,-90,0],
+							"components": [],
+							"entities": []
+						},
+
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [80,0,34],
+							"scl": [19,1,1],
+							"rot": [0,90,0],
+							"components": [],
+							"entities": []
+						}
+					]
+				},
+				{
+					"name": "grand_gates_lv2",
+					"pos": [0,4,0],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [82,0,-30],
+							"scl": [1,1,1],
+							"rot": [0,-90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [84,0,24],
+							"scl": [24,1,1],
+							"rot": [0,-90,0],
+							"components": [],
+							"entities": []
+						},
+
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [80,0,34],
+							"scl": [19,1,1],
+							"rot": [0,90,0],
+							"components": [],
+							"entities": []
+						}
+					]
+				},
+				{
+					"name": "grand_gates_lv3",
+					"pos": [0,8,0],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+						{
+							"loader": {
+								"type": "prefab",
+								"path": "res/external/karboosx/Legos/building_corner.json"
+							},
+							"pos": [82,0,-30],
+							"scl": [1,1,1],
+							"rot": [0,-90,0],
+							"components": [],
+							"entities": []
+						},
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [84,0,24],
+							"scl": [24,1,1],
+							"rot": [0,-90,0],
+							"components": [],
+							"entities": []
+						},
+
+						{
+							"loader": {
+								"type": "model",
+								"path": "res/external/karboosx/wall.fbx"
+							},
+							"pos": [80,0,34],
+							"scl": [19,1,1],
+							"rot": [0,90,0],
+							"components": [],
+							"entities": []
+						}
+					]
+				}
+			]
+		},
+		
+		{
+			"name": "decorations",
+			"pos": [0,0,0],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": [
+				{
+					"loader": {
+						"type": "model",
+						"path": "res/external/karboosx/art_2.fbx"
+					},
+					"pos": [-12,0,64],
+					"scl": [80,40,80],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": []
+				},
+				{
+					"loader": {
+						"type": "model",
+						"path": "res/external/karboosx/art_6.fbx"
+					},
+					"pos": [22.5,0,55],
+					"scl": [40,40,40],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": []
+				},
+				{
+					"loader": {
+						"type": "model",
+						"path": "res/external/karboosx/art_5.fbx"
+					},
+					"pos": [42,0,52.5],
+					"scl": [40,40,40],
+					"rot": [0,90,0],
+					"components": [],
+					"entities": []
+				},
+				{
+					"loader": {
+						"type": "model",
+						"path": "res/external/karboosx/art_1.fbx"
+					},
+					"pos": [61.25,0,53.5],
+					"scl": [40,40,40],
+					"rot": [0,180,0],
+					"components": [],
+					"entities": []
+				},
+
+				{
+					"_NOTE_": "Decorations below",
+					"pos": [0,0,0],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": []
+				},
+				{
+					"loader": {
+						"type": "prefab",
+						"path": "res/levels/race/city/observatory.json"
+					},
+					"pos": [9.75,-0.4,47],
+					"scl": [1,1,1],
+					"rot": [0,-45,0],
+					"components": [],
+					"entities": []
+				},
+				{
+					"loader": {
+						"type": "prefab",
+						"path": "res/levels/race/city/divider.json"
+					},
+					"pos": [0,0,40],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": []
+				},
+				{
+					"loader": {
+						"type": "prefab",
+						"path": "res/levels/race/city/benches.json"
+					},
+					"pos": [22,0,60],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": []
+				},
+				{
+					"loader": {
+						"type": "prefab",
+						"path": "res/levels/race/city/benches.json"
+					},
+					"pos": [28,0,54],
+					"scl": [1,1,1],
+					"rot": [0,90,0],
+					"components": [],
+					"entities": []
+				},
+
+				{
+					"loader": {
+						"type": "prefab",
+						"path": "res/levels/race/city/benches.json"
+					},
+					"pos": [36,0,53],
+					"scl": [1,1,1],
+					"rot": [0,-90,0],
+					"components": [],
+					"entities": []
+				},
+				{
+					"loader": {
+						"type": "prefab",
+						"path": "res/levels/race/city/benches.json"
+					},
+					"pos": [42,0,47.5],
+					"scl": [1,1,1],
+					"rot": [0,180,0],
+					"components": [],
+					"entities": []
+				},
+				{
+					"loader": {
+						"type": "prefab",
+						"path": "res/levels/race/city/benches.json"
+					},
+					"pos": [48,0,53],
+					"scl": [1,1,1],
+					"rot": [0,90,0],
+					"components": [],
+					"entities": []
+				},
+
+				{
+					"loader": {
+						"type": "prefab",
+						"path": "res/levels/race/city/benches.json"
+					},
+					"pos": [56,0,55],
+					"scl": [1,1,1],
+					"rot": [0,-90,0],
+					"components": [],
+					"entities": []
+				},
+				{
+					"loader": {
+						"type": "prefab",
+						"path": "res/levels/race/city/benches.json"
+					},
+					"pos": [62,0,60.5],
+					"scl": [1,1,1],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": []
+				},
+				{
+					"loader": {
+						"type": "prefab",
+						"path": "res/levels/race/city/benches.json"
+					},
+					"pos": [68,0,55],
+					"scl": [1,1,1],
+					"rot": [0,90,0],
+					"components": [],
+					"entities": []
+				},
+
+				{
+					"loader": {
+						"type": "model",
+						"path": "res/external/karboosx/sphere.fbx"
+					},
+					"pos": [22.5,-4,45.5],
+					"scl": [4,4,4],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": []
+				},
+				{
+					"loader": {
+						"type": "model",
+						"path": "res/external/karboosx/cylinder.fbx"
+					},
+					"pos": [42,-0.7,61.5],
+					"scl": [4,1,4],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": []
+				},
+				{
+					"loader": {
+						"type": "model",
+						"path": "res/external/karboosx/sphere.fbx"
+					},
+					"pos": [61.5,-4,45.5],
+					"scl": [4,4,4],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": []
+				},
+				{
+					"loader": {
+						"type": "prefab",
+						"path": "res/levels/race/city/signs.json"
+					},
+					"pos": [74.5, -0.115, 12],
+					"scl": [1,1,1],
+					"rot": [0,-90,0],
+					"components": [],
+					"entities": []
+				}
+			]
+		}
+	]
+}

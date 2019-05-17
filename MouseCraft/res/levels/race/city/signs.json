@@ -1,0 +1,218 @@
+{
+	"_note_": "This is the sign post on the right side of the city",
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [0,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [4,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [8,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [12,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [16,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [20,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [24,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [28,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [32,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [36,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [40,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [44,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [48,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [52,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [56,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [60,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [64,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [68,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/board.fbx"
+			},
+			"pos": [72,0,0],
+			"scl": [0.24,0.24,0.24],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		}
+	]
+}
