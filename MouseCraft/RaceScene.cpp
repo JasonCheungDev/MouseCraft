@@ -36,7 +36,26 @@ RaceScene::RaceScene()
 	//auto c_phys = ComponentFactory::Create<PhysicsComponent>(1.0f, 1.0f);
 	//e_cam->AddComponent(c_phys);
 
+	auto e_light = EntityManager::Instance().Create();
+	e_light->transform.rotate(glm::vec3(0.24f, 0.24f, 0));
+	auto c_light = ComponentFactory::Create<DirectionalLight>();
+	e_light->AddComponent(c_light);
+
+	root.AddChild(e_light);
+
 	e_cam->t().setLocalPosition(glm::vec3(0, 5.0f, 0));
+
+	auto e_dudes = EntityManager::Instance().Create();
+	auto e_dude1 = ModelLoader::Load("res/models/nanosuit/nanosuit.obj");
+	auto e_dude2 = ModelLoader::Load("res/models/nanosuit/nanosuit.obj");
+	e_dude2->transform.translate(glm::vec3(5, 0, 0));
+	e_dudes->AddChild(e_dude1);
+	e_dudes->AddChild(e_dude2);
+
+	auto rendercomponents = std::vector<RenderComponent*>();
+	e_dudes->GetAllComponents(rendercomponents);
+
+	root.AddChild(e_dudes);
 
 	std::string path = "res/levels/race";
 	for (const auto& entry : fs::directory_iterator(path))
