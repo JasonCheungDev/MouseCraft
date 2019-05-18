@@ -42,6 +42,7 @@ void PhysicsManager::FixedUpdate(float dt, int steps)
 		// also update velocities while we're here
 		if (active)
 		{
+			std::cout << pc->body->GetPosition().x << "," << pc->body->GetPosition().x << std::endl;
 			// pc->body->SetLinearVelocity(b2Vec2(pc->velocity.x, pc->velocity.y));
 		}
 	}
@@ -169,7 +170,7 @@ PhysicsComponent * PhysicsManager::rayCheck(glm::vec2 start, glm::vec2 dest, glm
 	return bestMatch;
 }
 
-void PhysicsManager::InitializeBody(PhysicsComponent * physicsComponent, float x, float y)
+void PhysicsManager::InitializeBody(PhysicsComponent * physicsComponent, float x, float y, float r)
 {
 	if (physicsComponent->body != nullptr)
 	{
@@ -178,10 +179,23 @@ void PhysicsManager::InitializeBody(PhysicsComponent * physicsComponent, float x
 	}
 
 	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
-	bodyDef.position.Set(x, y);
 	bodyDef.active = false;	// wait for component to be active (valid state)
-	// bodyDef.angle = r;
+	bodyDef.position.Set(x, y);
+	bodyDef.angle = r;
+	switch (physicsComponent->dynamics)
+	{
+	case Physics::DYNAMIC:
+		bodyDef.type = b2_dynamicBody;
+		break;
+	case Physics::STATIC:
+		bodyDef.type = b2_staticBody;
+		break;
+	case Physics::KINEMATIC:
+		bodyDef.type = b2_kinematicBody;
+		break;
+	default:
+		break;
+	}
 
 	b2PolygonShape shape;
 	shape.SetAsBox(physicsComponent->width / 2, physicsComponent->height / 2);

@@ -1,0 +1,42 @@
+{
+  "loader": {
+    "type": "model",
+    "path": "res/models/nanosuit/nanosuit.obj"
+  },
+  "name": "test_anim",
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [
+    {
+      "type": "TransformAnimator",
+      "speed": 1.0,
+      "one_shot": true,
+      "curve": "sine",
+      "animations":
+      [
+        {
+          "name": "right",
+          "duration": 2.0,
+          "curve": "sine",
+          "rotations":
+          [
+            { "time": 0.0, "value": [0.0, 0.0, 0.0] },
+            { "time": 1.0, "value": [0.0, 0.0, 0.0] },
+            { "time": 2.0, "value": [0.0, 0.0, 90.0] }
+          ] 
+        },
+        {
+          "name": "left",
+          "duration": 2.0,
+          "curve": "sine",
+          "rotations":[
+            { "time": 0.0, "value": [0.0, 0.0, 0.0] },
+            { "time": 1.0, "value": [0.0, 0.0, -90.0] }
+          ]
+        }
+      ]
+    }
+  ],
+	"entities": []
+}

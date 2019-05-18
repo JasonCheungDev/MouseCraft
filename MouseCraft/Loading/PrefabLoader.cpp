@@ -120,6 +120,9 @@ Entity * PrefabLoader::Load(json json)
 	e->transform.setLocalPosition(pos);
 	e->transform.setLocalRotation(rot);
 	e->transform.setLocalScale(scl);
+	
+	if (json.find("name") != json.end())
+		e->name = json["name"].get<std::string>();
 
 	// components 
 	auto components = json["components"];

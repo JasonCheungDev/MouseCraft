@@ -103,6 +103,23 @@ public:
 		return nullptr;
 	}
 
+	// Retrieves all components of type on this entity and its children.
+	// Note: This is a relatively expensive operation, cache your results. 
+	template<class T>
+	void GetAllComponents(std::vector<T*>& components)
+	{
+		for (const auto& c : _components)
+		{
+			auto found = dynamic_cast<T*>(c);
+			if (found) components.push_back(found);
+		}
+
+		for (auto& child : _children)
+		{
+			child->GetAllComponents(components);
+		}
+	}
+
 	// Returns all components attached to this entity. 
 	const std::vector<Component*>& GetComponents()
 	{

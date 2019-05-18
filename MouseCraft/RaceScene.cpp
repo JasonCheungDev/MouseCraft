@@ -13,6 +13,7 @@
 #include "Physics/PhysicsComponent.h"
 #include "Common/FreeLookMovement.h"
 #include "Common/PhysicsMover.h"
+#include "Common/TransformAnimator.h"
 #include "Car.h"
 #include "Loading/ImageLoader.h"
 
