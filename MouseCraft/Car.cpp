@@ -18,7 +18,7 @@ void Car::OnInitialized()
 	physics = GetEntity()->GetComponent<PhysicsComponent>();
 	// TODO:
 	physics->body->SetAngularDamping(5.0f);
-	physics->body->SetLinearDamping(1.0f);
+	physics->body->SetLinearDamping(2.0f);
 }
 
 void Car::FixedUpdate(float dt, int steps)

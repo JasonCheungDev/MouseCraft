@@ -10,7 +10,7 @@
 				"path": "res/prefabs/race/road.json"
 			},
 			"pos": [50,0,84],
-			"scl": [19,1,1],
+			"scl": [20,1,1],
 			"rot": [0,0,0],
 			"components": [],
 			"entities": []

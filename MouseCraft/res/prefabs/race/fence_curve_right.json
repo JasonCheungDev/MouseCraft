@@ -1,0 +1,71 @@
+{
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+		{
+			"_note_": "fence_model_collider",
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/Models/decorative_half_wall_3_LOD0.fbx"
+			},
+			"pos": [-0.5,0.14,-2.1],
+			"scl": [0.75,0.2,0.4],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": [
+				{
+					"pos": [0,0,0],
+					"scl": [4,1,0.1],
+					"rot": [0,0,0],
+					"components": [
+						{
+							"type": "Physics",
+							"body": "static"
+						}
+					],
+					"entities": []
+				}
+			]
+        },
+        {
+			"_note_": "fence_curved_model_collider",
+			"loader": {
+				"type": "model",
+				"path": "res/external/karboosx/Models/decorative_half_wall_3_LOD0.fbx"
+			},
+			"pos": [1.5,0.14,-1.5],
+			"scl": [0.4,0.2,0.4],
+			"rot": [0,-45,0],
+			"components": [],
+			"entities": [
+				{
+					"pos": [0,0,0],
+					"scl": [4,1,0.1],
+					"rot": [0,0,0],
+					"components": [
+						{
+							"type": "Physics",
+							"body": "static"
+						}
+					],
+					"entities": []
+				}
+			]
+		},
+		{
+			"_note_": "collider",
+			"pos": [-2.5,0,1.4],
+			"scl": [1,1,1.2],
+			"rot": [0,0,0],
+			"components": [
+				{
+					"type": "Physics",
+					"body": "static"
+				}
+			],
+			"entities": []
+		}
+	]
+}

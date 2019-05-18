@@ -6,46 +6,74 @@
 	"entities": [
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_base.json",
-				"path": "res/external/karboosx/floor_connector_mesh.fbx"
+				"type": "prefab",
+				"path": "res/prefabs/race/road_connector.json"
 			},
 			"pos": [76,0,-64],
 			"scl": [1,1,1],
-			"rot": [0,90,0],
+			"rot": [0,0,0],
 			"components": [],
-			"entities": []
+			"entities": [
+				{
+					"pos": [0,0,4],
+					"scl": [4,1,4],
+					"rot": [0,0,0],
+					"components": [
+						{ "type": "Physics", "body": "static" }
+					],
+					"entities": []
+				}
+			]
 		},
+		
 		{
 			"name": "first_bend",
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_lattice.json",
-				"path": "res/external/karboosx/floor_mesh.fbx"
+				"type": "prefab",
+				"path": "res/prefabs/race/road_mesh.json"
 			},
 			"pos": [94,0,-82],
-			"scl": [13.1,1,1],
+			"scl": [12.73, 1, 1.4142],
 			"rot": [0,-135,0],
 			"components": [],
 			"entities": []
 		},
+		
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_base.json",
-				"path": "res/external/karboosx/floor_connector_mesh.fbx"
+				"type": "prefab",
+				"path": "res/prefabs/race/road_connector.json"
 			},
 			"pos": [112,0,-100],
 			"scl": [1,1,1],
 			"rot": [0,0,0],
 			"components": [],
-			"entities": []
+			"entities": [
+				{
+					"pos": [0,0,-4],
+					"scl": [4,1,4],
+					"rot": [0,0,0],
+					"components": [
+						{ "type": "Physics", "body": "static" }
+					],
+					"entities": []
+				}
+			]		
 		},
 		{
+			"pos": [76,0,-60],
+			"scl": [4,1,4],
+			"rot": [0,0,0],
+			"components": [
+				{ "type": "Physics", "body": "static" }
+			],
+			"entities": []
+		},
+
+		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_lattice.json",
-				"path": "res/external/karboosx/floor_mesh.fbx"
+				"type": "prefab",
+				"path": "res/prefabs/race/road_mesh.json"
 			},
 			"pos": [126,0,-100],
 			"scl": [6,1,1],
@@ -55,25 +83,33 @@
 		},
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_base.json",
-				"path": "res/external/karboosx/floor_connector_mesh.fbx"
+				"type": "prefab",
+				"path": "res/prefabs/race/road_connector.json"
 			},
 			"pos": [140,0,-100],
 			"scl": [1,1,1],
 			"rot": [0,0,0],
 			"components": [],
-			"entities": []
+			"entities": [
+				{
+					"pos": [0,0,-4],
+					"scl": [4,1,4],
+					"rot": [0,0,0],
+					"components": [
+						{ "type": "Physics", "body": "static" }
+					],
+					"entities": []
+				}
+			]	
 		},
 		{
 			"name": "second_bend",
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_lattice.json",
-				"path": "res/external/karboosx/floor_mesh.fbx"
+				"type": "prefab",
+				"path": "res/prefabs/race/road_mesh.json"
 			},
 			"pos": [150,0,-90],
-			"scl": [7,1,1],
+			"scl": [7.09, 1, 1.4142],
 			"rot": [0,-45,0],
 			"components": [],
 			"entities": []
@@ -81,21 +117,30 @@
 		{
 			"name": "track_bridge_entrance",
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_base.json",
-				"path": "res/external/karboosx/floor_connector_mesh.fbx"
+				"type": "prefab",
+				"path": "res/prefabs/race/road_connector.json"
 			},
 			"pos": [160,0,-80],
 			"scl": [1,1,1],
 			"rot": [0,0,0],
 			"components": [],
-			"entities": []
+			"entities": [
+				{
+					"pos": [4,0,0],
+					"scl": [4,1,4],
+					"rot": [0,0,0],
+					"components": [
+						{ "type": "Physics", "body": "static" }
+					],
+					"entities": []
+				}
+			]	
 		},
+		
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_lattice.json",
-				"path": "res/external/karboosx/floor_mesh.fbx"
+				"type": "prefab",
+				"path": "res/prefabs/race/road_mesh.json"
 			},
 			"pos": [160,0,-64],
 			"scl": [7,1,1],
@@ -105,46 +150,63 @@
 		},
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_base.json",
-				"path": "res/external/karboosx/floor_connector_mesh.fbx"
+				"type": "prefab",
+				"path": "res/prefabs/race/road_connector.json"
 			},
 			"pos": [160,0,-48],
 			"scl": [1,1,1],
 			"rot": [0,0,0],
 			"components": [],
-			"entities": []
+			"entities": [
+				{
+					"pos": [4,0,0],
+					"scl": [4,1,4],
+					"rot": [0,0,0],
+					"components": [
+						{ "type": "Physics", "body": "static" }
+					],
+					"entities": []
+				}
+			]	
 		},
+		
 		{
 			"name": "third_bend",
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_lattice.json",
-				"path": "res/external/karboosx/floor_mesh.fbx"
+				"type": "prefab",
+				"path": "res/prefabs/race/road_mesh.json"
 			},
 			"pos": [150,0,-38],
-			"scl": [7,1,1],
+			"scl": [7.09,1,1.4142],
 			"rot": [0,45,0],
 			"components": [],
 			"entities": []
 		},
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_base.json",
-				"path": "res/external/karboosx/floor_connector_mesh.fbx"
+				"type": "prefab",
+				"path": "res/prefabs/race/road_connector.json"
 			},
 			"pos": [140,0,-28],
 			"scl": [1,1,1],
 			"rot": [0,0,0],
 			"components": [],
-			"entities": []
+			"entities": [
+				{
+					"pos": [0,0,4],
+					"scl": [4,1,4],
+					"rot": [0,0,0],
+					"components": [
+						{ "type": "Physics", "body": "static" }
+					],
+					"entities": []
+				}
+			]	
 		},
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_lattice.json",
-				"path": "res/external/karboosx/floor_mesh.fbx"
+				"type": "prefab",
+				"path": "res/prefabs/race/road_mesh.json"
 			},
 			"pos": [128,0,-28],
 			"scl": [5,1,1],
@@ -154,13 +216,12 @@
 		},
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_base.json",
-				"path": "res/external/karboosx/floor_connector_mesh.fbx"
+				"type": "prefab",
+				"path": "res/prefabs/race/road_corner.json"
 			},
 			"pos": [116,0,-28],
 			"scl": [1,1,1],
-			"rot": [0,0,0],
+			"rot": [0,90,0],
 			"components": [],
 			"entities": []
 		}

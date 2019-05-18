@@ -42,7 +42,6 @@ void PhysicsManager::FixedUpdate(float dt, int steps)
 		// also update velocities while we're here
 		if (active)
 		{
-			std::cout << pc->body->GetPosition().x << "," << pc->body->GetPosition().x << std::endl;
 			// pc->body->SetLinearVelocity(b2Vec2(pc->velocity.x, pc->velocity.y));
 		}
 	}

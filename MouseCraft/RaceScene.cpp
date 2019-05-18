@@ -23,11 +23,12 @@ namespace fs = std::experimental::filesystem;
 RaceScene::RaceScene()
 {
 	auto e_player = EntityManager::Instance().Create();
+	// e_player->transform.setLocalPosition(glm::vec3(76, 0, -64));
 	auto c_player = ComponentFactory::Create<Car>();
 	c_player->speed = 5.0f;
-	c_player->steering = 0.5f;
+	c_player->steering = 0.2f;
 	e_player->AddComponent(c_player);
-	auto c_phys = ComponentFactory::Create<PhysicsComponent>(0.25f, 0.5f);
+	auto c_phys = ComponentFactory::Create<PhysicsComponent>(0.25f, 0.5f, 76, -64, 0);
 	e_player->AddComponent(c_phys);
 
 	auto e_cam = EntityManager::Instance().Create();

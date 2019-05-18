@@ -1,8 +1,9 @@
 {
     "loader": {
         "type": "model",
-        "material": "res/materials/karboosx_base.json",
-        "path": "res/external/karboosx/floor.fbx"
+        "material": "res/materials/karboosx_lattice.json",
+		"path": "res/external/karboosx/floor_corner_mesh_BL.fbx",
+		"shader": "res/shaders/Default/stencil.json"
     },
 	"pos": [0,0,0],
 	"scl": [1,1,1],
@@ -22,8 +23,8 @@
 			"entities": []
         },
         {
-			"pos": [0,0,2.5],
-			"scl": [4,1,1],
+			"pos": [2.5,0,0],
+			"scl": [1,1,4],
 			"rot": [0,0,0],
 			"components": [
                 {

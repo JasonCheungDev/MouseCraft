@@ -6,10 +6,8 @@
 	"entities": [
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_lattice.json",
-				"path": "res/external/karboosx/floor_corner_mesh_BL.fbx",
-				"shader": "res/shaders/Default/stencil.json"
+"type": "prefab",
+"path": "res/prefabs/race/road_corner.json"
 			},
 			"pos": [0,0,-12],
 			"scl": [1,1,1],
@@ -19,9 +17,8 @@
 		},
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_base.json",
-				"path": "res/external/karboosx/floor.fbx"
+"type": "prefab",
+"path": "res/prefabs/race/road.json"
 			},
 			"pos": [26,0,-12],
 			"scl": [12,1,1],
@@ -31,10 +28,8 @@
 		},
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_base.json",
-				"path": "res/external/karboosx/floor_corner_mesh_BL.fbx"
-			},
+"type": "prefab",
+"path": "res/prefabs/race/road_corner.json"			},
 			"pos": [52,0,-12],
 			"scl": [1,1,1],
 			"rot": [0,-90,0],
@@ -43,9 +38,8 @@
 		},
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_base.json",
-				"path": "res/external/karboosx/floor.fbx"
+"type": "prefab",
+"path": "res/prefabs/race/road.json"
 			},
 			"pos": [52,0,-22],
 			"scl": [4,1,1],
@@ -55,10 +49,8 @@
 		},
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_base.json",
-				"path": "res/external/karboosx/floor_corner_mesh_BL.fbx"
-			},
+"type": "prefab",
+"path": "res/prefabs/race/road_corner.json"			},
 			"pos": [52,0,-32],
 			"scl": [1,1,1],
 			"rot": [0,0,0],
@@ -67,9 +59,8 @@
 		},
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_base.json",
-				"path": "res/external/karboosx/floor.fbx"
+"type": "prefab",
+"path": "res/prefabs/race/road.json"
 			},
 			"pos": [26,0,-32],
 			"scl": [12,1,1],
@@ -79,10 +70,8 @@
 		},
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_base.json",
-				"path": "res/external/karboosx/floor_corner_mesh_BL.fbx"
-			},
+"type": "prefab",
+"path": "res/prefabs/race/road_corner.json"			},
 			"pos": [0,0,-32],
 			"scl": [1,1,1],
 			"rot": [0,180,0],
@@ -92,9 +81,8 @@
 		{
 			"name": "track_bridge_entrance",
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_lattice.json",
-				"path": "res/external/karboosx/floor_mesh.fbx"
+"type": "prefab",
+"path": "res/prefabs/race/road_mesh.json"
 			},
 			"pos": [0,0,-48],
 			"scl": [7,1,1],
@@ -104,10 +92,8 @@
 		},
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_base.json",
-				"path": "res/external/karboosx/floor_corner_mesh_BL.fbx"
-			},
+"type": "prefab",
+"path": "res/prefabs/race/road_corner.json"			},
 			"pos": [0,0,-64],
 			"scl": [1,1,1],
 			"rot": [0,90,0],
@@ -116,10 +102,8 @@
 		},
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_lattice.json",
-				"path": "res/external/karboosx/floor_mesh_modified.fbx",
-				"shader": "res/shaders/Default/stencil.json"
+"type": "prefab",
+"path": "res/prefabs/race/road_mesh.json"
 			},
 			"pos": [38,0,-64],
 			"scl": [18,1,1],
