@@ -6,9 +6,8 @@
 	"entities": [
 		{
 			"loader": {
-				"type": "model",
-				"material": "res/materials/karboosx_base.json",
-"path": "res/external/karboosx/floor.fbx"
+				"type": "prefab",
+				"path": "res/prefabs/race/road.json"
 			},
 			"pos": [50,0,84],
 			"scl": [19,1,1],

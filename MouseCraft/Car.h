@@ -16,6 +16,8 @@ public:
 
 public:
 	float speed = 5.0f;
+	float steering = 5.0f;
+	float speedMod = 1.0f;
 private:
 	float thrust = 0.0f;
 	float turn = 0.0f;

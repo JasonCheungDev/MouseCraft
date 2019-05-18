@@ -1,0 +1,37 @@
+{
+    "loader": {
+        "type": "model",
+        "material": "res/materials/karboosx_base.json",
+        "path": "res/external/karboosx/floor.fbx"
+    },
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+		{
+			"pos": [0,0,-3],
+			"scl": [4,1,1],
+			"rot": [0,0,0],
+			"components": [
+                {
+                    "type": "Physics",
+                    "body": "static"
+                }
+            ],
+			"entities": []
+        },
+        {
+			"pos": [0,0,3],
+			"scl": [4,1,1],
+			"rot": [0,0,0],
+			"components": [
+                {
+                    "type": "Physics",
+                    "body": "static"
+                }
+            ],
+			"entities": []
+		}
+	]
+}

@@ -26,12 +26,12 @@ void Car::FixedUpdate(float dt, int steps)
 	if (thrust != 0)
 	{
 		auto dir = GetEntity()->transform.getWorldForward() * thrust;
-		physics->ApplyForce(glm::vec2(dir.x, dir.z) * speed);
+		physics->ApplyForce(glm::vec2(dir.x, dir.z) * speed * speedMod);
 	}
 
 	if (turn != 0)
 	{
-		physics->ApplyAngularForce(-turn * 2.5f);
+		physics->ApplyAngularForce(-turn * steering);
 	}
 }
 
@@ -43,6 +43,10 @@ void Car::Notify(EventName eventName, Param * params)
 
 		if (data.axis == Axis::LEFT)
 			turn = data.value.x;
+		else if (data.axis == Axis::RIGHT)
+		{
+			speed += data.value.y;
+		}
 	}
 	else if (eventName == EventName::INPUT_BUTTON)
 	{
