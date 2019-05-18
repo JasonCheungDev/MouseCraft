@@ -178,7 +178,8 @@
 			"name": "gates",
 			"loader": {
 				"type": "model",
-				"path": "res/external/karboosx/gate.fbx"
+				"material": "res/materials/karboosx_base.json",
+"path": "res/external/karboosx/gate.fbx"
 			},
 			"pos": [116,-16,0],
 			"scl": [10,10,10],
@@ -190,7 +191,8 @@
 			"name": "gates",
 			"loader": {
 				"type": "model",
-				"path": "res/external/karboosx/gate.fbx"
+				"material": "res/materials/karboosx_base.json",
+"path": "res/external/karboosx/gate.fbx"
 			},
 			"pos": [116,-16,20],
 			"scl": [10,10,10],
@@ -202,7 +204,8 @@
 			"name": "gates",
 			"loader": {
 				"type": "model",
-				"path": "res/external/karboosx/gate.fbx"
+				"material": "res/materials/karboosx_base.json",
+"path": "res/external/karboosx/gate.fbx"
 			},
 			"pos": [116,-16,40],
 			"scl": [10,10,10],
@@ -214,7 +217,8 @@
 			"name": "gate_entrance",
 			"loader": {
 				"type": "model",
-				"path": "res/external/karboosx/gate_thick.fbx"
+				"material": "res/materials/karboosx_base.json",
+"path": "res/external/karboosx/gate_thick.fbx"
 			},
 			"pos": [116,-7,-16],
 			"scl": [4,4,4],
@@ -226,7 +230,8 @@
 			"name": "gate_exit",
 			"loader": {
 				"type": "model",
-				"path": "res/external/karboosx/gate_thick.fbx"
+				"material": "res/materials/karboosx_base.json",
+"path": "res/external/karboosx/gate_thick.fbx"
 			},
 			"pos": [116,-7,56],
 			"scl": [4,4,4],
@@ -239,7 +244,8 @@
 			"name": "center_art",
 			"loader": {
 				"type": "model",
-				"path": "res/external/karboosx/art_6.fbx"
+				"material": "res/materials/karboosx_base.json",
+"path": "res/external/karboosx/art_6.fbx"
 			},
 			"pos": [116,-3,32],
 			"scl": [32,24,32],
@@ -250,7 +256,8 @@
 		{
 			"loader": {
 				"type": "model",
-				"path": "res/external/karboosx/art_6.fbx"
+				"material": "res/materials/karboosx_base.json",
+"path": "res/external/karboosx/art_6.fbx"
 			},
 			"pos": [116,-3,32],
 			"scl": [24,12,24],

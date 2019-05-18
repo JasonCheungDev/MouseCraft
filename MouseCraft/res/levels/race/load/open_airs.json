@@ -7,6 +7,7 @@
 		{
 			"loader": {
 				"type": "model",
+				"material": "res/materials/karboosx_base.json",
 				"path": "res/external/karboosx/floor_connector_mesh.fbx"
 			},
 			"pos": [76,0,-64],
@@ -19,6 +20,7 @@
 			"name": "first_bend",
 			"loader": {
 				"type": "model",
+				"material": "res/materials/karboosx_lattice.json",
 				"path": "res/external/karboosx/floor_mesh.fbx"
 			},
 			"pos": [94,0,-82],
@@ -30,6 +32,7 @@
 		{
 			"loader": {
 				"type": "model",
+				"material": "res/materials/karboosx_base.json",
 				"path": "res/external/karboosx/floor_connector_mesh.fbx"
 			},
 			"pos": [112,0,-100],
@@ -41,6 +44,7 @@
 		{
 			"loader": {
 				"type": "model",
+				"material": "res/materials/karboosx_lattice.json",
 				"path": "res/external/karboosx/floor_mesh.fbx"
 			},
 			"pos": [126,0,-100],
@@ -52,6 +56,7 @@
 		{
 			"loader": {
 				"type": "model",
+				"material": "res/materials/karboosx_base.json",
 				"path": "res/external/karboosx/floor_connector_mesh.fbx"
 			},
 			"pos": [140,0,-100],
@@ -64,6 +69,7 @@
 			"name": "second_bend",
 			"loader": {
 				"type": "model",
+				"material": "res/materials/karboosx_lattice.json",
 				"path": "res/external/karboosx/floor_mesh.fbx"
 			},
 			"pos": [150,0,-90],
@@ -76,6 +82,7 @@
 			"name": "track_bridge_entrance",
 			"loader": {
 				"type": "model",
+				"material": "res/materials/karboosx_base.json",
 				"path": "res/external/karboosx/floor_connector_mesh.fbx"
 			},
 			"pos": [160,0,-80],
@@ -87,6 +94,7 @@
 		{
 			"loader": {
 				"type": "model",
+				"material": "res/materials/karboosx_lattice.json",
 				"path": "res/external/karboosx/floor_mesh.fbx"
 			},
 			"pos": [160,0,-64],
@@ -98,6 +106,7 @@
 		{
 			"loader": {
 				"type": "model",
+				"material": "res/materials/karboosx_base.json",
 				"path": "res/external/karboosx/floor_connector_mesh.fbx"
 			},
 			"pos": [160,0,-48],
@@ -110,6 +119,7 @@
 			"name": "third_bend",
 			"loader": {
 				"type": "model",
+				"material": "res/materials/karboosx_lattice.json",
 				"path": "res/external/karboosx/floor_mesh.fbx"
 			},
 			"pos": [150,0,-38],
@@ -121,6 +131,7 @@
 		{
 			"loader": {
 				"type": "model",
+				"material": "res/materials/karboosx_base.json",
 				"path": "res/external/karboosx/floor_connector_mesh.fbx"
 			},
 			"pos": [140,0,-28],
@@ -132,6 +143,7 @@
 		{
 			"loader": {
 				"type": "model",
+				"material": "res/materials/karboosx_lattice.json",
 				"path": "res/external/karboosx/floor_mesh.fbx"
 			},
 			"pos": [128,0,-28],
@@ -143,6 +155,7 @@
 		{
 			"loader": {
 				"type": "model",
+				"material": "res/materials/karboosx_base.json",
 				"path": "res/external/karboosx/floor_connector_mesh.fbx"
 			},
 			"pos": [116,0,-28],

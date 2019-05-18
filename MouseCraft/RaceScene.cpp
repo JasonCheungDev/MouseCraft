@@ -14,6 +14,7 @@
 #include "Common/FreeLookMovement.h"
 #include "Common/PhysicsMover.h"
 #include "Car.h"
+#include "Loading/ImageLoader.h"
 
 namespace fs = std::experimental::filesystem;
 

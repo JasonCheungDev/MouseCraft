@@ -1,0 +1,9 @@
+{
+    "vec3s":[],
+    "floats":[],
+    "ints":[],
+    "textures":[
+        { "name":"u_TexDiffuse", "value": "res/external/karboosx/Textures/base_lattice.png" },
+        { "name":"u_TexNormal",  "generate": [0,0,1]}
+    ]    
+}

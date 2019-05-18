@@ -7,6 +7,7 @@
 		{
 			"loader": {
 				"type": "model",
+				"material": "res/materials/karboosx_base.json",
 				"path": "res/external/karboosx/floor_corner_mesh_BL.fbx"
 			},
 			"pos": [0,0,-12],

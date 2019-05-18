@@ -7,7 +7,8 @@
 		{
 			"loader": {
 				"type": "model",
-				"path": "res/external/karboosx/floor.fbx"
+				"material": "res/materials/karboosx_base.json",
+"path": "res/external/karboosx/floor.fbx"
 			},
 			"pos": [50,0,84],
 			"scl": [19,1,1],
