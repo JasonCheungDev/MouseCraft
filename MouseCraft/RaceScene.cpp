@@ -55,6 +55,13 @@ RaceScene::RaceScene()
 	auto rendercomponents = std::vector<RenderComponent*>();
 	e_dudes->GetAllComponents(rendercomponents);
 
+	auto e_test_find = PrefabLoader::LoadPrefab("res/prefabs/test/test_find.json");
+	auto e_test_null = EntityManager::Instance().Find("DOESNT_EXIST");
+	auto e_test_foundA = EntityManager::Instance().Find("test_root_A");
+	auto e_test_foundB = EntityManager::Instance().Find("test_root_B");
+	auto e_test_wrong_branch = EntityManager::Instance().Find("test_root_B_1", e_test_foundA);
+	auto e_test_right_branch = EntityManager::Instance().Find("test_root_B_1", e_test_foundB);
+
 	root.AddChild(e_dudes);
 
 	std::string path = "res/levels/race";

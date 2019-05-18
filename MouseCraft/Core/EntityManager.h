@@ -19,12 +19,8 @@ public:
 	EntityManager(EntityManager const&) = delete;
 	void operator=(EntityManager const&) = delete;
 private:
-	EntityManager() 
-	{
-		EventManager::Subscribe(EventName::ENTITY_CREATED, this);
-		EventManager::Subscribe(EventName::ENTITY_DESTROYED, this);
-	};
-	~EntityManager() {};
+	EntityManager();
+	~EntityManager();
 
 // variables 
 private:
@@ -32,30 +28,15 @@ private:
 
 // functions 
 public:
-	Entity* Create()
-	{
-		return new Entity();
-	}
+	Entity* Create();
 
-	const std::vector<Entity*>& GetEntities()
-	{
-		return entities;
-	}
+	Entity* Find(const std::string& name);
 
-	virtual void Notify(EventName eventName, Param *params)
-	{
-		auto entityParam = static_cast<TypeParam<Entity*>*>(params);
-		if (eventName == EventName::ENTITY_CREATED)
-		{
-			entities.push_back(entityParam->Param);
-		}
-		else if (eventName == EventName::ENTITY_DESTROYED)
-		{
-			entities.erase(
-				std::remove(entities.begin(), entities.end(), entityParam->Param), 
-				entities.end());
-		}
-	}
+	Entity* Find(const std::string& name, Entity* start);
+
+	const std::vector<Entity*>& GetEntities();
+
+	virtual void Notify(EventName eventName, Param *params);
 };
 
 /*

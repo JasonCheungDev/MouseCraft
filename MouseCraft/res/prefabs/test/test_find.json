@@ -1,0 +1,42 @@
+{
+  "name": "test_root",
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+    {
+      "name": "test_root_A",
+      "pos": [0,0,0],
+      "scl": [1,1,1],
+      "rot": [0,0,0],
+      "components": [],
+      "entities": []
+    },
+    {
+      "name": "test_root_B",
+      "pos": [0,0,0],
+      "scl": [1,1,1],
+      "rot": [0,0,0],
+      "components": [],
+      "entities": [
+        {
+          "name": "test_root_B_1",
+          "pos": [0,0,0],
+          "scl": [1,1,1],
+          "rot": [0,0,0],
+          "components": [],
+          "entities": []
+        },
+        {
+          "name": "test_root_B_2",
+          "pos": [0,0,0],
+          "scl": [1,1,1],
+          "rot": [0,0,0],
+          "components": [],
+          "entities": []
+        }
+      ]
+    }
+  ]
+}
