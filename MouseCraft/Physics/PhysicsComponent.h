@@ -12,14 +12,19 @@
 
 using json = nlohmann::json;
 
+namespace Physics
+{
+	enum Dynamics { DYNAMIC, STATIC, KINEMATIC };
+}
+
 // Physically simulate this entity's transform.
 // WARNING: Should always be placed on root (or under an entity with identity transform). 
 class PhysicsComponent : public Component
 {
 // functions 
 public:
-	// Creates a physics component at entity's LOCAL position (on initialization).
-	PhysicsComponent(float w, float h, bool startAtTransform);
+	// Creates a physics component at entity's WORLD transform (on initialization).
+	PhysicsComponent();
 
 	// Creates a physics component at transform location.
 	PhysicsComponent(float w, float h, Transform& transform);
@@ -62,6 +67,7 @@ public:
 	float rotation, width, height;
 	b2Body* body;
 	PhysObjectType::PhysObjectType pType;
+	Physics::Dynamics dynamics;
 	bool startAtWorld = false;
 	Subject<> stopMoving;
 	Subject<> resumeMoving;

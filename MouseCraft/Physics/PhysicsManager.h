@@ -44,7 +44,7 @@ public:
 	
 	// Used to finalize creating a PhysicsComponent. Will bind the component to a physics body.
 	// WARNING: Should only be called internally by the engine.
-	void InitializeBody(PhysicsComponent* physicsComponent, float x, float y);
+	void InitializeBody(PhysicsComponent* physicsComponent, float x, float y, float r = 0.0f);
 
 private:
 	void checkCollisions();
