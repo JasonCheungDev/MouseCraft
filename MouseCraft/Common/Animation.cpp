@@ -97,7 +97,7 @@ Animation * Animation::CreateFromJson(json json)
 				j["value"][0].get<float>(),
 				j["value"][1].get<float>(),
 				j["value"][2].get<float>());
-			a->AddRotation(t, rot);
+			a->AddRotation(t, glm::radians(rot));
 		}
 	}
 

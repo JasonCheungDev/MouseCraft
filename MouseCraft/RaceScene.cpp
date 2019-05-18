@@ -13,6 +13,7 @@
 #include "Physics/PhysicsComponent.h"
 #include "Common/FreeLookMovement.h"
 #include "Common/PhysicsMover.h"
+#include "Common/TransformAnimator.h"
 #include "Car.h"
 
 namespace fs = std::experimental::filesystem;
@@ -63,6 +64,11 @@ RaceScene::RaceScene()
 	auto e_test_right_branch = EntityManager::Instance().Find("test_root_B_1", e_test_foundB);
 
 	root.AddChild(e_dudes);
+
+	auto e_test_anim = PrefabLoader::LoadPrefab("res/prefabs/test/test_anim_2.json");
+	e_test_anim->transform.translate(glm::vec3(0, 0, -5.0f));
+	auto c_anim = e_test_anim->GetComponent<TransformAnimator>();
+	root.AddChild(e_test_anim);
 
 	std::string path = "res/levels/race";
 	for (const auto& entry : fs::directory_iterator(path))

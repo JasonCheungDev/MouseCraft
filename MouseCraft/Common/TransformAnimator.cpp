@@ -97,6 +97,7 @@ Component * TransformAnimator::Create(json json)
 	auto animations = json["animations"];
 	for (auto& j : animations)
 	{
+		/*
 		auto key = j["name"].get<std::string>();
 		auto a = ResourceCache<Animation>::Instance().Get(key);
 		if (a == nullptr)
@@ -104,6 +105,8 @@ Component * TransformAnimator::Create(json json)
 			a = Animation::CreateFromJson(j);
 			ResourceCache<Animation>::Instance().Add(key, a);
 		}
+		*/
+		auto a = Animation::CreateFromJson(j);
 		c->AddAnimation(a);
 	}
 	

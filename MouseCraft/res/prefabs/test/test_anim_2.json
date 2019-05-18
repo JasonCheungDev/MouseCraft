@@ -1,0 +1,163 @@
+{
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+  "components": [],
+	"entities": [
+    {
+      "loader": {
+        "type": "model",
+        "path": "res/models/nanosuit/nanosuit.obj"
+      },
+      "pos": [0,0,0],
+      "scl": [1,1,1],
+      "rot": [0,0,0],
+      "components": [
+        {
+          "type": "TransformAnimator",
+          "speed": 1.0,
+          "one_shot": true,
+          "animations":
+          [
+            {
+              "name": "right",
+              "duration": 2.0,
+              "curve": "sine",
+              "rotations":
+              [
+                { "time": 0.0, "value": [0.0, 0.0, 0.0] },
+                { "time": 0.2, "value": [0.0, 0.0, 0.0] },
+                { "time": 1.2, "value": [0.0, 0.0, 30] }
+              ] 
+            }
+          ]
+        }
+      ],
+      "entities": []
+    },
+    {
+      "loader": {
+        "type": "model",
+        "path": "res/models/nanosuit/nanosuit.obj"
+      },
+      "pos": [0,0,-5],
+      "scl": [1,1,1],
+      "rot": [0,0,0],
+      "components": [
+        {
+          "type": "TransformAnimator",
+          "speed": 1.0,
+          "one_shot": true,
+          "animations":
+          [
+            {
+              "name": "right",
+              "duration": 2.0,
+              "curve": "sine",
+              "rotations":
+              [
+                { "time": 0.0, "value": [0.0, 0.0, 0.0] },
+                { "time": 0.4, "value": [0.0, 0.0, 0.0] },
+                { "time": 1.4, "value": [0.0, 0.0, 60.0] }
+              ] 
+            }
+          ]
+        }
+      ],
+      "entities": []
+    },
+    {
+      "loader": {
+        "type": "model",
+        "path": "res/models/nanosuit/nanosuit.obj"
+      },
+      "pos": [0,0,-10],
+      "scl": [1,1,1],
+      "rot": [0,0,0],
+      "components": [
+        {
+          "type": "TransformAnimator",
+          "speed": 1.0,
+          "one_shot": true,
+          "animations":
+          [
+            {
+              "name": "right",
+              "duration": 2.0,
+              "curve": "sine",
+              "rotations":
+              [
+                { "time": 0.0, "value": [0.0, 0.0, 0.0] },
+                { "time": 0.6, "value": [0.0, 0.0, 0.0] },
+                { "time": 1.6, "value": [0.0, 0.0, 90.0] }
+              ] 
+            }
+          ]
+        }
+      ],
+      "entities": []
+    },
+    {
+      "loader": {
+        "type": "model",
+        "path": "res/models/nanosuit/nanosuit.obj"
+      },
+      "pos": [0,0,-15],
+      "scl": [1,1,1],
+      "rot": [0,0,0],
+      "components": [
+        {
+          "type": "TransformAnimator",
+          "speed": 1.0,
+          "one_shot": true,
+          "animations":
+          [
+            {
+              "name": "right",
+              "duration": 2.0,
+              "curve": "sine",
+              "rotations":
+              [
+                { "time": 0.0, "value": [0.0, 0.0, 0.0] },
+                { "time": 0.8, "value": [0.0, 0.0, 0.0] },
+                { "time": 1.8, "value": [0.0, 0.0, 120.0] }
+              ] 
+            }
+          ]
+        }
+      ],
+      "entities": []
+    },
+    {
+      "loader": {
+        "type": "model",
+        "path": "res/models/nanosuit/nanosuit.obj"
+      },
+      "pos": [0,0,-20],
+      "scl": [1,1,1],
+      "rot": [0,0,0],
+      "components": [
+        {
+          "type": "TransformAnimator",
+          "speed": 1.0,
+          "one_shot": true,
+          "animations":
+          [
+            {
+              "name": "right",
+              "duration": 2.0,
+              "curve": "sine",
+              "rotations":
+              [
+                { "time": 0.0, "value": [0.0, 0.0, 0.0] },
+                { "time": 1.0, "value": [0.0, 0.0, 0.0] },
+                { "time": 2.0, "value": [0.0, 0.0, 150.0] }
+              ] 
+            }
+          ]
+        }
+      ],
+      "entities": []
+    }
+  ]
+}
