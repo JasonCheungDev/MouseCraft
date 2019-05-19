@@ -174,10 +174,16 @@ void InputSystem::Update(float dt)
 				b = Button::SECONDARY;
 				break;
 			case 0:
-				b = Button::AUX1;
+				b = Button::SOUTH;
 				break;
 			case 1:
-				b = Button::AUX2;
+				b = Button::EAST;
+				break;
+			case 2:
+				b = Button::WEST;
+				break;
+			case 3:
+				b = Button::NORTH;
 				break;
             case 6:
                 b = Button::OPTION;
@@ -221,11 +227,11 @@ void InputSystem::Update(float dt)
 				break;
 			case SDLK_l:
 				EventManager::Notify(EventName::INPUT_BUTTON,
-					new TypeParam<ButtonEvent>(ButtonEvent{ player, Button::AUX1, isDown }));
+					new TypeParam<ButtonEvent>(ButtonEvent{ player, Button::SOUTH, isDown }));
 				break;
 			case SDLK_SEMICOLON:
 				EventManager::Notify(EventName::INPUT_BUTTON,
-					new TypeParam<ButtonEvent>(ButtonEvent{ player, Button::AUX2, isDown }));
+					new TypeParam<ButtonEvent>(ButtonEvent{ player, Button::EAST, isDown }));
 				break;
             case SDLK_RETURN:
                 EventManager::Notify(EventName::INPUT_BUTTON,

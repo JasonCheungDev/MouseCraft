@@ -1,14 +1,13 @@
 #include "Car.h"
 #include <SDL2/SDL.h>
-#include "UI/UIText.h"
 #include <string>
-#include <sstream>
 
 Car::Car()
 {
 	EventManager::Subscribe(EventName::INPUT_AXIS_2D, this);
 	EventManager::Subscribe(EventName::INPUT_BUTTON, this);
 	EventManager::Subscribe(EventName::INPUT_KEY, this);
+	speedFormatter << std::setprecision(1);
 }
 
 Car::~Car()
@@ -30,39 +29,60 @@ void Car::Update(float dt)
 	float percent = (currentSpeed / 20.0f);
 	percent = glm::clamp(percent, 0.0f, 1.0f);
 	camera->fov = (fovMax - fovMin) * percent + fovMin;
+
+	wheelFL->rotationSpeed = glm::vec3(currentSpeed, 0, 0);
+	wheelFR->rotationSpeed = glm::vec3(currentSpeed, 0, 0);
+	wheelBL->rotationSpeed = glm::vec3(currentSpeed, 0, 0);
+	wheelBR->rotationSpeed = glm::vec3(currentSpeed, 0, 0);
+
+	std::stringstream ss;
+	ss << "SPEED: " << currentSpeed;
+	speedDisplay->SetText(ss.str());
+	boostDisplay->size.x = 0.8f * boostGauge;
 }
 
 void Car::FixedUpdate(float dt, int steps)
 {
+	// calculate shared info
 	auto currentSpeed = glm::length(physics->velocity);
+	auto forward2D = GetEntity()->transform.getWorldForward2D();
+	auto right2D = GetEntity()->transform.getWorldRight2D();
 
-	// apply movement 
+	// INPUT 
 
 	if (thrust != 0)
 	{
-		auto dir = GetEntity()->transform.getWorldForward() * thrust;
-		physics->ApplyForce(glm::vec2(dir.x, dir.z) * speed * speedMod);
+		physics->ApplyForce(forward2D * acceleration * accelerationMod * thrust);
 	}
 
 	if (turn != 0)
 	{
-		physics->ApplyAngularForce(-turn * steering * currentSpeed);
-		wheelFL->GetEntity()->transform.setLocalRotation(glm::vec3(0, glm::radians(turn * -45.0f), 0));
-		wheelFR->GetEntity()->transform.setLocalRotation(glm::vec3(0, glm::radians(turn * -45.0f), 0));
+		physics->ApplyAngularForce(-turn * steering * (brake + 1.0f) * currentSpeed);
+		wheelFL->GetEntity()->transform.setLocalRotation2D(glm::radians(turn * -45.0f));
+		wheelFR->GetEntity()->transform.setLocalRotation2D(glm::radians(turn * -45.0f));
 	}
 
-	// simulate drag
+	if (boost != 0 && boostGauge >= boostDrain * dt)
+	{
+		physics->ApplyForce(forward2D * boostForce * boost);
+		boostGauge -= boostDrain * dt;
+	}
+	else
+	{
+		boostGauge += boostRegen * dt;
+		if (boostGauge > 1.0f) boostGauge = 1.0f;
+	}
+
+	// DRAG 
+
 	// side drag 
-	auto right = GetEntity()->transform.getWorldRight();
-	auto right2D = glm::vec2(right.x, right.z);
 	auto sideFriction = glm::dot(physics->velocity, right2D);
 	const float maxBrakeReduction = 0.75f;	// full brakes equals xx% reduction is side friction
 	sideFriction = sideFriction * (1.0 - brake * maxBrakeReduction);
 	physics->ApplyForce(right2D * -sideFriction);
+
 	// back drag 
-	auto forward = GetEntity()->transform.getWorldForward();
-	auto forward2D = glm::vec2(forward.x, forward.z);
-	float terminalSpeedPercent = brakeConverter.Convert(glm::max(0.0f, currentSpeed / maxSpeed));
+	float terminalSpeedPercent = brakeConverter.Convert(glm::max(0.0f, currentSpeed / (maxSpeed * maxSpeedMod)));
 	physics->ApplyForce(-forward2D * terminalSpeedPercent);
 
 	// braking applies consistent force opposite to velocity in forward direction.
@@ -77,22 +97,13 @@ void Car::FixedUpdate(float dt, int steps)
 		{
 			const float maxBrakeSlow = 0.5f;		// full brake equals this force backwards.
 			auto forwardVelocity = glm::dot(physics->velocity, forward2D);
+			// reduce up to half of braking force if player is accelerating
 			if (forwardVelocity > 0)
-				physics->ApplyForce(-forward2D * maxBrakeSlow * brake);
+				physics->ApplyForce(-forward2D * maxBrakeSlow * brake * (1.0f - 0.5f * thrust));
 			else if (forwardVelocity < 0)
-				physics->ApplyForce(forward2D * maxBrakeSlow * brake);
-
+				physics->ApplyForce(forward2D * maxBrakeSlow * brake * (1.0f - 0.5f * thrust));
 		}
 	}
-
-	wheelFL->rotationSpeed = glm::vec3(currentSpeed, 0, 0);
-	wheelFR->rotationSpeed = glm::vec3(currentSpeed, 0, 0);
-	wheelBL->rotationSpeed = glm::vec3(currentSpeed, 0, 0);
-	wheelBR->rotationSpeed = glm::vec3(currentSpeed, 0, 0);
-
-	std::stringstream ss;
-	ss << "SPEED: " << currentSpeed;
-	speedDisplay->SetText(ss.str());
 }
 
 void Car::Notify(EventName eventName, Param * params)
@@ -105,19 +116,21 @@ void Car::Notify(EventName eventName, Param * params)
 			turn = data.value.x;
 		else if (data.axis == Axis::RIGHT)
 		{
-			speed += data.value.y;
+			acceleration += data.value.y;
 		}
 	}
 	else if (eventName == EventName::INPUT_BUTTON)
 	{
 		auto data = static_cast<TypeParam<ButtonEvent>*>(params)->Param;
 
-		if (data.button == Button::PRIMARY)
+		if (data.button == Button::SOUTH)
 			thrust = (data.isDown) ? 1.0f : 0.0f;
-		else if (data.button == Button::SECONDARY)
+		else if (data.button == Button::NORTH)
 			thrust = (data.isDown) ? -1.0f : 0.0f;
-		else if (data.button == Button::AUX2)
+		else if (data.button == Button::WEST)
 			brake = (data.isDown) ? 1.0f : 0.0f;
+		else if (data.button == Button::PRIMARY)
+			boost = (data.isDown) ? 1.0f : 0.0f;
 	}
 	else if (eventName == EventName::INPUT_KEY)
 	{
@@ -159,10 +172,10 @@ void Car::Notify(EventName eventName, Param * params)
 			break;
 			physics->setDensity(physics->getDensity() + 0.2f);
 		case SDLK_o:
-			speed += 0.2f;
+			acceleration += 0.2f;
 			break;
 		case SDLK_p:
-			speed -= 0.2f;
+			acceleration -= 0.2f;
 			break;
 		case SDLK_k:
 			steering += 0.002f;
@@ -178,7 +191,7 @@ void Car::Notify(EventName eventName, Param * params)
 			<< "Bounce: " << physics->getBounciness() << std::endl
 			<< "Friction: " << physics->getFriction() << std::endl
 			<< "Density: " << physics->getDensity() << std::endl
-			<< "Thrust: " << speed << std::endl
+			<< "Thrust: " << acceleration << std::endl
 			<< "Steer: " << steering << std::endl;
 	}
 }

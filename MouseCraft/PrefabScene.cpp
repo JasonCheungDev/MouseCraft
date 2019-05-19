@@ -31,7 +31,7 @@ PrefabScene::PrefabScene()
 		ComponentFactory::Create<Car>();
 		// ComponentFactory::Create<PhysicsMover>();
 		//ComponentFactory::Create<FreeLookMovement>();
-	c_player->speed = 10.0f;
+	c_player->acceleration = 10.0f;
 	e_cam->AddComponent(c_player);
 	auto c_phys = ComponentFactory::Create<PhysicsComponent>(1.0f, 1.0f);
 	e_cam->AddComponent(c_phys);

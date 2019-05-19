@@ -39,9 +39,11 @@ enum Button
 {
 	PRIMARY,	// R1				(idx5)
 	SECONDARY,	// L1				(idx4)
-	AUX1,		// SOUTH BUTTON		(idx0)
-    AUX2,		// WEST BUTTON		(idx2)
-    OPTION,		// OPTION BUTTON	(idx6)
+	NORTH,		//					(idx3)
+    EAST,		//					(idx2)
+	SOUTH,		//					(idx0)
+	WEST,		//					(idx1)
+	OPTION,		// OPTION BUTTON	(idx6)
 };
 
 struct AxisEvent

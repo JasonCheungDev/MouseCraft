@@ -23,6 +23,7 @@
 #include "Common/Rotator.h"
 #include "UI/UIText.h"
 #include "UI/UIRoot.h"
+#include "UI/UIImage.h"
 #include "PositionMatcher.h"
 #include "OrientationMatcher.h"
 
@@ -47,8 +48,8 @@ RaceScene::RaceScene()
 	auto e_player = EntityManager::Instance().Create();
 	// e_player->transform.setLocalPosition(glm::vec3(76, 0, -64));
 	auto c_player = ComponentFactory::Create<Car>();
-	c_player->speed = 1;
-	c_player->steering = 0.01f;
+	c_player->acceleration = 1;
+	c_player->steering = 0.006f;
 	e_player->AddComponent(c_player);
 	auto c_phys = ComponentFactory::Create<PhysicsComponent>(0.25f, 0.5f, 60, -64);
 	c_phys->setAngularDrag(14);
@@ -112,6 +113,8 @@ RaceScene::RaceScene()
 	c_player->wheelBL = c_rotatorWheelRL;
 	c_player->wheelBR = c_rotatorWheelRR;
 
+
+	// ====== UI ===== //
 	auto e_uiRoot = EntityManager::Instance().Create();
 	root.AddChild(e_uiRoot);
 	auto c_uiRoot = ComponentFactory::Create<UIRoot>();
@@ -119,13 +122,20 @@ RaceScene::RaceScene()
 
 	auto e_speedDisplay = EntityManager::Instance().Create();
 	e_uiRoot->AddChild(e_speedDisplay);
-	auto c_speedText = ComponentFactory::Create<UIText>("SPEED: 0", 1.0f, 0, 0);
+	auto c_speedText = ComponentFactory::Create<UIText>("SPEED: 0", 0, 0);
 	c_speedText->vAnchor = VerticalAnchor::ANCHOR_BOTTOM;
 	c_speedText->hAnchor = HorizontalAnchor::ANCHOR_LEFT;
 	e_speedDisplay->AddComponent(c_speedText);
 	
-	c_player->speedDisplay = c_speedText;
+	//auto e_boostDisplay = EntityManager::Instance().Create();
+	//e_uiRoot->AddChild(e_boostDisplay);
+	//auto c_boostText = ComponentFactory::Create<UIImage>("res/textures/white.png", 0.8f, 20.0f, 0, 10.0f);
+	//c_boostText->vAnchor = VerticalAnchor::ANCHOR_BOTTOM;
+	//c_boostText->hAnchor = HorizontalAnchor::ANCHOR_LEFT;
+	//e_boostDisplay->AddComponent(c_boostText);
 
+	c_player->speedDisplay = EntityManager::Instance().Find("speed_display")->GetComponent<UIText>();
+	c_player->boostDisplay = EntityManager::Instance().Find("boost_display")->GetComponent<UIImage>();
 
 	// ===== ZONE: OPEN AIRS ===== //
 	auto e_openAirStart = EntityManager::Instance().Create();

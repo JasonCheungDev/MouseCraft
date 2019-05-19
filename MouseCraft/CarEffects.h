@@ -26,7 +26,7 @@ public:
 	{
 		if (!_activated)
 		{
-			_car->speedMod += speedModChange;
+			_car->accelerationMod += speedModChange;
 			_activated = true;
 		}
 	};
@@ -35,7 +35,7 @@ public:
 	{
 		if (_activated)
 		{
-			_car->speedMod -= speedModChange;
+			_car->accelerationMod -= speedModChange;
 			_activated = false;
 		}
 	};
@@ -104,7 +104,7 @@ public:
 		_phase++;
 		
 		_currentBoost = (!_goRight) ? correctPathBoost : incorrectPathBoost;
-		_car->speedMod += _currentBoost;
+		_car->accelerationMod += _currentBoost;
 	}
 
 	void EnteredRightPath()
@@ -114,7 +114,7 @@ public:
 		_phase++;
 
 		_currentBoost = (_goRight) ? correctPathBoost : incorrectPathBoost;
-		_car->speedMod += _currentBoost;
+		_car->accelerationMod += _currentBoost;
 	}
 	
 	void End()
@@ -123,7 +123,7 @@ public:
 			return;
 		_phase = 0;
 
-		_car->speedMod -= _currentBoost;
+		_car->accelerationMod -= _currentBoost;
 	}
 
 private: 

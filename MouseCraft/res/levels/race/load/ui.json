@@ -1,0 +1,46 @@
+{
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [
+        { "type": "UI" }
+    ],
+	"entities": [
+		{
+            "name": "speed_display",
+			"pos": [0,0,0],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [
+                {
+                    "type": "Text",
+                    "text": "SPEED: 0",
+                    "width": "0",
+                    "height": "0",
+                    "x": "20",
+                    "y": "20",
+                    "anchor": [ "left", "bottom" ]
+                }
+            ],
+			"entities": []
+        },
+        {
+            "name": "boost_display",
+			"pos": [0,0,0],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [
+                {
+                    "type": "Image",
+                    "path": "res/textures/white.png",
+                    "width": "80%",
+                    "height": "20",
+                    "x": "0",
+                    "y": "20",
+                    "anchor": [ "center", "bottom" ]
+                }
+            ],
+			"entities": []
+		}
+	]
+}
