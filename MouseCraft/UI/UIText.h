@@ -2,6 +2,9 @@
 
 #include "UIManager.h"
 #include "../Rendering/TextRenderer.h"
+#include "../Loading/PrefabLoader.h"
+#include <json.hpp>
+using json = nlohmann::json;
 
 /**
 Type of UIComponent that renders text to the panel.
@@ -12,7 +15,7 @@ public:
 	// default font type to use
     static const std::string DEFAULT_FONT;
 
-    UIText(std::string text, float fontSize, float x, float y, std::string fontPath = DEFAULT_FONT);
+    UIText(std::string text, float x, float y, float fontScale = 1.0f, std::string fontPath = DEFAULT_FONT);
 
 	// Current text
 	const std::string GetText() const;
@@ -60,4 +63,8 @@ private:
 	std::string   _fontPath;
 	TextAlignment _alignment;
 	TextMesh*     _textMesh;
+
+private:
+	static Component* Create(json json);
+	static ComponentRegistrar reg;
 };

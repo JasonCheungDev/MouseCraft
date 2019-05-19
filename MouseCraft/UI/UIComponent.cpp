@@ -14,8 +14,8 @@ UIComponent::UIComponent(float width, float height, float x, float y) :
     hAnchor = ANCHOR_LEFT;
     anchorXType = ANCHOR_PIXEL;
     anchorYType = ANCHOR_PIXEL;
-    xType = UNIT_PERCENT;
-    yType = UNIT_PERCENT;
+    widthType = UNIT_PERCENT;
+    heightType = UNIT_PERCENT;
     aspectRatio = 1;
 
     ClickAction = "";
@@ -117,7 +117,7 @@ void UIComponent::Resize()
 void UIComponent::CalculateScreenSize(const UIComponent * parent)
 {
 	// Calculate pixel size of panel based on Unit Type
-	switch (xType)
+	switch (widthType)
 	{
 	case UNIT_PIXEL:
 		screenSize.x = size.x;
@@ -127,7 +127,7 @@ void UIComponent::CalculateScreenSize(const UIComponent * parent)
 		break;
 	}
 
-	switch (yType)
+	switch (heightType)
 	{
 	case UNIT_PIXEL:
 		screenSize.y = size.y;
@@ -139,7 +139,7 @@ void UIComponent::CalculateScreenSize(const UIComponent * parent)
 		screenSize.y = parent->screenSize.x / aspectRatio;
 		break;
 	}
-	if (xType == UNIT_SCALE) {
+	if (widthType == UNIT_SCALE) {
 		screenSize.x = parent->screenSize.y * aspectRatio;
 	}
 }
@@ -186,6 +186,91 @@ void UIComponent::OnInitialized()
 	{
 		auto uic = parent->GetComponent<UIComponent>();
 		if (uic) SetRoot(uic->GetRoot());
+	}
+}
+
+void UIComponent::InitalizeFromJson(json json)
+{
+	auto width = json["width"].get<std::string>();
+	size_t found = width.find('%');
+	if (found != std::string::npos)
+	{
+		widthType = UNIT_PERCENT;
+		width.erase(found, 1);
+		size.x = stof(width) / 100.0f;
+	}
+	else
+	{
+		widthType = UNIT_PIXEL;
+		size.x = stof(width);
+	}
+
+	auto height = json["height"].get<std::string>();
+	found = height.find('%');
+	if (found != std::string::npos)
+	{
+		heightType = UNIT_PERCENT;
+		height.erase(found, 1);
+		size.y = stof(height) / 100.0f;
+	}
+	else
+	{
+		heightType = UNIT_PIXEL;
+		size.y = stof(height);
+	}
+
+	auto offsetX = json["x"].get<std::string>();
+	found = offsetX.find('%');
+	if (found != std::string::npos)
+	{
+		anchorXType = ANCHOR_PERCENT;
+		offsetX.erase(found, 1);
+		anchorOffset.x = stof(offsetX) / 100.0f;
+	}
+	else
+	{
+		anchorXType = ANCHOR_PIXEL;
+		anchorOffset.x = stof(offsetX);
+	}
+
+	auto offsetY = json["y"].get<std::string>();
+	found = offsetY.find('%');
+	if (found != std::string::npos)
+	{
+		anchorYType = ANCHOR_PERCENT;
+		offsetY.erase(found, 1);
+		anchorOffset.y = stof(offsetY) / 100.0f;
+	}
+	else
+	{
+		anchorYType = ANCHOR_PIXEL;
+		anchorOffset.y = stof(offsetY);
+	}
+
+	if (json.find("anchor") != json.end())
+	{
+		auto ha = json["anchor"][0].get<std::string>();
+		if (ha == "left")
+			hAnchor = HorizontalAnchor::ANCHOR_LEFT;
+		else if (ha == "center")
+			hAnchor = HorizontalAnchor::ANCHOR_HCENTER;
+		else if (ha == "right")
+			hAnchor = HorizontalAnchor::ANCHOR_RIGHT;
+		auto va = json["anchor"][1].get<std::string>();
+		if (va == "top")
+			vAnchor = VerticalAnchor::ANCHOR_TOP;
+		else if (va == "center")
+			vAnchor = VerticalAnchor::ANCHOR_VCENTER;
+		else if (va == "bottom")
+			vAnchor = VerticalAnchor::ANCHOR_BOTTOM;
+	}
+
+	if (json.find("color") != json.end())
+	{
+		color = Color(json["color"][0].get<float>(), 
+			json["color"][1].get<float>(), 
+			json["color"][2].get<float>(), 
+			json["color"][3].get<float>());
 	}
 }
 

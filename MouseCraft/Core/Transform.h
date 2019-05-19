@@ -134,21 +134,21 @@ public:
 #pragma region Vector2D Interfaces
 
 	// local
-	Vector2D getLocalPosition2D() const;
-	float    getLocalRotation2D() const;
-	Vector2D getLocalScale2D()    const;
-	Vector2D getLocalForward2D()  const;
-	Vector2D getLocalRight2D()	  const;
+	glm::vec2 getLocalPosition2D() const;
+	float     getLocalRotation2D() const;
+	glm::vec2 getLocalScale2D()    const;
+	glm::vec2 getLocalForward2D()  const;
+	glm::vec2 getLocalRight2D()	   const;
 	// world 
-	Vector2D getWorldPosition2D() const;
-	float    getWorldRotation2D() const;
-	Vector2D getWorldScale2D()    const;
-	Vector2D getWorldForward2D()  const;
-	Vector2D getWorldRight2D()    const;
+	glm::vec2 getWorldPosition2D() const;
+	float     getWorldRotation2D() const;
+	glm::vec2 getWorldScale2D()    const;
+	glm::vec2 getWorldForward2D()  const;
+	glm::vec2 getWorldRight2D()    const;
 	// setters
-	void setLocalPosition2D(Vector2D pos);
+	void setLocalPosition2D(glm::vec2 pos);
 	void setLocalRotation2D(float angle);
-	void setLocalScale2D(Vector2D scl);
+	void setLocalScale2D(glm::vec2 scl);
 
 #pragma endregion
 

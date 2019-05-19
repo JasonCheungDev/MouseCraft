@@ -1,6 +1,9 @@
 #pragma once
 
 #include "UIComponent.h"
+#include "../Loading/PrefabLoader.h"
+#include <json.hpp>
+using json = nlohmann::json;
 
 // Root element for UIComponents. 
 // Controls visibility and transparency of all children.
@@ -21,5 +24,9 @@ public:
 
 	// This is the root, return self.
 	virtual UIRoot* GetRoot() override { return this; };
+
+private:
+	static Component* Create(json json);
+	static ComponentRegistrar reg;
 };
 
