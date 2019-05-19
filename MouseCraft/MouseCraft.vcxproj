@@ -163,11 +163,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Car.cpp" />
+    <ClCompile Include="CarEffects.cpp" />
+    <ClCompile Include="CarTriggerSystem.cpp" />
     <ClCompile Include="Common\FreeLookMovement.cpp" />
     <ClCompile Include="Common\Animation.cpp" />
     <ClCompile Include="Common\PhysicsMover.cpp" />
     <ClCompile Include="Core\System.cpp" />
     <ClCompile Include="Core\UpdateSystem.cpp" />
+    <ClCompile Include="TriggerZone.cpp" />
     <ClCompile Include="Util\JsonGL.cpp" />
     <ClCompile Include="Loading\FileUtil.cpp" />
     <ClCompile Include="Loading\JsonLoader.cpp" />
@@ -260,6 +263,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Car.h" />
+    <ClInclude Include="CarEffects.h" />
+    <ClInclude Include="CarTriggerSystem.h" />
     <ClInclude Include="Common\FreeLookMovement.h" />
     <ClInclude Include="Common\Animation.h" />
     <ClInclude Include="Common\PhysicsMover.h" />
@@ -268,6 +273,7 @@
     <ClInclude Include="Core\System.h" />
     <ClInclude Include="Core\UpdateSystem.h" />
     <ClInclude Include="Core\Vector2D.h" />
+    <ClInclude Include="TriggerZone.h" />
     <ClInclude Include="Util\JsonGL.h" />
     <ClInclude Include="Loading\FileUtil.h" />
     <ClInclude Include="Loading\JsonLoader.h" />

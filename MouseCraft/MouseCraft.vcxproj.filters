@@ -405,6 +405,15 @@
     <ClCompile Include="Util\JsonGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TriggerZone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CarEffects.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CarTriggerSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -747,6 +756,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Util\JsonGL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TriggerZone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CarEffects.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CarTriggerSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

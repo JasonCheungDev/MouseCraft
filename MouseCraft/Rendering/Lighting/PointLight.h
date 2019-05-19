@@ -40,7 +40,7 @@ public:
 private:
 	/* TEMPLATE
 	{
-		"type": "DirectionalLight",
+		"type": "PointLight",
 		"color": [1.0, 1.0, 1.0],
 		"intensity": 1.0,
 		"range": 5.0,

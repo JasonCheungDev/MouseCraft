@@ -1,0 +1,52 @@
+{
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/creepy_cat/_Meshes/Wall_Angle_01.FBX"
+			},
+			"pos": [0,-8,-2.5],
+			"scl": [1,1,1],
+			"rot": [90,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/creepy_cat/_Meshes/Wall_Angle_01.FBX"
+			},
+			"pos": [8,0,-2.5],
+			"scl": [1,1,1],
+			"rot": [90,0,90],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"path": "res/external/creepy_cat/_Meshes/Wall_Angle_01.FBX"
+			},
+			"pos": [0,8,-2.5],
+			"scl": [1,1,1],
+			"rot": [90,0,180],
+			"components": [],
+			"entities": []
+        },
+        {
+			"loader": {
+				"type": "model",
+				"path": "res/external/creepy_cat/_Meshes/Wall_Angle_01.FBX"
+			},
+			"pos": [-8,0,-2.5],
+			"scl": [1,1,1],
+			"rot": [90,0,270],
+			"components": [],
+			"entities": []
+        }
+	]
+}
