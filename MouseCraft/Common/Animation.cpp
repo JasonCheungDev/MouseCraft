@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <glm/gtx/compatibility.hpp>
+#include <glm/gtx/euler_angles.hpp>
 
 LinearConverter* Animation::defaultConverter = new LinearConverter();
 
@@ -13,13 +14,30 @@ void Animation::AddPosition(float time, glm::vec3 position)
 
 void Animation::AddRotation(float time, glm::quat rotation)
 {
-	_keyframesRot.push_back(QuatKeyframe{ time, rotation });
-	std::sort(_keyframesRot.begin(), _keyframesRot.end());
+	if (_rotationPolicy == QUATERNION)
+	{
+		_keyframesQuat.push_back(QuatKeyframe{ time, rotation });
+		std::sort(_keyframesQuat.begin(), _keyframesQuat.end());
+	}
+	else
+	{
+		_keyframesRot.push_back(Vec3Keyframe{ time, glm::eulerAngles(rotation) });
+		std::sort(_keyframesRot.begin(), _keyframesRot.end());
+	}
 }
 
 void Animation::AddRotation(float time, glm::vec3 rotation)
 {
-	AddRotation(time, glm::quat(rotation));
+	if (_rotationPolicy == QUATERNION)
+	{
+		_keyframesQuat.push_back(QuatKeyframe{ time, glm::quat(rotation) });
+		std::sort(_keyframesQuat.begin(), _keyframesQuat.end());
+	}
+	else
+	{
+		_keyframesRot.push_back(Vec3Keyframe{ time, rotation });
+		std::sort(_keyframesRot.begin(), _keyframesRot.end());
+	}
 }
 
 void Animation::AddScale(float time, glm::vec3 scale)
@@ -36,8 +54,8 @@ void Animation::SetPositionKeyFrames(std::vector<Vec3Keyframe> keyframes)
 
 void Animation::SetRotationKeyFrames(std::vector<QuatKeyframe> keyframes)
 {
-	_keyframesRot = keyframes;
-	std::sort(_keyframesRot.begin(), _keyframesRot.end());
+	_keyframesQuat = keyframes;
+	std::sort(_keyframesQuat.begin(), _keyframesQuat.end());
 }
 
 void Animation::SetScaleKeyFrames(std::vector<Vec3Keyframe> keyframes)
@@ -53,7 +71,7 @@ int Animation::GetPositionsCount() const
 
 int Animation::GetRotationCount() const
 {
-	return _keyframesRot.size();
+	return (_rotationPolicy == RotationPolicy::QUATERNION) ? _keyframesQuat.size() : _keyframesRot.size();
 }
 
 int Animation::GetScalesCount() const
@@ -65,6 +83,33 @@ void Animation::SetCurve(LinearConverter * converter)
 {
 	if (converter != nullptr)
 		_converter = converter;
+}
+
+RotationPolicy Animation::GetRotationPolicy()
+{
+	return _rotationPolicy;
+}
+
+void Animation::SetRotationPolicy(RotationPolicy policy)
+{
+	if (_rotationPolicy == policy)
+		return;
+	
+	_rotationPolicy = policy;
+
+	// translate existing values
+	if (policy == RotationPolicy::QUATERNION)
+	{
+		for (auto& q : _keyframesQuat)
+			_keyframesRot.push_back(Vec3Keyframe{ q.time, glm::eulerAngles(q.value) });
+		_keyframesQuat.clear();
+	}
+	else
+	{
+		for (auto& v : _keyframesRot)
+			_keyframesQuat.push_back(QuatKeyframe{ v.time, glm::quat(v.value) });
+		_keyframesRot.clear();
+	}
 }
 
 Animation * Animation::CreateFromJson(json json)
@@ -156,6 +201,39 @@ glm::vec3 Animation::GetPosition(float time) const
 
 glm::quat Animation::GetRotation(float time) const
 {
+	return (_rotationPolicy == RotationPolicy::QUATERNION) ? GetRotationQuat(time) : GetRotationVec3(time);
+}
+
+glm::quat Animation::GetRotationQuat(float time) const
+{
+	// WARNING: no keyframes
+	if (_keyframesQuat.size() == 0) return glm::vec3();
+	auto& first = _keyframesQuat[0];
+	auto& last = _keyframesQuat[_keyframesQuat.size() - 1];
+	// Only one keyframe
+	if (_keyframesQuat.size() == 1) return first.value;
+	// Time is before first keyframe.
+	if (first.time > time) return first.value;
+	// Time is later than last keyframe.
+	if (last.time < time) return last.value;
+	// Find interpolated value
+	glm::quat ret;
+	for (int i = 0; i < _keyframesQuat.size(); ++i)
+	{
+		if (_keyframesQuat[i].time > time)
+		{
+			auto& prev = _keyframesQuat[i - 1];
+			auto& next = _keyframesQuat[i];
+			float percent = (time - prev.time) / (next.time - prev.time);
+			ret = glm::lerp(prev.value, next.value, _converter->Convert(percent));
+			break;
+		}
+	}
+	return ret;
+}
+
+glm::quat Animation::GetRotationVec3(float time) const
+{
 	// WARNING: no keyframes
 	if (_keyframesRot.size() == 0) return glm::vec3();
 	auto& first = _keyframesRot[0];
@@ -175,7 +253,7 @@ glm::quat Animation::GetRotation(float time) const
 			auto& prev = _keyframesRot[i - 1];
 			auto& next = _keyframesRot[i];
 			float percent = (time - prev.time) / (next.time - prev.time);
-			ret = glm::lerp(prev.value, next.value, _converter->Convert(percent));
+			ret = glm::quat(glm::lerp(prev.value, next.value, _converter->Convert(percent)));
 			break;
 		}
 	}

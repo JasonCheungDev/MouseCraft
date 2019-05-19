@@ -122,6 +122,12 @@ public:
 	inline void pos(glm::vec3 v) { setLocalPosition(v); }
 	inline void rot(glm::vec3 v) { setLocalRotation(v); }
 	inline void scl(glm::vec3 v) { setLocalScale(v); }
+	inline void pos(float x, float y, float z) { setLocalPosition(glm::vec3(x, y, z)); }
+	inline void rot(float x, float y, float z) { setLocalRotation(glm::vec3(x, y, z)); }
+	inline void scl(float x, float y, float z) { setLocalScale(glm::vec3(x, y, z));    }
+	inline void setLocalPosition(float x, float y, float z) { setLocalPosition(glm::vec3(x, y, z)); }
+	inline void setLocalRotation(float x, float y, float z) { setLocalRotation(glm::vec3(x, y, z)); }
+	inline void setLocalScale(float x, float y, float z)    { setLocalScale(glm::vec3(x, y, z));    }
 
 #pragma endregion
 

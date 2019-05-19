@@ -21,7 +21,7 @@ class ModelLoader
 {
 public:
 	// Loads RenderComponents, Renderables, Mesh, and Materials into a screne graph hierarchy.
-	static Entity* Load(const std::string& path);
+	static Entity* Load(const std::string& path, bool optimize = true);
 
 	// Loads only the first Mesh found in a model. 
 	static std::shared_ptr<Mesh> LoadMesh(const std::string& path);

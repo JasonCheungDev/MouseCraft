@@ -9,13 +9,15 @@
 
 Texture* TextureLoader::Load(std::string path)
 {
-	std::cout << "Loading texture name: " << path << std::endl;
-
 	// Try to find preloaded texture 
 	Texture* texture;
 	texture = ResourceCache<Texture>::Instance().Get(path);
 	if (texture)
+	{
+		std::cout << "Found preloaded texture name: " << path << std::endl;
 		return texture;
+	}
+	std::cout << "Loading texture name: " << path << std::endl;
 
 	// Try to find preloaded image data 
 	Image* img = ResourceCache<Image>::Instance().Get(path);

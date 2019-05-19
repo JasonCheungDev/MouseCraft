@@ -20,15 +20,17 @@ Shader* ModelLoader::overrideShader = nullptr;
 // the required info is returned as a Texture struct.
 // INFO: Only loads in one texture as no shaders support multiple textures of the same time (at the moment).
 
-Entity * ModelLoader::Load(const std::string & path)
+Entity * ModelLoader::Load(const std::string & path, bool optimize)
 {
 	// read file via assimp 
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path, 
-		aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace 	// reformat vertices
-		| aiProcess_OptimizeGraph | aiProcess_OptimizeMeshes 					// minimize nodes (and entities)
-		// | aiProcess_GlobalScale												// this doesn't do anything except set root-node scale. (which we do manually later).
-	);
+
+	unsigned int postProcessFlags = aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace;	// reformat vertices
+	if (optimize)
+		postProcessFlags = postProcessFlags | aiProcess_OptimizeGraph | aiProcess_OptimizeMeshes;			// minimize nodes (and entities)
+		// | aiProcess_GlobalScale																			// this doesn't do anything except set root-node scale. (which we do manually later).
+
+	const aiScene* scene = importer.ReadFile(path, postProcessFlags);
 
 	// retrieve file scale factor 
 	double scaleFactor = 1.0f;
@@ -135,6 +137,7 @@ Entity* ModelLoader::ProcessNode(Entity* parent, aiNode * node, const aiScene * 
 	
 	Entity* newEntity = EntityManager::Instance().Create();
 	newEntity->transform.setLocalTransformation(aiMatrix4x4ToGlm( node->mTransformation ));
+	newEntity->name = node->mName.C_Str();
 
 	// check if there is anything to draw for this node 
 	if (node->mNumMeshes > 0)

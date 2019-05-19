@@ -53,6 +53,26 @@ public:
 	// Makes body kinematic 
 	void makeKinematic();
 
+	void setDrag(float drag);
+
+	void setAngularDrag(float drag);
+
+	void setDensity(float density);
+
+	void setBounciness(float bounce);
+
+	void setFriction(float friction);
+
+	float getDrag();
+
+	float getAngularDrag();
+
+	float getDensity();
+
+	float getBounciness();
+
+	float getFriction();
+
 	// Makes body no longer collide with anything but still simulate movement.
 	// This action is irreversible (at the moment).
 	void removeCollisions();

@@ -35,6 +35,22 @@ public:
 		glUniform1i(glGetUniformLocation(programId, name.c_str()), value);
 	}
 	// ------------------------------------------------------------------------
+	// returns true if sampler was successfully bound to slot. false is no sampler.
+	bool setTexSlot(const std::string &name, int value) const
+	{
+		// this is essentially setInt() but with success checking.
+		auto loc = glGetUniformLocation(programId, name.c_str());
+		if (loc >= 0)
+		{
+			glUniform1i(loc, value);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	// ------------------------------------------------------------------------
 	void setFloat(const std::string &name, float value) const
 	{
 		glUniform1f(glGetUniformLocation(programId, name.c_str()), value);

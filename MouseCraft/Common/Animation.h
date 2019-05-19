@@ -53,6 +53,8 @@ public:
 	};
 };
 
+enum RotationPolicy { QUATERNION, EULER };
+
 class Animation
 {
 public:
@@ -88,12 +90,25 @@ public:
 
 	void SetCurve(LinearConverter* converter);
 
+	RotationPolicy GetRotationPolicy();
+
+	// If the rotations don't look as you intended try using the other policy.
+	// WARNING: Animating between euler angles is not as robust.
+	void SetRotationPolicy(RotationPolicy policy);
+
 	static Animation* CreateFromJson(json json);
 
 private:
+	// helper function to get a rotation from quaternion keyframes 
+	glm::quat GetRotationQuat(float time) const;
+	// helper function to get a rotation from vec3 keyframes 
+	glm::quat GetRotationVec3(float time) const;
+	
 	std::vector<Vec3Keyframe> _keyframesPos;
-	std::vector<QuatKeyframe> _keyframesRot;
+	std::vector<QuatKeyframe> _keyframesQuat;
+	std::vector<Vec3Keyframe> _keyframesRot;
 	std::vector<Vec3Keyframe> _keyframesScl;
+	RotationPolicy _rotationPolicy;
 	LinearConverter* _converter = defaultConverter;
 	static LinearConverter* defaultConverter;
 };

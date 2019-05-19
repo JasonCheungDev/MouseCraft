@@ -232,6 +232,9 @@ void InputSystem::Update(float dt)
 					new TypeParam<ButtonEvent>(ButtonEvent{ player, Button::OPTION, isDown }));
                 break;
             }
+
+			EventManager::Notify(EventName::INPUT_KEY,
+				new TypeParam<KeyEvent>(KeyEvent{ e.key.keysym.sym, isDown }));
 		}
 		else if (e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP)
 		{
