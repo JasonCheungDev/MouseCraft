@@ -6,10 +6,13 @@
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
+#include <json.hpp>
 #include "../Core/Component.h"
 #include "../Core/Entity.h"
 #include "../Core/Rect.h"
 #include "../Rendering/Color.h"
+
+using json = nlohmann::json;
 
 class UIRoot;
 
@@ -52,8 +55,8 @@ public:
 	Color				color;
 
 	glm::vec2           size;
-	UnitType            xType;
-	UnitType            yType;
+	UnitType            widthType;
+	UnitType            heightType;
 	float				zForce;
 	float				z;
     
@@ -96,6 +99,8 @@ public:
 	virtual UIRoot* GetRoot();
 
 	virtual void OnInitialized() override;
+
+	void InitalizeFromJson(json json);
 
 protected:
 	// Recalculates screen size

@@ -1,9 +1,10 @@
 #include "UIText.h"
 #include "../Rendering/ModelGen.h"
+#include "../Core/ComponentFactory.h"
 
 const std::string UIText::DEFAULT_FONT = "res/fonts/arial.ttf";
 
-UIText::UIText(std::string text, float fontSize, float x, float y, std::string fontPath) :
+UIText::UIText(std::string text, float x, float y, float fontSize, std::string fontPath) :
     UIComponent(0, 0, x, y), _text(text), _fontScale(fontSize), _spacing(1.0f), _fontPath(fontPath) 
 {
 	_textMesh = TextRenderer::Instance().GenerateTextMesh(text, _fontPath, _alignment);
@@ -99,3 +100,26 @@ void UIText::CalculateScreenSize(const UIComponent * parent)
 {
 	screenSize = (_textMesh != nullptr) ? _textMesh->Size * _fontScale : glm::vec2();
 }
+
+Component* UIText::Create(nlohmann::json json)
+{
+	auto txt = ComponentFactory::Create<UIText>("", 0, 0);
+	
+	txt->InitalizeFromJson(json);
+
+	txt->SetText(json["text"].get<std::string>());
+
+	if (json.find("size") != json.end())
+	{
+		txt->SetFontScale(json["size"].get<float>());
+	}
+	
+	if (json.find("font") != json.end())
+	{
+		txt->SetFont(json["font"].get<std::string>());
+	}
+
+	return txt;
+}
+
+ComponentRegistrar UIText::reg("Text", &UIText::Create);

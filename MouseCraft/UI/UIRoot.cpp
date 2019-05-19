@@ -1,6 +1,6 @@
 #include "UIRoot.h"
 
-
+#include "../Core/ComponentFactory.h"
 
 UIRoot::UIRoot() : UIComponent(0,0,0,0)
 {
@@ -34,3 +34,10 @@ void UIRoot::OnInitialized()
 		}
 	}
 }
+
+Component* UIRoot::Create(nlohmann::json json)
+{
+	return ComponentFactory::Create<UIRoot>();
+}
+
+ComponentRegistrar UIRoot::reg("UI", &UIRoot::Create);

@@ -265,10 +265,10 @@ void Transform::setLocalTransform(glm::mat4 matrix)
 
 #pragma region Vector2D Interfaces
 
-Vector2D Transform::getLocalPosition2D() const
+glm::vec2 Transform::getLocalPosition2D() const
 {
 	auto pos = getLocalPosition();
-	return Vector2D(pos.x, pos.z);
+	return glm::vec2(pos.x, pos.z);
 }
 
 float Transform::getLocalRotation2D() const
@@ -276,28 +276,28 @@ float Transform::getLocalRotation2D() const
 	return getAngle2D(getLocalForward());
 }
 
-Vector2D Transform::getLocalScale2D() const
+glm::vec2 Transform::getLocalScale2D() const
 {
 	auto scl = getLocalScale();
-	return Vector2D(scl.x, scl.z);
+	return glm::vec2(scl.x, scl.z);
 }
 
-Vector2D Transform::getLocalForward2D() const
+glm::vec2 Transform::getLocalForward2D() const
 {
 	auto fwd = getLocalForward();
-	return Vector2D(fwd.x, fwd.z);
+	return glm::vec2(fwd.x, fwd.z);
 }
 
-Vector2D Transform::getLocalRight2D() const
+glm::vec2 Transform::getLocalRight2D() const
 {
 	auto rgt = getLocalRight();
-	return Vector2D(rgt.x, rgt.z);
+	return glm::vec2(rgt.x, rgt.z);
 }
 
-Vector2D Transform::getWorldPosition2D() const
+glm::vec2 Transform::getWorldPosition2D() const
 {
 	auto pos = getWorldPosition();
-	return Vector2D(pos.x, pos.z);
+	return glm::vec2(pos.x, pos.z);
 }
 
 float Transform::getWorldRotation2D() const
@@ -305,25 +305,25 @@ float Transform::getWorldRotation2D() const
 	return getAngle2D(getWorldForward());
 }
 
-Vector2D Transform::getWorldScale2D() const
+glm::vec2 Transform::getWorldScale2D() const
 {
 	auto scl = getWorldScale();
-	return Vector2D(scl.x, scl.z);
+	return glm::vec2(scl.x, scl.z);
 }
 
-Vector2D Transform::getWorldForward2D() const
+glm::vec2 Transform::getWorldForward2D() const
 {
 	auto fwd = getWorldForward();
-	return Vector2D(fwd.x, fwd.z);
+	return glm::vec2(fwd.x, fwd.z);
 }
 
-Vector2D Transform::getWorldRight2D() const
+glm::vec2 Transform::getWorldRight2D() const
 {
 	auto rgt = getWorldRight();
-	return Vector2D(rgt.x, rgt.z);
+	return glm::vec2(rgt.x, rgt.z);
 }
 
-void Transform::setLocalPosition2D(Vector2D pos)
+void Transform::setLocalPosition2D(glm::vec2 pos)
 {
 	auto cur = getLocalPosition();
 	cur.x = pos.x;
@@ -338,7 +338,7 @@ void Transform::setLocalRotation2D(float angle)
 	setLocalRotation(cur);
 }
 
-void Transform::setLocalScale2D(Vector2D scl)
+void Transform::setLocalScale2D(glm::vec2 scl)
 {
 	auto cur = getLocalScale();
 	cur.x = scl.x;
