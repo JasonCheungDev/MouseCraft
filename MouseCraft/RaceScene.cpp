@@ -23,6 +23,8 @@
 #include "Common/Rotator.h"
 #include "UI/UIText.h"
 #include "UI/UIRoot.h"
+#include "PositionMatcher.h"
+#include "OrientationMatcher.h"
 
 namespace fs = std::experimental::filesystem;
 
@@ -53,15 +55,28 @@ RaceScene::RaceScene()
 	c_phys->setDrag(0.0f);	// car handles friction
 	e_player->AddComponent(c_phys);
 	e_player->name = "player";
+	
 	auto e_cam = EntityManager::Instance().Create();
 	e_cam->transform.setLocalPosition(glm::vec3(0, 1.0f, 2.0f));
-	e_player->AddChild(e_cam);
+	// e_player->AddChild(e_cam);
 	auto c_cam = ComponentFactory::Create<Camera>();
 	c_cam->aspect = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
 	c_cam->farPlane = 1000.0f;
 	e_cam->AddComponent(c_cam);
-
 	c_player->camera = c_cam;
+
+	auto e_camHolder = EntityManager::Instance().Create();
+	e_camHolder->AddChild(e_cam);
+	root.AddChild(e_camHolder);
+	auto c_camOrientation = ComponentFactory::Create<OrientationMatcher>();
+	c_camOrientation->target = e_player;
+	c_camOrientation->speed = 10.0f;
+	e_camHolder->AddComponent(c_camOrientation);
+	auto c_camPosition = ComponentFactory::Create<PositionMatcher>();
+	c_camPosition->target = e_player;
+	c_camPosition->speed = 25.0f;
+	e_camHolder->AddComponent(c_camPosition);
+
 
 	auto e_carModel = ModelLoader::Load("res/external/nahchimento/lambo.fbx", false);
 	// e_model->transform.setLocalPosition(glm::vec3(0, 0.5f, 0));

@@ -47,8 +47,8 @@ void Car::FixedUpdate(float dt, int steps)
 	if (turn != 0)
 	{
 		physics->ApplyAngularForce(-turn * steering * currentSpeed);
-		wheelFL->GetEntity()->transform.setLocalRotation(glm::vec3(0, glm::radians(turn * 45.0f), 0));
-		wheelFR->GetEntity()->transform.setLocalRotation(glm::vec3(0, glm::radians(turn * 45.0f), 0));
+		wheelFL->GetEntity()->transform.setLocalRotation(glm::vec3(0, glm::radians(turn * -45.0f), 0));
+		wheelFR->GetEntity()->transform.setLocalRotation(glm::vec3(0, glm::radians(turn * -45.0f), 0));
 	}
 
 	// simulate drag

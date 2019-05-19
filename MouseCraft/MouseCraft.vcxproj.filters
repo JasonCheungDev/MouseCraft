@@ -414,6 +414,12 @@
     <ClCompile Include="CarTriggerSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OrientationMatcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PositionMatcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainScene.h">
@@ -765,6 +771,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CarTriggerSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OrientationMatcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionMatcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

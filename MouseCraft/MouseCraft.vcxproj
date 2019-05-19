@@ -170,6 +170,8 @@
     <ClCompile Include="Common\PhysicsMover.cpp" />
     <ClCompile Include="Core\System.cpp" />
     <ClCompile Include="Core\UpdateSystem.cpp" />
+    <ClCompile Include="OrientationMatcher.cpp" />
+    <ClCompile Include="PositionMatcher.cpp" />
     <ClCompile Include="TriggerZone.cpp" />
     <ClCompile Include="Util\JsonGL.cpp" />
     <ClCompile Include="Loading\FileUtil.cpp" />
@@ -273,6 +275,8 @@
     <ClInclude Include="Core\System.h" />
     <ClInclude Include="Core\UpdateSystem.h" />
     <ClInclude Include="Core\Vector2D.h" />
+    <ClInclude Include="OrientationMatcher.h" />
+    <ClInclude Include="PositionMatcher.h" />
     <ClInclude Include="TriggerZone.h" />
     <ClInclude Include="Util\JsonGL.h" />
     <ClInclude Include="Loading\FileUtil.h" />
