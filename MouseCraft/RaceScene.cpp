@@ -9,6 +9,7 @@
 #include "Loading/ModelLoader.h"
 #include "Core/ComponentFactory.h"
 #include "Core/OmegaEngine.h"
+#include "Rendering/RenderingSystem.h"
 #include "Rendering/Camera.h"
 #include "Rendering/Lighting/DirectionalLight.h"
 #include "Physics/PhysicsComponent.h"
@@ -26,6 +27,7 @@
 #include "UI/UIImage.h"
 #include "PositionMatcher.h"
 #include "OrientationMatcher.h"
+#include "Rendering/PostProcess/PostProcess.h"
 
 namespace fs = std::experimental::filesystem;
 
@@ -113,27 +115,31 @@ RaceScene::RaceScene()
 	c_player->wheelBL = c_rotatorWheelRL;
 	c_player->wheelBR = c_rotatorWheelRR;
 
+	// ===== VFX ===== //
+	auto renderSystem = OmegaEngine::Instance().GetSystem<RenderingSystem>();
+	auto fogColor = glm::vec3(216 / 255.0f, 217 / 255.0f, 210 / 255.0f);
+	
+	auto heightFogPp = std::make_unique<PostProcess>();
+	auto heightShader = std::make_unique<Shader>(
+		"res/shaders/PostProcess/pp.vs",
+		"res/shaders/PostProcess/pp_height_fog.fs");
+	heightFogPp->SetShader(std::move(heightShader));
+	auto heightSettings = std::make_unique<Material>();
+	heightSettings->SetVec3("u_FogColor", fogColor);
+	heightSettings->SetFloat("u_FadeStart", 0.0f);
+	heightSettings->SetFloat("u_FadeEnd", -20.0f);
+	heightFogPp->SetMaterial(std::move(heightSettings));
+	renderSystem->addPostProcess("HeightFog", std::move(heightFogPp));
+
+	auto skyboxShader = new Shader("res/shaders/skybox.vs", "res/shaders/skybox_fog.fs");
+	auto skyboxSettings = new Material();
+	skyboxSettings->SetFloat("u_FogAngleStart", glm::radians(90.0f));
+	skyboxSettings->SetFloat("u_FogAngleEnd", glm::radians(75.0f));
+	skyboxSettings->SetVec3("u_FogColor", fogColor);
+	renderSystem->setSkyboxShader(skyboxShader);
+	renderSystem->setSkyboxSettings(skyboxSettings);
 
 	// ====== UI ===== //
-	auto e_uiRoot = EntityManager::Instance().Create();
-	root.AddChild(e_uiRoot);
-	auto c_uiRoot = ComponentFactory::Create<UIRoot>();
-	e_uiRoot->AddComponent(c_uiRoot);
-
-	auto e_speedDisplay = EntityManager::Instance().Create();
-	e_uiRoot->AddChild(e_speedDisplay);
-	auto c_speedText = ComponentFactory::Create<UIText>("SPEED: 0", 0, 0);
-	c_speedText->vAnchor = VerticalAnchor::ANCHOR_BOTTOM;
-	c_speedText->hAnchor = HorizontalAnchor::ANCHOR_LEFT;
-	e_speedDisplay->AddComponent(c_speedText);
-	
-	//auto e_boostDisplay = EntityManager::Instance().Create();
-	//e_uiRoot->AddChild(e_boostDisplay);
-	//auto c_boostText = ComponentFactory::Create<UIImage>("res/textures/white.png", 0.8f, 20.0f, 0, 10.0f);
-	//c_boostText->vAnchor = VerticalAnchor::ANCHOR_BOTTOM;
-	//c_boostText->hAnchor = HorizontalAnchor::ANCHOR_LEFT;
-	//e_boostDisplay->AddComponent(c_boostText);
-
 	c_player->speedDisplay = EntityManager::Instance().Find("speed_display")->GetComponent<UIText>();
 	c_player->boostDisplay = EntityManager::Instance().Find("boost_display")->GetComponent<UIImage>();
 

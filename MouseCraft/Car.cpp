@@ -35,9 +35,9 @@ void Car::Update(float dt)
 	wheelBL->rotationSpeed = glm::vec3(currentSpeed, 0, 0);
 	wheelBR->rotationSpeed = glm::vec3(currentSpeed, 0, 0);
 
-	std::stringstream ss;
-	ss << "SPEED: " << currentSpeed;
-	speedDisplay->SetText(ss.str());
+	speedFormatter.str("");
+	speedFormatter << "SPEED: " << currentSpeed;
+	speedDisplay->SetText(speedFormatter.str());
 	boostDisplay->size.x = 0.8f * boostGauge;
 }
 
