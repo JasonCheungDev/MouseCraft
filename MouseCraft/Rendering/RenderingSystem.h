@@ -35,7 +35,10 @@ private:
 	FrameBuffer* ppWriteFBO;
 	FrameBuffer* ppReadFBO;
 	unsigned int screenWidth, screenHeight; 
+
 	CubeMap* skyboxTexture;
+	Shader* customSkyboxShader = nullptr;
+	Material* skyboxSettings = nullptr;
 
 	std::map<std::string, std::unique_ptr<PostProcess>> _postProcesses;
 
@@ -46,16 +49,19 @@ private:
 public:
 	RenderingSystem();
 	~RenderingSystem();
+
+	virtual void Update(float dt) override;
+
 	void SetSize(unsigned int width, unsigned int height);
 	void SetCamera(Camera* camera);
-	virtual void Update(float dt) override;
-	// virtual void addComponent(std::type_index t, Component* component) override;
-	// virtual void clearComponents() override;
-	void LoadFont(std::string path);
+
 	void addPostProcess(const std::string name, std::unique_ptr<PostProcess> postProcess);
 	void removePostProcess(const std::string name);
 	PostProcess* getPostProcess(const std::string name);
+
 	void setSkybox(CubeMap* cubemap);
+	void setSkyboxShader(Shader* shader);
+	void setSkyboxSettings(Material* material);
 
 private: 
 	

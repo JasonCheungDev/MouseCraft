@@ -81,7 +81,7 @@ RenderingSystem::RenderingSystem() : System()
 	imageShader = new Shader("res/shaders/image_vertex.glsl", "res/shaders/image_fragment.glsl");
 	postShader = new Shader("res/shaders/post_vertex.glsl", "res/shaders/post_fragment.glsl");
 	postToScreenShader = new Shader("res/shaders/post2screen_vertex.glsl", "res/shaders/post2screen_fragment.glsl");
-	skyboxShader = new Shader("res/shaders/skybox_vertex.glsl", "res/shaders/skybox_fragment.glsl");
+	skyboxShader = new Shader("res/shaders/skybox.vs", "res/shaders/skybox.fs");
 
 
 	// initialize frame buffers for geometry rendering pass 
@@ -109,18 +109,14 @@ RenderingSystem::RenderingSystem() : System()
 	outlinePp->enabled = true;
 	addPostProcess("Outline", std::move(outlinePp));
 	// blur 
-	//auto blurHPp = std::make_unique<BlurPP>();
-	//blurHPp->settings->SetBool("u_Horizontal", true);
-	//blurHPp->enabled = false;
-	//addPostProcess("BlurH", std::move(blurHPp));
-	//auto blurVPp = std::make_unique<BlurPP>();
-	//blurVPp->settings->SetBool("u_Horizontal", false);
-	//blurVPp->enabled = false;
-	//addPostProcess("BlurV", std::move(blurVPp));
+	auto blurPp = std::make_unique<BlurPP>();
+	blurPp->enabled = false;
+	addPostProcess("Blur", std::move(blurPp));
+	// negative testing 
 	auto negPp = std::make_unique<NegativePP>();
 	negPp->enabled = false;
 	addPostProcess("Negative", std::move(negPp));
-
+	// bloom 
 	auto bloomPp = std::make_unique<BloomPP>();
 	addPostProcess("Bloom", std::move(bloomPp));
 
@@ -469,9 +465,14 @@ void RenderingSystem::RenderSkyboxPass()
 		// glDisable(GL_DEPTH_TEST);
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LEQUAL);
-		skyboxShader->use();
-		skyboxShader->setMat4(SHADER_PROJECTION, projection);
-		skyboxShader->setMat4(SHADER_VIEW, glm::mat4(glm::mat3(view)));	// view -> mat3 (remove translation) -> mat4 (compatable format)
+
+		auto shader = (customSkyboxShader) ? customSkyboxShader : skyboxShader;
+		shader->use();
+		shader->setMat4(SHADER_PROJECTION, projection);
+		shader->setMat4(SHADER_VIEW, glm::mat4(glm::mat3(view)));	// view -> mat3 (remove translation) -> mat4 (compatable format)
+		if (skyboxSettings)
+			skyboxSettings->LoadMaterial(shader, 0);
+		
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTexture->GetId());
 		// draw 
@@ -884,6 +885,16 @@ PostProcess* RenderingSystem::getPostProcess(const std::string name)
 void RenderingSystem::setSkybox(CubeMap* cubemap)
 {
 	skyboxTexture = cubemap;
+}
+
+void RenderingSystem::setSkyboxShader(Shader * shader)
+{
+	customSkyboxShader = shader;
+}
+
+void RenderingSystem::setSkyboxSettings(Material * material)
+{
+	skyboxSettings = material;
 }
 
 //void RenderingSystem::onComponentCreated(std::type_index t, Component* c)

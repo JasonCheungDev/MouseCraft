@@ -7,12 +7,30 @@
 class BlurPP : public PostProcess
 {
 public:
-	BlurPP() : PostProcess()
+	BlurPP() 
 	{
-		_shader = std::make_unique<Shader>("res/shaders/pp_base_vertex.glsl", "res/shaders/pp_blur_fragment.glsl");
+		_horBlur = new Shader("res/shaders/PostProcess/pp.vs", "res/shaders/PostProcess/pp_hor_blur.fs");
+		_verBlur = new Shader("res/shaders/PostProcess/pp.vs", "res/shaders/PostProcess/pp_ver_blur.fs");
 		_settings = std::make_unique<Material>();
-		_settings->SetBool("u_Horizontal", true);
+		_settings->SetFloat("u_Strength", 1.0f);
 	}
 	~BlurPP() {};
+
+	Shader* GetActiveShader() override
+	{
+		return (_firstPass) ? _horBlur : _verBlur;
+	}
+
+	virtual bool Pass(unsigned int freeTexSlot)
+	{
+		_settings->LoadMaterial(GetActiveShader());
+		_firstPass = !_firstPass;
+		return _firstPass;
+	}
+
+private:
+	bool _firstPass = true;
+	Shader* _horBlur;
+	Shader* _verBlur;
 };
 
