@@ -6,6 +6,7 @@
 #include "Physics/PhysicsComponent.h"
 #include "Rendering/Camera.h"
 #include "Common/Rotator.h"
+#include "Common/Animation.h"
 
 class UIText;
 
@@ -21,6 +22,7 @@ public:
 
 public:
 	float speed = 2.0f;
+	float maxSpeed = 12.0f;
 	float steering = 0.1f;
 	float speedMod = 1.0f;
 	// used for fov kick
@@ -38,6 +40,8 @@ public:
 private:
 	float thrust = 0.0f;
 	float turn = 0.0f;
+	float brake = 0.0f;
 	PhysicsComponent* physics;
+	X3Converter brakeConverter;
 };
 

@@ -53,6 +53,24 @@ public:
 	};
 };
 
+class X2Converter : public LinearConverter
+{
+public:
+	float Convert(float t) override
+	{
+		return t * t;
+	}
+};
+
+class X3Converter : public LinearConverter
+{
+public:
+	float Convert(float t) override
+	{
+		return t * t * t;
+	}
+};
+
 enum RotationPolicy { QUATERNION, EULER };
 
 class Animation

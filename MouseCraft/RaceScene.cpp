@@ -45,12 +45,12 @@ RaceScene::RaceScene()
 	auto e_player = EntityManager::Instance().Create();
 	// e_player->transform.setLocalPosition(glm::vec3(76, 0, -64));
 	auto c_player = ComponentFactory::Create<Car>();
-	c_player->speed = 5;
-	c_player->steering = 0.016f;
+	c_player->speed = 1;
+	c_player->steering = 0.01f;
 	e_player->AddComponent(c_player);
 	auto c_phys = ComponentFactory::Create<PhysicsComponent>(0.25f, 0.5f, 60, -64);
 	c_phys->setAngularDrag(14);
-	c_phys->setDrag(5);
+	c_phys->setDrag(0.0f);	// car handles friction
 	e_player->AddComponent(c_phys);
 	e_player->name = "player";
 	auto e_cam = EntityManager::Instance().Create();

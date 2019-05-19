@@ -36,6 +36,8 @@ void Car::FixedUpdate(float dt, int steps)
 {
 	auto currentSpeed = glm::length(physics->velocity);
 
+	// apply movement 
+
 	if (thrust != 0)
 	{
 		auto dir = GetEntity()->transform.getWorldForward() * thrust;
@@ -49,7 +51,39 @@ void Car::FixedUpdate(float dt, int steps)
 		wheelFR->GetEntity()->transform.setLocalRotation(glm::vec3(0, glm::radians(turn * 45.0f), 0));
 	}
 
-	// std::cout << speed << std::endl;
+	// simulate drag
+	// side drag 
+	auto right = GetEntity()->transform.getWorldRight();
+	auto right2D = glm::vec2(right.x, right.z);
+	auto sideFriction = glm::dot(physics->velocity, right2D);
+	const float maxBrakeReduction = 0.75f;	// full brakes equals xx% reduction is side friction
+	sideFriction = sideFriction * (1.0 - brake * maxBrakeReduction);
+	physics->ApplyForce(right2D * -sideFriction);
+	// back drag 
+	auto forward = GetEntity()->transform.getWorldForward();
+	auto forward2D = glm::vec2(forward.x, forward.z);
+	float terminalSpeedPercent = brakeConverter.Convert(glm::max(0.0f, currentSpeed / maxSpeed));
+	physics->ApplyForce(-forward2D * terminalSpeedPercent);
+
+	// braking applies consistent force opposite to velocity in forward direction.
+	if (brake > 0)
+	{
+		const float fullstopThreshold = 0.2f;
+		if (currentSpeed < fullstopThreshold)
+		{
+			physics->body->SetLinearVelocity(b2Vec2(0, 0));
+		}
+		else
+		{
+			const float maxBrakeSlow = 0.5f;		// full brake equals this force backwards.
+			auto forwardVelocity = glm::dot(physics->velocity, forward2D);
+			if (forwardVelocity > 0)
+				physics->ApplyForce(-forward2D * maxBrakeSlow * brake);
+			else if (forwardVelocity < 0)
+				physics->ApplyForce(forward2D * maxBrakeSlow * brake);
+
+		}
+	}
 
 	wheelFL->rotationSpeed = glm::vec3(currentSpeed, 0, 0);
 	wheelFR->rotationSpeed = glm::vec3(currentSpeed, 0, 0);
@@ -82,6 +116,8 @@ void Car::Notify(EventName eventName, Param * params)
 			thrust = (data.isDown) ? 1.0f : 0.0f;
 		else if (data.button == Button::SECONDARY)
 			thrust = (data.isDown) ? -1.0f : 0.0f;
+		else if (data.button == Button::AUX2)
+			brake = (data.isDown) ? 1.0f : 0.0f;
 	}
 	else if (eventName == EventName::INPUT_KEY)
 	{
