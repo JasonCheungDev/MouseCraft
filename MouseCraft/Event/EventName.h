@@ -19,5 +19,6 @@ enum EventName {
 	INPUT_BUTTON,		//	| ButtonEvent		| Input/InputSystem.h	| Controller button
 	INPUT_MOUSE_CLICK,	//	| MouseButtonEvent	| Input/InputSystem.h	| Left and right click only
 	INPUT_MOUSE_MOVE,	//	| glm::ivec2		| <glm/glm.hpp>			| 
+	INPUT_KEY,			//  | sdl_
 	GAMEOVER,			//	| GameOverParams	| GameManager.h			| 
 };

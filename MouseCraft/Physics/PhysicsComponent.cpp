@@ -80,6 +80,56 @@ void PhysicsComponent::makeKinematic()
 	body->SetType(b2BodyType::b2_kinematicBody);
 }
 
+void PhysicsComponent::setDrag(float drag)
+{
+	body->SetLinearDamping(drag);
+}
+
+void PhysicsComponent::setAngularDrag(float drag)
+{
+	body->SetAngularDamping(drag);
+}
+
+void PhysicsComponent::setDensity(float density)
+{
+	body->GetFixtureList()[0].SetDensity(density);
+}
+
+void PhysicsComponent::setBounciness(float bounce)
+{
+	body->GetFixtureList()[0].SetRestitution(bounce);
+}
+
+void PhysicsComponent::setFriction(float friction)
+{
+	body->GetFixtureList()[0].SetFriction(friction);
+}
+
+float PhysicsComponent::getDrag()
+{
+	return body->GetLinearDamping();
+}
+
+float PhysicsComponent::getAngularDrag()
+{
+	return body->GetAngularDamping();
+}
+
+float PhysicsComponent::getDensity()
+{
+	return body->GetFixtureList()[0].GetDensity();
+}
+
+float PhysicsComponent::getBounciness()
+{
+	return body->GetFixtureList()[0].GetRestitution();
+}
+
+float PhysicsComponent::getFriction()
+{
+	return body->GetFixtureList()[0].GetFriction();
+}
+
 void PhysicsComponent::removeCollisions()
 {
 	b2Filter filter;

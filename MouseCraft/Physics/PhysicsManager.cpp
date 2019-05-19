@@ -47,8 +47,6 @@ void PhysicsManager::FixedUpdate(float dt, int steps)
 		}
 	}
 
-	b2Body* b = world->GetBodyList(); //points to the first body
-
 	// simulate physics world 
 	world->Step(dt, 10, 10);
 
@@ -65,7 +63,7 @@ void PhysicsManager::FixedUpdate(float dt, int steps)
 			pc->GetEntity()->transform.setLocalPosition(pos);
 			auto rot = glm::vec3(pc->GetEntity()->t().rot().x, pc->body->GetAngle(), pc->GetEntity()->t().rot().z);
 			pc->GetEntity()->transform.setLocalRotation(rot);
-			pc->velocity = b2gl2(b->GetLinearVelocity());
+			pc->velocity = b2gl2(pc->body->GetLinearVelocity());
 		}
 	}
 
@@ -202,7 +200,8 @@ void PhysicsManager::InitializeBody(PhysicsComponent * physicsComponent, float x
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &shape;
-	fixtureDef.density = 1;
+	fixtureDef.density = 1.0f;
+	fixtureDef.friction = 1.0f;
 	fixtureDef.userData = physicsComponent;
 
 	b2Body* body;

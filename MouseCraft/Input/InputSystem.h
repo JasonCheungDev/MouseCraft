@@ -84,6 +84,12 @@ struct MouseButtonEvent
 	bool isDown;			// is button pressed down
 };
 
+struct KeyEvent
+{
+	SDL_Keycode key;
+	bool isDown;
+};
+
 
 
 class InputSystem : public System
