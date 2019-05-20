@@ -1,13 +1,14 @@
 #include "Car.h"
 #include <SDL2/SDL.h>
 #include <string>
+#include "Rendering/Color.h"
 
 Car::Car()
 {
 	EventManager::Subscribe(EventName::INPUT_AXIS_2D, this);
 	EventManager::Subscribe(EventName::INPUT_BUTTON, this);
 	EventManager::Subscribe(EventName::INPUT_KEY, this);
-	speedFormatter << std::setprecision(1);
+	// speedFormatter << std::fixed << std::setprecision(1);
 }
 
 Car::~Car()
@@ -35,10 +36,23 @@ void Car::Update(float dt)
 	wheelBL->rotationSpeed = glm::vec3(currentSpeed, 0, 0);
 	wheelBR->rotationSpeed = glm::vec3(currentSpeed, 0, 0);
 
+	speedBlur->GetSettings()->SetFloat("u_Strength", percent * 2.8f);
+
+	count += dt;
+
+	// UI 
 	speedFormatter.str("");
-	speedFormatter << "SPEED: " << currentSpeed;
+	speedFormatter << "SPEED: " << (int)(currentSpeed * 10.0f);
 	speedDisplay->SetText(speedFormatter.str());
-	boostDisplay->size.x = 0.8f * boostGauge;
+	boostDisplay->size.x = boostGauge;
+
+	//auto speedmods = accelerationMod;
+	//if (speedmods > 1.0f)
+	//	desiredVignetteColor = glm::vec4(FAST_COLOR.r, FAST_COLOR.g, FAST_COLOR.b, speedmods - 1.0f);
+	//else
+	//	desiredVignetteColor = glm::vec4(SLOW_COLOR.r, SLOW_COLOR.g, SLOW_COLOR.b, 1.0f - speedmods);
+	//auto color = glm::lerp(vignette->color.vec4(), desiredVignetteColor, dt);
+	//vignette->color = Color(color.r, color.g, color.b, color.a);
 }
 
 void Car::FixedUpdate(float dt, int steps)

@@ -7,6 +7,7 @@
 		{
 			"loader": {
 				"type": "model",
+				"material": "res/materials/karboosx_base.json",
 				"path": "res/external/karboosx/cube.fbx"
 			},
 			"pos": [0,0,0],
@@ -18,6 +19,7 @@
 		{
 			"loader": {
 				"type": "model",
+				"material": "res/materials/karboosx_base.json",
 				"path": "res/external/karboosx/cube.fbx"
 			},
 			"pos": [-1.45,-0.7,-1.5],
@@ -29,6 +31,7 @@
 		{
 			"loader": {
 				"type": "model",
+				"material": "res/materials/karboosx_base.json",
 				"path": "res/external/karboosx/cylinder.fbx"
 			},
 			"pos": [1,1.6,1],

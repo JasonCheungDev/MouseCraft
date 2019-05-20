@@ -1,0 +1,62 @@
+{
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+		{
+			"loader": {
+				"type": "model",
+				"material": "res/materials/karboosx_base.json",
+				"path": "res/external/karboosx/gate_thick.fbx"
+			},
+			"pos": [73,-2,-64],
+			"scl": [2,2,2],
+			"rot": [0,270,0],
+			"components": [],
+			"entities": [
+				{
+					"loader": {
+						"type": "model",
+						"material": "res/materials/karboosx_base.json",
+						"path": "res/external/karboosx/decorative_wall.fbx"
+					},
+					"pos": [0,-9.9,-0.5],
+					"scl": [1.05,2.5,3.8],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+				
+					]
+				}
+			]
+		},
+		{
+			"loader": {
+				"type": "model",
+				"material": "res/materials/karboosx_base.json",
+				"path": "res/external/karboosx/gate_thick.fbx"
+			},
+			"pos": [136,-2,-28],
+			"scl": [2,2,2],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": [
+				{
+					"loader": {
+						"type": "model",
+						"material": "res/materials/karboosx_base.json",
+						"path": "res/external/karboosx/decorative_wall.fbx"
+					},
+					"pos": [0,-9.9,-0.5],
+					"scl": [1.05,2.5,3.8],
+					"rot": [0,0,0],
+					"components": [],
+					"entities": [
+				
+					]
+				}
+			]
+		}
+	]
+}

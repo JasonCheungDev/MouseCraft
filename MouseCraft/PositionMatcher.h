@@ -14,5 +14,6 @@ public:
 public:
 	Entity* target;
 	float speed = 1.0f;
+	bool smooth = true;
 };
 

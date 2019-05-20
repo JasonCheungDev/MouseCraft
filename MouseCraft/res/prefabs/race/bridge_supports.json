@@ -1,0 +1,32 @@
+{
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [],
+	"entities": [
+		{
+			"loader": {
+				"type": "model",
+				"material": "res/materials/karboosx_base.json",
+				"path": "res/external/karboosx/column.fbx"
+			},
+			"pos": [1.8,-16,0],
+			"scl": [0.25,4,0.25],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "model",
+				"material": "res/materials/karboosx_base.json",
+				"path": "res/external/karboosx/column.fbx"
+			},
+			"pos": [-1.8,-16,0],
+			"scl": [0.25,4,0.25],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+        }
+	]
+}

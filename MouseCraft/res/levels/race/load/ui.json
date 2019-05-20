@@ -3,7 +3,7 @@
 	"scl": [1,1,1],
 	"rot": [0,0,0],
 	"components": [
-        { "type": "UI" }
+        { "type": "UIRoot" }
     ],
 	"entities": [
 		{
@@ -15,32 +15,72 @@
                 {
                     "type": "Text",
                     "text": "SPEED: 0",
+                    "font": "res/fonts/kenvector_future.ttf",
+                    "fontScale": 0.9,
+                    "align": "left",
                     "width": "0",
                     "height": "0",
-                    "x": "20",
-                    "y": "20",
+                    "x": "60",
+                    "y": "32",
                     "anchor": [ "left", "bottom" ]
                 }
             ],
-			"entities": []
+			"entities": [
+            ]
         },
         {
-            "name": "boost_display",
+			"pos": [0,0,0],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [
+                {
+                    "type": "UI",
+                    "width": "40%",
+                    "height": "25",
+                    "x": "0",
+                    "y": "40",
+                    "anchor": [ "center", "bottom" ]
+                }
+            ],
+			"entities": [
+                {
+                    "name": "boost_display",
+                    "pos": [0,0,0],
+                    "scl": [1,1,1],
+                    "rot": [0,0,0],
+                    "components": [
+                        {
+                            "type": "Image",
+                            "path": "res/textures/white.png",
+                            "width": "100%",
+                            "height": "100%",
+                            "color": [1,1,1,0.6],
+                            "x": "0",
+                            "y": "0",
+                            "anchor": [ "center", "center" ]
+                        }
+                    ],
+                    "entities": []
+                }
+            ]
+        },
+        {
+            "name": "vignette",
 			"pos": [0,0,0],
 			"scl": [1,1,1],
 			"rot": [0,0,0],
 			"components": [
                 {
                     "type": "Image",
-                    "path": "res/textures/white.png",
-                    "width": "80%",
-                    "height": "20",
+                    "path": "res/textures/vignette-box-white.png",
+                    "width": "100%",
+                    "height": "100%",
                     "x": "0",
-                    "y": "20",
-                    "anchor": [ "center", "bottom" ]
+                    "y": "0",
+                    "color": [0,0,0,0]
                 }
             ],
 			"entities": []
-		}
+        }
 	]
 }

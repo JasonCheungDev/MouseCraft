@@ -124,6 +124,12 @@ public:
 		_phase = 0;
 
 		_car->accelerationMod -= _currentBoost;
+
+		for (auto& ta : _animations)
+			ta->SetCurrentAnimation("idle");
+
+		for (auto& l : _lights)
+			l->color = glm::vec3(1.0f);
 	}
 
 private: 

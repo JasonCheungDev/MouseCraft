@@ -12,6 +12,7 @@
 #include "Rendering/RenderingSystem.h"
 #include "Rendering/Camera.h"
 #include "Rendering/Lighting/DirectionalLight.h"
+#include "Rendering/Lighting/SpotLight.h"
 #include "Physics/PhysicsComponent.h"
 #include "Common/FreeLookMovement.h"
 #include "Common/PhysicsMover.h"
@@ -28,23 +29,20 @@
 #include "PositionMatcher.h"
 #include "OrientationMatcher.h"
 #include "Rendering/PostProcess/PostProcess.h"
+#include "Rendering/PostProcess/BlurPP.h"
+#include "Rendering/TextRenderer.h"
 
 namespace fs = std::experimental::filesystem;
 
 
 RaceScene::RaceScene()
 {
+	TextRenderer::Instance().LoadFont("res/fonts/kenvector_future.ttf");
+
 	// ===== LOAD PREFABS ===== //
 	std::string path = "res/levels/race/load";
 	for (const auto& entry : fs::directory_iterator(path))
 		root.AddChild(PrefabLoader::LoadPrefab(entry.path().string()));
-
-	// DEBUG
-	auto e_light = EntityManager::Instance().Create();
-	e_light->transform.rotate(glm::vec3(-0.35f, 0.35f, 0));
-	auto c_light = ComponentFactory::Create<DirectionalLight>();
-	e_light->AddComponent(c_light);
-	root.AddChild(e_light);
 
 	// ===== ADDITIONAL ENTITIES ===== //
 	auto e_player = EntityManager::Instance().Create();
@@ -77,7 +75,7 @@ RaceScene::RaceScene()
 	e_camHolder->AddComponent(c_camOrientation);
 	auto c_camPosition = ComponentFactory::Create<PositionMatcher>();
 	c_camPosition->target = e_player;
-	c_camPosition->speed = 25.0f;
+	c_camPosition->speed = 35.0f;
 	e_camHolder->AddComponent(c_camPosition);
 
 
@@ -115,9 +113,35 @@ RaceScene::RaceScene()
 	c_player->wheelBL = c_rotatorWheelRL;
 	c_player->wheelBR = c_rotatorWheelRR;
 
+	auto e_carLightL = EntityManager::Instance().Create();
+	e_carLightL->transform.setLocalPosition(-0.25f, 0.1f, -0.7f);
+	e_player->AddChild(e_carLightL);
+	auto c_carLightL = ComponentFactory::Create<SpotLight>();
+	c_carLightL->intensity = 0.5f;
+	e_carLightL->AddComponent(c_carLightL);
+
+	auto e_carLightR = EntityManager::Instance().Create();
+	e_carLightR->transform.setLocalPosition(0.25f, 0.1f, -0.7f);
+	e_player->AddChild(e_carLightR);
+	auto c_carLightR = ComponentFactory::Create<SpotLight>();
+	c_carLightR->intensity = 0.5f;
+	e_carLightR->AddComponent(c_carLightR);
+
+	// directional light that follows the player (for shadows)
+	auto e_viewTarget = EntityManager::Instance().Create();
+	e_viewTarget->transform.setLocalPosition(0, 0, -10);
+	e_player->AddChild(e_viewTarget);
+
+	auto e_playerLight = PrefabLoader::LoadPrefab("res/prefabs/race/main_light.json");
+	auto c_lightFollow = ComponentFactory::Create<PositionMatcher>();
+	c_lightFollow->smooth = false;
+	c_lightFollow->target = e_viewTarget;
+	e_playerLight->AddComponent(c_lightFollow);
+	root.AddChild(e_playerLight);
+
 	// ===== VFX ===== //
 	auto renderSystem = OmegaEngine::Instance().GetSystem<RenderingSystem>();
-	auto fogColor = glm::vec3(216 / 255.0f, 217 / 255.0f, 210 / 255.0f);
+	auto fogColor = glm::vec3(213 / 255.0f, 184 / 255.0f, 134 / 255.0f);
 	
 	auto heightFogPp = std::make_unique<PostProcess>();
 	auto heightShader = std::make_unique<Shader>(
@@ -126,22 +150,28 @@ RaceScene::RaceScene()
 	heightFogPp->SetShader(std::move(heightShader));
 	auto heightSettings = std::make_unique<Material>();
 	heightSettings->SetVec3("u_FogColor", fogColor);
-	heightSettings->SetFloat("u_FadeStart", 0.0f);
-	heightSettings->SetFloat("u_FadeEnd", -20.0f);
-	heightFogPp->SetMaterial(std::move(heightSettings));
+	heightSettings->SetFloat("u_FadeStart", -5.0f);
+	heightSettings->SetFloat("u_FadeEnd", -15.0f);
+	heightFogPp->SetSettings(std::move(heightSettings));
 	renderSystem->addPostProcess("HeightFog", std::move(heightFogPp));
 
 	auto skyboxShader = new Shader("res/shaders/skybox.vs", "res/shaders/skybox_fog.fs");
 	auto skyboxSettings = new Material();
 	skyboxSettings->SetFloat("u_FogAngleStart", glm::radians(90.0f));
-	skyboxSettings->SetFloat("u_FogAngleEnd", glm::radians(75.0f));
+	skyboxSettings->SetFloat("u_FogAngleEnd", glm::radians(85.0f));
 	skyboxSettings->SetVec3("u_FogColor", fogColor);
 	renderSystem->setSkyboxShader(skyboxShader);
 	renderSystem->setSkyboxSettings(skyboxSettings);
 
+	auto edgeBlur = std::make_unique<BlurPP>();
+	edgeBlur->GetSettings()->AddTexture("u_StencilTex", TextureLoader::Load("res/textures/vignette-circle-black.png"));
+	 renderSystem->addPostProcess("EdgeBlur", std::move(edgeBlur));
+	c_player->speedBlur = renderSystem->getPostProcess("EdgeBlur");
+
 	// ====== UI ===== //
 	c_player->speedDisplay = EntityManager::Instance().Find("speed_display")->GetComponent<UIText>();
 	c_player->boostDisplay = EntityManager::Instance().Find("boost_display")->GetComponent<UIImage>();
+	c_player->vignette = EntityManager::Instance().Find("vignette")->GetComponent<UIImage>();
 
 	// ===== ZONE: OPEN AIRS ===== //
 	auto e_openAirStart = EntityManager::Instance().Create();

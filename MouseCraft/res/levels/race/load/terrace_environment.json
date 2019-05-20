@@ -4,6 +4,126 @@
 	"rot": [0,0,0],
 	"components": [],
 	"entities": [
-
+		{
+			"loader": {
+				"type": "prefab",
+				"path": "res/prefabs/race/bridge_supports.json"
+			},
+			"pos": [0,0,-40],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "prefab",
+				"path": "res/prefabs/race/bridge_supports.json"
+			},
+			"pos": [0,0,-48],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "prefab",
+				"path": "res/prefabs/race/bridge_supports.json"
+			},
+			"pos": [0,0,-56],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "prefab",
+				"path": "res/prefabs/race/bridge_supports.json"
+			},
+			"pos": [10,0,-64],
+			"scl": [1,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "prefab",
+				"path": "res/prefabs/race/bridge_supports.json"
+			},
+			"pos": [18,0,-64],
+			"scl": [1,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "prefab",
+				"path": "res/prefabs/race/bridge_supports.json"
+			},
+			"pos": [26,0,-64],
+			"scl": [1,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "prefab",
+				"path": "res/prefabs/race/bridge_supports.json"
+			},
+			"pos": [34,0,-64],
+			"scl": [1,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "prefab",
+				"path": "res/prefabs/race/bridge_supports.json"
+			},
+			"pos": [42,0,-64],
+			"scl": [1,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "prefab",
+				"path": "res/prefabs/race/bridge_supports.json"
+			},
+			"pos": [50,0,-64],
+			"scl": [1,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "prefab",
+				"path": "res/prefabs/race/bridge_supports.json"
+			},
+			"pos": [58,0,-64],
+			"scl": [1,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		},
+		{
+			"loader": {
+				"type": "prefab",
+				"path": "res/prefabs/race/bridge_supports.json"
+			},
+			"pos": [66,0,-64],
+			"scl": [1,1,1],
+			"rot": [0,90,0],
+			"components": [],
+			"entities": []
+		}
 	]
 }

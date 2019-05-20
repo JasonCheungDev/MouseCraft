@@ -11,6 +11,7 @@
 #include "UI/UIImage.h"
 #include <string>
 #include <sstream>
+#include "Rendering/PostProcess/PostProcess.h"
 
 class Car : public UpdatableComponent, public ISubscriber
 {
@@ -37,19 +38,24 @@ public:
 	// used for fov kick
 	Camera* camera;
 	float fovMin = 60.0f;
-	float fovMax = 90.0f;
+	float fovMax = 105.0f;
 	
 	// fancy stuff 
 	Rotator* wheelFL;
 	Rotator* wheelFR;
 	Rotator* wheelBL;
 	Rotator* wheelBR;
+	PostProcess* speedBlur;
 	
 	// UI
 	UIText* speedDisplay;
 	UIImage* boostDisplay;
+	UIImage* vignette;
 
 private:
+	const glm::vec3 FAST_COLOR = glm::vec3(0, 0, 1);
+	const glm::vec3 SLOW_COLOR = glm::vec3(1, 0, 0);
+	glm::vec4 desiredVignetteColor;
 	float thrust = 0.0f;
 	float turn = 0.0f;
 	float brake = 0.0f;
@@ -57,5 +63,6 @@ private:
 	PhysicsComponent* physics;
 	X3Converter brakeConverter;
 	std::stringstream speedFormatter;
+	float count = 0;
 };
 
