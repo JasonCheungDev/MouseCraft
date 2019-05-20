@@ -15,7 +15,7 @@ public:
 	~UIRoot();
 
 	// prevent resizing
-	virtual void Resize() override {};
+	virtual void Resize() override;
 
 	void OnInitialized() override;
 

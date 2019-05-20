@@ -9,6 +9,8 @@ class PostProcess
 public:
 	bool enabled = true;
 
+	int priority = 0;	// -1 go first, 1 go later.
+
 	virtual Shader* GetActiveShader()
 	{
 		return _shader.get();
@@ -19,12 +21,12 @@ public:
 		_shader = std::move(shader);
 	}
 
-	Material* GetMaterial()
+	virtual Material* GetSettings()
 	{
 		return _settings.get();
 	}
 
-	void SetMaterial(std::unique_ptr<Material> settings)
+	virtual void SetSettings(std::unique_ptr<Material> settings)
 	{
 		_settings = std::move(settings);
 	}
@@ -51,9 +53,12 @@ public:
 	// do final prep before entire screen is rendered into render target
 	virtual bool Pass(unsigned int freeTexSlot)
 	{
-		_settings->LoadMaterial(_shader.get(), freeTexSlot);
+		if (_settings)
+			_settings->LoadMaterial(_shader.get(), freeTexSlot);
 		return true;
 	}
+
+	static bool ComparePriority(const PostProcess* lhs, const PostProcess* rhs);
 
 protected:
 	std::unique_ptr<Shader> _shader;

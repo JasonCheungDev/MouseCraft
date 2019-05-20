@@ -30,17 +30,18 @@ public:
 private:
 	OpenGLProfiler profiler;
 	CpuProfiler cpuProfiler;
+	unsigned int screenWidth, screenHeight;
 	unsigned int quadVAO, cubeVAO;
 	GBuffer* gbuffer;
+
 	FrameBuffer* ppWriteFBO;
 	FrameBuffer* ppReadFBO;
-	unsigned int screenWidth, screenHeight; 
+	std::map<std::string, std::unique_ptr<PostProcess>> _postProcesses;
+	std::vector<PostProcess*> _postProcessOrder;
 
 	CubeMap* skyboxTexture;
 	Shader* customSkyboxShader = nullptr;
 	Material* skyboxSettings = nullptr;
-
-	std::map<std::string, std::unique_ptr<PostProcess>> _postProcesses;
 
 	glm::mat4 projection;
 	glm::mat4 view;

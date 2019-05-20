@@ -228,7 +228,6 @@
     <ClCompile Include="Rendering\Mesh.cpp" />
     <ClCompile Include="Rendering\PlaneMesh.cpp" />
     <ClCompile Include="Rendering\PostProcess\BlurPP.cpp" />
-    <ClCompile Include="Rendering\PostProcess\FxaaPP.cpp" />
     <ClCompile Include="Rendering\PostProcess\NegativePP.cpp" />
     <ClCompile Include="Rendering\PostProcess\PostProcess.cpp" />
     <ClCompile Include="Rendering\Renderable.cpp" />
@@ -345,7 +344,6 @@
     <ClInclude Include="Rendering\Mesh.h" />
     <ClInclude Include="Rendering\PlaneMesh.h" />
     <ClInclude Include="Rendering\PostProcess\BlurPP.h" />
-    <ClInclude Include="Rendering\PostProcess\FxaaPP.h" />
     <ClInclude Include="Rendering\PostProcess\NegativePP.h" />
     <ClInclude Include="Rendering\PostProcess\PostProcess.h" />
     <ClInclude Include="Rendering\Renderable.h" />

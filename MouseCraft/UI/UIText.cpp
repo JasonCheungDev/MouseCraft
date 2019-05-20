@@ -109,14 +109,24 @@ Component* UIText::Create(nlohmann::json json)
 
 	txt->SetText(json["text"].get<std::string>());
 
-	if (json.find("size") != json.end())
+	if (json.find("fontScale") != json.end())
 	{
-		txt->SetFontScale(json["size"].get<float>());
+		txt->SetFontScale(json["fontScale"].get<float>());
 	}
 	
 	if (json.find("font") != json.end())
 	{
 		txt->SetFont(json["font"].get<std::string>());
+	}
+
+	if (json.find("align") != json.end())
+	{
+		if (json["align"].get<std::string>() == "left")
+			txt->SetAlignment(TextAlignment::Left);
+		else if (json["align"].get<std::string>() == "center")
+			txt->SetAlignment(TextAlignment::Center);
+		else if (json["align"].get<std::string>() == "right")
+			txt->SetAlignment(TextAlignment::Right);
 	}
 
 	return txt;

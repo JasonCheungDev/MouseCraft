@@ -18,6 +18,19 @@ UIRoot::~UIRoot()
 {
 }
 
+void UIRoot::Resize()
+{
+	auto& children = this->GetEntity()->GetChildren();
+	for (Entity* child : children)
+	{
+		UIComponent* comp = child->GetComponent<UIComponent>();
+		if (comp != nullptr)
+		{
+			comp->Resize();
+		}
+	}
+}
+
 void UIRoot::OnInitialized()
 {
 	GetEntity()->transform.setLocalPosition(glm::vec3(screenBounds.getCenter(), 0.0f));
@@ -40,4 +53,4 @@ Component* UIRoot::Create(nlohmann::json json)
 	return ComponentFactory::Create<UIRoot>();
 }
 
-ComponentRegistrar UIRoot::reg("UI", &UIRoot::Create);
+ComponentRegistrar UIRoot::reg("UIRoot", &UIRoot::Create);

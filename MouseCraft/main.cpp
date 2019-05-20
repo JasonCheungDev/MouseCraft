@@ -10,7 +10,7 @@
 #include "Network/NetworkSystem.h"
 #include "Physics/PhysicsManager.h"
 #include "Sound/SoundManager.h"
-//#include "UI/UIManager.h"
+#include "UI/UIManager.h"
 #include "Rendering/RenderingSystem.h"
 #include "MainScene.h"
 #include "PrefabScene.h"
@@ -36,19 +36,16 @@ void MainTest()
 
 	OmegaEngine::Instance().initialize();
 
-
-	InputSystem* inputSystem = new InputSystem();
-
 	RenderingSystem* rs = new RenderingSystem();
 	rs->SetSize(OmegaEngine::Instance().getWindow()->getWidth(), OmegaEngine::Instance().getWindow()->getHeight());
 
 	//Add the systems
+	OmegaEngine::Instance().AddSystem(rs);
 	OmegaEngine::Instance().AddSystem(new UpdateSystem());
 	OmegaEngine::Instance().AddSystem(&PhysicsManager::Instance());
-	OmegaEngine::Instance().AddSystem(rs);
-	OmegaEngine::Instance().AddSystem(inputSystem);
+	OmegaEngine::Instance().AddSystem(new InputSystem());
 	OmegaEngine::Instance().AddSystem(NetworkSystem::Instance());
-	//OmegaEngine::Instance().AddSystem(new UIManager());
+	OmegaEngine::Instance().AddSystem(new UIManager());
 
 	OmegaEngine::Instance().ChangeScene(new RaceScene());
 
