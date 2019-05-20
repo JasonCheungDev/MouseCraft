@@ -12,6 +12,7 @@
 #include <string>
 #include <sstream>
 #include "Rendering/PostProcess/PostProcess.h"
+#include "Rendering/Lighting/Light.h"
 
 class Car : public UpdatableComponent, public ISubscriber
 {
@@ -46,6 +47,8 @@ public:
 	Rotator* wheelBL;
 	Rotator* wheelBR;
 	PostProcess* speedBlur;
+	Light* brakeLightL;
+	Light* brakeLightR;
 	
 	// UI
 	UIText* speedDisplay;

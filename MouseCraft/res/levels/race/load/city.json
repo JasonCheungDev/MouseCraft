@@ -1,6 +1,6 @@
 {
 	"pos": [0,0,0],
-	"scl": [1,1,1],
+	"scl": [1,0.5,1],
 	"rot": [0,0,0],
 	"components": [],
 	"entities": [
@@ -23,7 +23,7 @@
 				"path": "res/prefabs/race/road_no_colliders.json"
 			},
 			"pos": [-14,0,84],
-			"scl": [4,1,1],
+			"scl": [4,0.5,1],
 			"rot": [0,0,0],
 			"components": [],
 			"entities": []
@@ -59,7 +59,7 @@
 				"type": "prefab",
 				"path": "res/prefabs/race/road.json"
 			},
-			"pos": [-26,0,78],
+			"pos": [-26,0.05,78],
 			"scl": [4.2476,1,1.4142],
 			"rot": [0,-225,0],
 			"components": [],
@@ -71,7 +71,7 @@
 			"path": "res/prefabs/race/road_no_colliders.json"
 			},
 			"pos": [-32,0,64],
-			"scl": [5,1,1],
+			"scl": [5,0.5,1],
 			"rot": [0,90,0],
 			"components": [],
 			"entities": []
@@ -106,7 +106,7 @@
 				"type": "prefab",
 				"path": "res/prefabs/race/road.json"
 			},
-			"pos": [-26,0,50],
+			"pos": [-26,0.05,50],
 			"scl": [4.2476,1,1.4142],
 			"rot": [0,-315,0],
 			"components": [],
@@ -118,7 +118,7 @@
 				"path": "res/prefabs/race/road_no_colliders.json"
 			},
 			"pos": [-12,0,44],
-			"scl": [5,1,1],
+			"scl": [5,0.5,1],
 			"rot": [0,180,0],
 			"components": [],
 			"entities": []
@@ -153,7 +153,7 @@
 				"type": "prefab",
 				"path": "res/prefabs/race/road.json"
 			},
-			"pos": [6,0,54],
+			"pos": [6,0.05,54],
 			"scl": [7,1,1.4142],
 			"rot": [0,-45,0],
 			"components": [],
@@ -166,7 +166,7 @@
 				"path": "res/prefabs/race/road_no_colliders.json"
 			},
 			"pos": [22,0,64],
-			"scl": [4,1,1],
+			"scl": [4,0.5,1],
 			"rot": [0,180,0],
 			"components": [],
 			"entities": []

@@ -85,7 +85,7 @@
 								"material": "res/materials/karboosx_base.json",
 								"path": "res/external/karboosx/wall.fbx"
 							},
-							"pos": [18,0,28],
+							"pos": [22,0,28],
 							"scl": [3,1,1],
 							"rot": [0,180,0],
 							"components": [],
@@ -179,8 +179,8 @@
 								"material": "res/materials/karboosx_base.json",
 								"path": "res/external/karboosx/wall.fbx"
 							},
-							"pos": [18,0,28],
-							"scl": [5,1,1],
+							"pos": [22,0,28],
+							"scl": [3,1,1],
 							"rot": [0,180,0],
 							"components": [],
 							"entities": []
@@ -283,8 +283,8 @@
 								"material": "res/materials/karboosx_base.json",
 								"path": "res/external/karboosx/wall.fbx"
 							},
-							"pos": [58,0,-4],
-							"scl": [11,1,1],
+							"pos": [58,0,-3.9],
+							"scl": [12,1,1],
 							"rot": [0,180,0],
 							"components": [],
 							"entities": []
@@ -978,7 +978,7 @@
 						"material": "res/materials/karboosx_base.json",
 						"path": "res/external/karboosx/art_2.fbx"
 					},
-					"pos": [-12,0,64],
+					"pos": [-12,-4.2,64],
 					"scl": [80,40,80],
 					"rot": [0,0,0],
 					"components": [],
@@ -990,7 +990,7 @@
 						"material": "res/materials/karboosx_base.json",
 						"path": "res/external/karboosx/art_6.fbx"
 					},
-					"pos": [22.5,0,55],
+					"pos": [22.5,-4.2,55],
 					"scl": [40,40,40],
 					"rot": [0,0,0],
 					"components": [],
@@ -1002,7 +1002,7 @@
 						"material": "res/materials/karboosx_base.json",
 						"path": "res/external/karboosx/art_5.fbx"
 					},
-					"pos": [42,0,52.5],
+					"pos": [42,-4.2,52.5],
 					"scl": [40,40,40],
 					"rot": [0,90,0],
 					"components": [],
@@ -1014,7 +1014,7 @@
 						"material": "res/materials/karboosx_base.json",
 						"path": "res/external/karboosx/art_1.fbx"
 					},
-					"pos": [61.25,0,53.5],
+					"pos": [61.25,-4.2,53.5],
 					"scl": [40,40,40],
 					"rot": [0,180,0],
 					"components": [],

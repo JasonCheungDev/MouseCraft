@@ -46,12 +46,11 @@ RaceScene::RaceScene()
 
 	// ===== ADDITIONAL ENTITIES ===== //
 	auto e_player = EntityManager::Instance().Create();
-	// e_player->transform.setLocalPosition(glm::vec3(76, 0, -64));
 	auto c_player = ComponentFactory::Create<Car>();
 	c_player->acceleration = 1;
 	c_player->steering = 0.006f;
 	e_player->AddComponent(c_player);
-	auto c_phys = ComponentFactory::Create<PhysicsComponent>(0.25f, 0.5f, 60, -64);
+	auto c_phys = ComponentFactory::Create<PhysicsComponent>(0.25f, 0.5f);
 	c_phys->setAngularDrag(14);
 	c_phys->setDrag(0.0f);	// car handles friction
 	e_player->AddComponent(c_phys);
@@ -127,6 +126,29 @@ RaceScene::RaceScene()
 	c_carLightR->intensity = 0.5f;
 	e_carLightR->AddComponent(c_carLightR);
 
+	auto e_carLightRL = EntityManager::Instance().Create();
+	e_carLightRL->transform.setLocalPosition(-0.16f, 0.20f, 0.62f);
+	e_carLightRL->transform.setLocalRotation(0.0f, glm::radians(180.0f), 0.0f);
+	e_player->AddChild(e_carLightRL);
+	auto c_carLightRL = ComponentFactory::Create<PointLight>();
+	c_carLightRL->range = 2.5f;
+	c_carLightRL->color = glm::vec3(1, 0, 0);
+	c_carLightRL->intensity = 0.25f;
+	e_carLightRL->AddComponent(c_carLightRL);
+
+	auto e_carLightRR = EntityManager::Instance().Create();
+	e_carLightRR->transform.setLocalPosition(0.16f, 0.20f, 0.62f);
+	e_carLightRR->transform.setLocalRotation(0.0f, glm::radians(180.0f), 0.0f);
+	e_player->AddChild(e_carLightRR);
+	auto c_carLightRR = ComponentFactory::Create<PointLight>();
+	c_carLightRR->range = 2.5f;
+	c_carLightRR->color = glm::vec3(1, 0, 0);
+	c_carLightRR->intensity = 0.25f;
+	e_carLightRR->AddComponent(c_carLightRR);
+
+	c_player->brakeLightL = c_carLightRL;
+	c_player->brakeLightR = c_carLightRR;
+
 	// directional light that follows the player (for shadows)
 	auto e_viewTarget = EntityManager::Instance().Create();
 	e_viewTarget->transform.setLocalPosition(0, 0, -10);
@@ -189,8 +211,6 @@ RaceScene::RaceScene()
 	auto oaEffect = new SpeedModifierEffect(c_player, 0.8f);
 	c_openAirStartTrigger->OnTriggerEnter.Attach(oaEffect->ActivateHandler);
 	c_openAirExitTrigger->OnTriggerExit.Attach(oaEffect->DeactivateHandler);
-
-
 
 	// ===== ZONE: GRAND GATES ===== //
 	// generate rings 

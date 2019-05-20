@@ -38,6 +38,21 @@ void Car::Update(float dt)
 
 	speedBlur->GetSettings()->SetFloat("u_Strength", percent * 2.8f);
 
+	if (brake > 0)
+	{
+		brakeLightL->range = 0.5f;
+		brakeLightL->intensity = 0.5f;
+		brakeLightR->range = 0.5f;
+		brakeLightR->intensity = 0.5f;
+	}
+	else
+	{
+		brakeLightL->range = 0.12f;
+		brakeLightL->intensity = 0.25f;
+		brakeLightR->range = 0.12f;
+		brakeLightR->intensity = 0.25f;
+	}
+
 	count += dt;
 
 	// UI 
@@ -61,6 +76,7 @@ void Car::FixedUpdate(float dt, int steps)
 	auto currentSpeed = glm::length(physics->velocity);
 	auto forward2D = GetEntity()->transform.getWorldForward2D();
 	auto right2D = GetEntity()->transform.getWorldRight2D();
+	float movingForward = glm::sign(glm::dot(forward2D, physics->velocity));	// if car is moving forwards or backwards
 
 	// INPUT 
 
@@ -71,7 +87,7 @@ void Car::FixedUpdate(float dt, int steps)
 
 	if (turn != 0)
 	{
-		physics->ApplyAngularForce(-turn * steering * (brake + 1.0f) * currentSpeed);
+		physics->ApplyAngularForce(-movingForward * turn * steering * (brake + 1.0f) * currentSpeed);
 		wheelFL->GetEntity()->transform.setLocalRotation2D(glm::radians(turn * -45.0f));
 		wheelFR->GetEntity()->transform.setLocalRotation2D(glm::radians(turn * -45.0f));
 	}
@@ -96,8 +112,8 @@ void Car::FixedUpdate(float dt, int steps)
 	physics->ApplyForce(right2D * -sideFriction);
 
 	// back drag 
-	float terminalSpeedPercent = brakeConverter.Convert(glm::max(0.0f, currentSpeed / (maxSpeed * maxSpeedMod)));
-	physics->ApplyForce(-forward2D * terminalSpeedPercent);
+	float terminalSpeedPercent = brakeConverter.Convert(currentSpeed / (maxSpeed * maxSpeedMod));
+	physics->ApplyForce(-movingForward * forward2D * terminalSpeedPercent);
 
 	// braking applies consistent force opposite to velocity in forward direction.
 	if (brake > 0)
