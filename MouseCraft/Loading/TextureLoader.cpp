@@ -14,7 +14,7 @@ Texture* TextureLoader::Load(std::string path)
 	texture = ResourceCache<Texture>::Instance().Get(path);
 	if (texture)
 	{
-		std::cout << "Found preloaded texture name: " << path << std::endl;
+		// std::cout << "Found preloaded texture name: " << path << std::endl;
 		return texture;
 	}
 	std::cout << "Loading texture name: " << path << std::endl;

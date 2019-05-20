@@ -16,23 +16,38 @@ GBuffer::~GBuffer()
 
 unsigned int GBuffer::Read(Shader * shader)
 {
+	unsigned int texCount = 0;
+
 	// Set order (in case shader file mixes uniform declaration)
-	shader->setInt(SHADER_FB_POS, 0);	
-	shader->setInt(SHADER_FB_NRM, 1);
-	shader->setInt(SHADER_FB_COL, 2);
-	shader->setInt(SHADER_FB_DPH, 3);
+	if (shader->setTexSlot(SHADER_FB_POS, texCount))
+	{
+		glActiveTexture(GL_TEXTURE0 + texCount);
+		glBindTexture(GL_TEXTURE_2D, _posTex);
+		texCount++;
+	}
 
-	// bind textures for reading 
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, _posTex);
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, _nrmTex);
-	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, _colTex);
-	glActiveTexture(GL_TEXTURE3);
-	glBindTexture(GL_TEXTURE_2D, _dphTex);
+	if (shader->setTexSlot(SHADER_FB_NRM, texCount))
+	{
+		glActiveTexture(GL_TEXTURE0 + texCount);
+		glBindTexture(GL_TEXTURE_2D, _nrmTex);
+		texCount++;
+	}
+	
+	if (shader->setTexSlot(SHADER_FB_COL, texCount))
+	{
+		glActiveTexture(GL_TEXTURE0 + texCount);
+		glBindTexture(GL_TEXTURE_2D, _colTex);
+		texCount++;
+	}
 
-	return 4;
+	if (shader->setTexSlot(SHADER_FB_DPH, texCount))
+	{
+		glActiveTexture(GL_TEXTURE0 + texCount);
+		glBindTexture(GL_TEXTURE_2D, _dphTex);
+		texCount++;
+	}
+
+	return texCount;
 }
 
 void GBuffer::Draw(bool clear)

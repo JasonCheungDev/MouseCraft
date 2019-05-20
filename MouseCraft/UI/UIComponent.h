@@ -11,7 +11,7 @@
 #include "../Core/Entity.h"
 #include "../Core/Rect.h"
 #include "../Rendering/Color.h"
-
+#include "../Loading/PrefabLoader.h"
 using json = nlohmann::json;
 
 class UIRoot;
@@ -115,4 +115,8 @@ private:
 	UIRoot* root;
 	glm::mat4 _trans;
 	glm::mat4 _indivTrans;
+
+private:
+	static Component* Create(json json);
+	static ComponentRegistrar reg;
 };

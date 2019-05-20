@@ -8,7 +8,7 @@ class CubeMap
 {
 public:
 	// Creates a cubemap texture on the GPU.
-	// Order: right,left,top,bottom,front,back
+	// Order: right,left,top,bottom,back,front
 	// Image data can be deallocated afterwards.
 	CubeMap(std::vector<Image*> images);
 

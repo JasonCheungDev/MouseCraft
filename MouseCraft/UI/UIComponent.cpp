@@ -2,6 +2,7 @@
 #include "../Rendering/ModelGen.h"
 #include <iostream>
 #include "../Core/OmegaEngine.h"
+#include "../Core/ComponentFactory.h"
 
 UIComponent::UIComponent(float width, float height, float x, float y) :
     size(width, height), anchorOffset(x, y) 
@@ -39,7 +40,6 @@ void UIComponent::Resize()
 		if (parentEntity) 
 		{
 			parent = parentEntity->GetComponent<UIComponent>();
-			
 		}
 		
 		if (parentEntity == nullptr || parent == nullptr)
@@ -283,3 +283,14 @@ float UIComponent::ScreenHeight()
 {
 	return OmegaEngine::Instance().getWindow()->getHeight();
 }
+
+Component * UIComponent::Create(json json)
+{
+	auto ui = ComponentFactory::Create<UIComponent>(0, 0, 0, 0);
+
+	ui->InitalizeFromJson(json);
+
+	return ui;
+}
+
+ComponentRegistrar UIComponent::reg("UI", &UIComponent::Create);

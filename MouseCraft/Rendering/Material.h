@@ -21,7 +21,7 @@ protected:
 	// Shader* shader;						
 
 	/// Textures that this material has 
-	std::vector<TextureShaderInfo> textures;	// todo: use shared pointers for automatic gc 
+	std::map<std::string, Texture*> textures;	// todo: use shared pointers for automatic gc 
 	// std::pair<std::string, unsigned int> textures; 
 
 	/// Stores uniform values in the form of vector 3.

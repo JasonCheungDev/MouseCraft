@@ -5,6 +5,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <algorithm>
 #include "Constants.h"
 #include "Shader.h"
 #include "Texture.h"
@@ -17,7 +18,6 @@
 #include "PostProcess/PostProcess.h"
 #include "PostProcess/NegativePP.h"
 #include "PostProcess/BlurPP.h"
-#include "PostProcess/FxaaPP.h"
 #include "PostProcess/BloomPP.h"
 #include "../Core/ComponentManager.h"
 #include "../Core/OmegaEngine.h"
@@ -94,19 +94,21 @@ RenderingSystem::RenderingSystem() : System()
 
 	// built-in post processing 
 	// pseudo FXAA
-	auto fxaa = std::make_unique<FxaaPP>();
+	auto fxaa = std::make_unique<PostProcess>();
+	fxaa->enabled = false;
+	fxaa->SetShader(std::make_unique<Shader>("res/shaders/PostProcess/pp.vs", "res/shaders/PostProcess/pp_fxaa.fs"));
 	addPostProcess("FXAA", std::move(fxaa));
 	// fog 
 	auto fogPp = std::make_unique<PostProcess>();	// too lazy to make a dedicated class
 	fogPp->SetShader(std::make_unique<Shader>("res/shaders/pp_base_vertex.glsl", "res/shaders/pp_fog_fragment.glsl"));
-	fogPp->SetMaterial(std::make_unique<Material>());	// u_FogDensity, u_FogStart, u_FogColor
+	fogPp->SetSettings(std::make_unique<Material>());	// u_FogDensity, u_FogStart, u_FogColor
 	fogPp->enabled = false;
 	addPostProcess("Fog", std::move(fogPp));
 	// outline
 	auto outlinePp = std::make_unique<PostProcess>();	// too lazy to make a dedicated class
 	outlinePp->SetShader(std::make_unique<Shader>("res/shaders/pp_base_vertex.glsl", "res/shaders/pp_outline_fragment.glsl"));
-	outlinePp->SetMaterial(std::make_unique<Material>());	// u_FogDensity, u_FogStart, u_FogColor
-	outlinePp->enabled = true;
+	outlinePp->SetSettings(std::make_unique<Material>());	// u_FogDensity, u_FogStart, u_FogColor
+	outlinePp->enabled = false;
 	addPostProcess("Outline", std::move(outlinePp));
 	// blur 
 	auto blurPp = std::make_unique<BlurPP>();
@@ -122,15 +124,14 @@ RenderingSystem::RenderingSystem() : System()
 
 	// default skybox 
 	std::vector<std::string> skyboxFaces = {
-		"res/textures/cubemaps/skybox/right.jpg",
-		"res/textures/cubemaps/skybox/left.jpg",
-		"res/textures/cubemaps/skybox/up.jpg",
-		"res/textures/cubemaps/skybox/down.jpg",
-		"res/textures/cubemaps/skybox/front.jpg",
-		"res/textures/cubemaps/skybox/back.jpg"
+		"res/textures/cubemaps/skybox/right.tga",
+		"res/textures/cubemaps/skybox/left.tga",
+		"res/textures/cubemaps/skybox/up.tga",
+		"res/textures/cubemaps/skybox/down.tga",
+		"res/textures/cubemaps/skybox/back.tga",
+		"res/textures/cubemaps/skybox/front.tga"
 	};
 	// auto skyboxTexId = Game::instance().loader.LoadCubemap(skyboxFaces);
-	
 	setSkybox(TextureLoader::LoadCubeMap(skyboxFaces));
 
 	cpuProfiler.StopTimer(7);
@@ -492,10 +493,9 @@ void RenderingSystem::RenderPostProcessPass()
 	// setup current rendered image to read from
 	std::swap(ppWriteFBO, ppReadFBO);
 
-	for (auto& pp : _postProcesses)
+	for (auto& pp : _postProcessOrder)
 	{
-		if (!pp.second->enabled) continue;
-
+		if (!pp->enabled) continue;
 
 		bool finished = false;
 
@@ -504,30 +504,30 @@ void RenderingSystem::RenderPostProcessPass()
 			unsigned int freeTexSlot = 0;
 
 			// Load shader
-			pp.second->GetActiveShader()->use();
+			pp->GetActiveShader()->use();
 
 			// Load gbuffer textures if requested 
-			if (pp.second->RequestingGBuffer())
+			if (pp->RequestingGBuffer())
 			{
-				freeTexSlot += gbuffer->Read(pp.second->GetActiveShader());
+				freeTexSlot += gbuffer->Read(pp->GetActiveShader());
 			}
 
 			// Load back-buffer texture if requested
-			if (pp.second->RequestingBackBuffer())
+			if (pp->RequestingBackBuffer())
 			{
-				pp.second->GetActiveShader()->setInt("u_FinTex", freeTexSlot);
+				pp->GetActiveShader()->setInt("u_FinTex", freeTexSlot);
 				freeTexSlot += ppReadFBO->Read(freeTexSlot);
 			}
 
 			// Set render target if requested 
-			if (pp.second->DrawingToBackBuffer())
+			if (pp->DrawingToBackBuffer())
 			{
 				ppWriteFBO->Draw();
 				std::swap(ppWriteFBO, ppReadFBO);	// swap finished texture so next PP can read/write to current image
 			}
 
 			// Final setup for this post-process pass 
-			finished = pp.second->Pass(freeTexSlot);
+			finished = pp->Pass(freeTexSlot);
 
 			// render 
 			glBindVertexArray(quadVAO);
@@ -539,7 +539,7 @@ void RenderingSystem::RenderPostProcessPass()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	// render to back buffer
-	glBlitNamedFramebuffer(ppWriteFBO->GetFboId(), 0, 
+	glBlitNamedFramebuffer(ppReadFBO->GetFboId(), 0, 
 		0, 0, screenWidth, screenHeight, 
 		0, 0, screenWidth, screenHeight, 
 		GL_COLOR_BUFFER_BIT, GL_LINEAR);
@@ -571,8 +571,6 @@ void RenderingSystem::RenderUIImagesPass()
 	auto imgs = ComponentManager<UIImage>::Instance().All();
 	for (auto& i : imgs)
 	{
-		i->Resize();
-
 		auto size = glm::vec2(i->screenBounds.getWidth(), i->screenBounds.getHeight());
 		auto transform = i->GetTransform() * i->GetIndividualTransform();
 			// glm::translate(glm::mat4(1.0f), glm::vec3(i->screenBounds.getCenter(), 0.0f));
@@ -595,9 +593,8 @@ void RenderingSystem::RenderUIImagesPass()
 	auto txts = ComponentManager<UIText>::Instance().All();
 	for (auto& t : txts)
 	{
-		t->Resize();
-		TextRenderer::Instance().RenderText(
-			t->GetTextMesh(), t->GetTransform(), t->color.vec3());
+		TextRenderer::Instance().RenderText(t->GetTextMesh(), 
+			glm::scale(t->GetTransform(), glm::vec3(t->GetFontScale())), t->color.vec3());
 	}
 
 	profiler.StopTimer(4);
@@ -869,11 +866,19 @@ void RenderingSystem::Update(float dt)
 void RenderingSystem::addPostProcess(const std::string name, std::unique_ptr<PostProcess> postProcess)
 {
 	_postProcesses[name] = std::move(postProcess);
+	_postProcessOrder.push_back(_postProcesses[name].get());
+	std::sort(_postProcessOrder.begin(), _postProcessOrder.end(), PostProcess::ComparePriority);
 }
 
 void RenderingSystem::removePostProcess(const std::string name)
 {
-	_postProcesses.erase(name);
+	auto p = _postProcesses.find(name);
+	if (p != _postProcesses.end())
+	{
+		auto orderIdx = std::find(_postProcessOrder.begin(), _postProcessOrder.end(), p->second.get());
+		_postProcessOrder.erase(orderIdx);
+		_postProcesses.erase(name);
+	}
 }
 
 PostProcess* RenderingSystem::getPostProcess(const std::string name)

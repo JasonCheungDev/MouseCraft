@@ -3,16 +3,18 @@
 #include "PostProcess.h"
 #include "../Shader.h"
 #include "../Material.h"
+#include "../Texture1x1.h"
 
 class BlurPP : public PostProcess
 {
 public:
 	BlurPP() 
 	{
-		_horBlur = new Shader("res/shaders/PostProcess/pp.vs", "res/shaders/PostProcess/pp_hor_blur.fs");
-		_verBlur = new Shader("res/shaders/PostProcess/pp.vs", "res/shaders/PostProcess/pp_ver_blur.fs");
+		_horBlur = new Shader("res/shaders/PostProcess/pp.vs", "res/shaders/PostProcess/pp_hor_blur_stencil.fs");
+		_verBlur = new Shader("res/shaders/PostProcess/pp.vs", "res/shaders/PostProcess/pp_ver_blur_stencil.fs");
 		_settings = std::make_unique<Material>();
 		_settings->SetFloat("u_Strength", 1.0f);
+		_settings->AddTexture("u_StencilTex", new Texture1x1(glm::vec4(1, 1, 1, 1)));
 	}
 	~BlurPP() {};
 
@@ -23,7 +25,7 @@ public:
 
 	virtual bool Pass(unsigned int freeTexSlot)
 	{
-		_settings->LoadMaterial(GetActiveShader());
+		GetSettings()->LoadMaterial(GetActiveShader(), freeTexSlot);
 		_firstPass = !_firstPass;
 		return _firstPass;
 	}

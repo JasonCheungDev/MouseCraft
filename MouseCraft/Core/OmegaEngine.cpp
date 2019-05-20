@@ -182,30 +182,30 @@ void OmegaEngine::sequential_loop()
 		seconds fixedStepSeconds = fixedStep;		// cast to seconds 
 		fixedTimeStamp += fixedStep;				// update last fixed update 
 		
+		// PHASE 3: System Update
+		//	During this phase the entity state is frozen.
+		//	Entity parent, child, enable, or delete is deferred until next frame.
+		_profiler.StartTimer(5);
+		for (auto& s : _systems)
+		{
+			s->Update(deltaSeconds.count());
+		}
+		for (auto& s : _systems)
+		{
+			s->FixedUpdate(fixedStepSeconds.count(), steps);
+		}
+		_profiler.StopTimer(5);
+
+		// PHASE 2: Extra component update 
 		auto fDeltaParam = new TypeParam<std::pair<float,int>>(std::make_pair(fixedStepSeconds.count(), steps));
 		EventManager::Notify(EventName::COMPONENT_F_UPDATE, fDeltaParam);
 		delete(fDeltaParam);
 
-		// PHASE 2: Component Update
 		_profiler.StartTimer(4);
 		auto deltaParam = new TypeParam<float>(deltaSeconds.count());	// Consider: Using unique-pointer for self-destruct
 		EventManager::Notify(EventName::COMPONENT_UPDATE, deltaParam);	// serial
 		delete(deltaParam);
 		_profiler.StopTimer(4);
-
-		// PHASE 3: System Update
-		// During this phase the entity state is frozen. 
-		// Entity parent, child, enable, or delete is deferred until next frame.
-		_profiler.StartTimer(5);
-		for (auto& s : _systems)
-		{
-			s->FixedUpdate(fixedStepSeconds.count(), steps);
-		}
-		for (auto& s : _systems)
-		{
-			s->Update(deltaSeconds.count());
-		}
-		_profiler.StopTimer(5);
 
 		_profiler.StopTimer(0);
 		_profiler.FrameFinish();

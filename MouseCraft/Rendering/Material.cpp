@@ -44,19 +44,15 @@ int Material::LoadMaterial(const Shader* shader, unsigned int pos)
 	else
 	{
 		shader->setBool(SHADER_TEX_NONE, false);
-		for (auto& t : textures)
+		for (auto& kvp : textures)
 		{
-			if (t.uniform == "u_TexSpecular")
-			{
-				int i = 0;
-			}
 			// Set the uniform to point to texture 
-			if (shader->setTexSlot(textures[texturesLoaded].uniform, pos + texturesLoaded))
+			if (shader->setTexSlot(kvp.first, pos + texturesLoaded))
 			{
 				// Activate the uniform variable 
 				glActiveTexture(GL_TEXTURE0 + pos + texturesLoaded);
 				// Bind the texture 
-				glBindTexture(GL_TEXTURE_2D, t.texture->GetId());
+				glBindTexture(GL_TEXTURE_2D, kvp.second->GetId());
 				// Track
 				texturesLoaded++;
 			}
@@ -67,17 +63,18 @@ int Material::LoadMaterial(const Shader* shader, unsigned int pos)
 
 void Material::AddTexture(TextureShaderInfo& info)
 {
-	textures.push_back(info);
+	textures[info.uniform] = info.texture;
 }
 
 void Material::AddTexture(const std::string& uniform, Texture* texture)
 {
-	textures.push_back({ uniform, texture });
+	textures[uniform] = texture;
 }
 
 void Material::AddTextures(const std::vector<TextureShaderInfo>& infos)
 {
-	textures.insert(textures.end(), infos.begin(), infos.end());
+	for (auto& tsi : infos)
+		textures[tsi.uniform] = tsi.texture;
 }
 
 void Material::SetVec3(const char * uniform, glm::vec3 value)
