@@ -56,6 +56,8 @@ public:
 	// Size if overriden by text mesh size.
 	virtual void CalculateScreenSize(const UIComponent* parent) override;
 
+	virtual glm::mat4 GetIndividualTransform() override;
+
 private:
     std::string   _text;
     float         _fontScale;

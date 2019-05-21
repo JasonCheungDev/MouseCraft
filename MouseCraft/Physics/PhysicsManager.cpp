@@ -28,22 +28,13 @@ void PhysicsManager::FixedUpdate(float dt, int steps)
 {
 	profiler.StartTimer(0);
 
-	// Resolve body status. This allows use to disable entities or components. 
-	// Note: OmegaEngine guarantees that entity life/status will not change during system updates. 	
+	// Resolve body status. This allows us to disable entities or components. 
 	auto physicComponents = ComponentManager<PhysicsComponent>::Instance().All();
 	for (auto& pc : physicComponents)
 	{
-		bool active = pc->GetActive();
-
-		// performance should be ok referring to the latest revision of b2body.cpp 
-		// (there's fast return if this doesn't change active status)
-		pc->body->SetActive(active);
-
-		// also update velocities while we're here
-		if (active)
-		{
-			// pc->body->SetLinearVelocity(b2Vec2(pc->velocity.x, pc->velocity.y));
-		}
+		if (!pc->body) 
+			continue;	// this physics component isn't initialized yet
+		pc->body->SetActive(pc->GetActive());
 	}
 
 	// simulate physics world 

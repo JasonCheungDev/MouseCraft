@@ -124,6 +124,9 @@ Entity * PrefabLoader::Load(json json)
 	if (json.find("name") != json.end())
 		e->name = json["name"].get<std::string>();
 
+	if (json.find("enabled") != json.end())
+		e->SetEnabled(json["enabled"].get<bool>());
+
 	// components 
 	auto components = json["components"];
 	for (auto& j : components)

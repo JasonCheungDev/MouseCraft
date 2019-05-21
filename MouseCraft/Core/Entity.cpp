@@ -1,6 +1,7 @@
 #include "Entity.h"
 #include "OmegaEngine.h"
 #include "../Event/EventManager.h"
+#include "ComponentFactory.h"
 #include <iostream>
 
 unsigned int Entity::_curID = 0;
@@ -248,9 +249,9 @@ void Entity::Destroy(bool force)
 		while (_children.size() > 0)
 			_children.back()->Destroy(true);
 
-		// TODO: destruct all components 
+		// destruct all components ingS
 		for (auto& c : _components)
-			delete(c);
+			ComponentFactory::Destroy(c);
 
 		// Remove from parent and release memory 
 		if (_parent)

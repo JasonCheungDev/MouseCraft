@@ -16,7 +16,7 @@
 #endif // !MAX_PLAYERS
 
 #ifndef JOYSTICK_DEADZONE
-#define JOYSTICK_DEADZONE 0.1
+#define JOYSTICK_DEADZONE 0.16
 #endif // !JOYSTICK_DEADZONE
 
 #ifndef DEBUG_PLAYER
@@ -27,12 +27,15 @@
 // Note: Order matters, should always be Master, Horizontal, Vertical.
 enum Axis
 {
-	LEFT,		
-	LEFT_HOR,
-	LEFT_VER,
-	RIGHT,		
-	RIGHT_HOR,
-	RIGHT_VER,
+	STICK_LEFT,		
+	STICK_LEFT_HOR,
+	STICK_LEFT_VER,
+	STICK_RIGHT,		
+	STICK_RIGHT_HOR,
+	STICK_RIGHT_VER,
+	TRIGGER,
+	TRIGGER_LEFT,
+	TRIGGER_RIGHT
 };
 
 enum Button
@@ -44,6 +47,10 @@ enum Button
 	SOUTH,		//					(idx0)
 	WEST,		//					(idx1)
 	OPTION,		// OPTION BUTTON	(idx6)
+	UP,
+	RIGHT,
+	DOWN,
+	LEFT
 };
 
 struct AxisEvent
@@ -174,7 +181,7 @@ private:
 
 // variables 
 private:
-	std::array<Axis2DInput, MAX_PLAYERS * 2> playerAxes;
+	std::array< std::array<Axis2DInput, 3> , MAX_PLAYERS> playerAxes;
 	Axis2DInput debugPlayerAxis;	// special axis for keyboard input
 	CpuProfiler profiler;
 	// hot pile of trash
@@ -189,38 +196,8 @@ private:
 
 // functions
 public:
-	InputSystem()
-	{
-		SDL_InitSubSystem(SDL_INIT_JOYSTICK);
-		
-		// display some input info
-		auto numControllers = SDL_NumJoysticks();
-		if (numControllers <= 0)
-		{
-			std::cout << "WARNING: There are no controllers plugged in!" << std::endl;
-		}
-		else
-		{
-			std::cout << "Detected " << numControllers << " controllers." << std::endl;
-			for (int i = 0; i < numControllers && i < MAX_PLAYERS; ++i)
-			{
-				std::cout << "Controller[" << i << "]: " << SDL_JoystickNameForIndex(i) << std::endl;
-				SDL_JoystickOpen(i);
-			}
-
-			if (numControllers > MAX_PLAYERS)
-			{
-				// Why do you have over 4 controllers? Unsure if this will have performance impact.
-				std::cout << "WARNING: Up to 4 controllers can be opened." << std::endl;
-			}
-		}
-
-		profiler.InitializeTimers(1);
-		profiler.LogOutput("Input.log");
-	};
-	~InputSystem()
-	{
-	};
+	InputSystem();
+	~InputSystem();;
 
 	virtual void Update(float dt) override;
 

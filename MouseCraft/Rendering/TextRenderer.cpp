@@ -42,7 +42,7 @@ void TextRenderer::SetScreenSize(unsigned int width, unsigned int height)
 {
 	this->width = width;
 	this->height = height;
-	uiProjection = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
+	uiProjection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, -16000.0f, 16000.0f);
 }
 
 void TextRenderer::LoadFont(std::string path)
@@ -63,6 +63,7 @@ void TextRenderer::LoadFont(std::string path)
 	FT_Set_Pixel_Sizes(face, FREETYPE_DYNAMIC_WIDTH, 48);
 
 	// first pass to determine overall texture size 
+	const unsigned int padding = 2;
 	unsigned int w = 0;
 	unsigned int h = 0;
 
@@ -73,7 +74,7 @@ void TextRenderer::LoadFont(std::string path)
 			std::cerr << "ERROR: Loading character " << c << " failed!" << std::endl;
 			continue;
 		}
-		w += face->glyph->bitmap.width;
+		w += face->glyph->bitmap.width + padding;
 		h = std::max(h, face->glyph->bitmap.rows);
 	}
 
@@ -129,7 +130,7 @@ void TextRenderer::LoadFont(std::string path)
 		};
 		_fonts[path].Characters.insert(std::pair<GLchar, AtlasCharacter>(c, character));
 	
-		x += face->glyph->bitmap.width;
+		x += face->glyph->bitmap.width + padding;
 	}
 	_fonts[path].Path = path;
 	_fonts[path].TexId = tex;
@@ -146,7 +147,14 @@ void TextRenderer::UnloadFont(std::string path)
 	_fonts.erase(path);
 }
 
-void TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, glm::vec3 color, GLfloat scale, TextAlignment alignment, Shader * s, std::string font)
+void TextRenderer::SetDefaultFont(std::string path)
+{
+	if (_fonts.find(path) == _fonts.end())
+		LoadFont(path);
+	_defaultFont = path;
+}
+
+void TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, glm::vec4 color, GLfloat scale, TextAlignment alignment, Shader * s, std::string font)
 {
 	if (width == 0 || height == 0)
 	{
@@ -174,7 +182,7 @@ void TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, glm::vec3 
 	RenderText(tm, transformation, color, s);
 }
 
-void TextRenderer::RenderText(TextMesh * textMesh, float x, float y, float scale, glm::vec3 color, Shader * s)
+void TextRenderer::RenderText(TextMesh * textMesh, float x, float y, float scale, glm::vec4 color, Shader * s)
 {
 	RenderText(
 		textMesh, 
@@ -183,7 +191,7 @@ void TextRenderer::RenderText(TextMesh * textMesh, float x, float y, float scale
 		s);
 }
 
-void TextRenderer::RenderText(TextMesh* textMesh, glm::mat4 transformation, glm::vec3 color, Shader * s)
+void TextRenderer::RenderText(TextMesh* textMesh, glm::mat4 transformation, glm::vec4 color, Shader * s)
 {
 	if (width == 0 || height == 0)
 	{
@@ -200,7 +208,7 @@ void TextRenderer::RenderText(TextMesh* textMesh, glm::mat4 transformation, glm:
 	// Activate corresponding render state	
 	if (s == nullptr) s = textShader;
 	s->use();
-	s->setVec3("u_TextColor", color);
+	s->setVec4("u_TextColor", color);
 	s->setMat4("u_Projection", uiProjection);
 	s->setMat4("u_Model", transformation);
 
@@ -221,7 +229,11 @@ TextMesh* TextRenderer::GenerateTextMesh(std::string text, std::string font, Tex
 		return nullptr;
 
 	// Retrieve font information 
-	if (_fonts.find(font) == _fonts.end())
+	if (font == "")
+	{
+		font = _defaultFont;
+	}
+	else if (_fonts.find(font) == _fonts.end())
 	{
 		std::cerr << "ERROR: Failed to generate TextMesh. Font not loaded: " << font << std::endl;
 		return nullptr;

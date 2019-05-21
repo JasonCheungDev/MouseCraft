@@ -23,7 +23,7 @@ void OmegaEngine::initialize()
 	_profiler.StartTimer(5);
 
 	// main is defined elsewhere
-	_window = new Window("MouseCraft", SCREEN_WIDTH, SCREEN_HEIGHT);
+	_window = new Window(WINDOW_NAME, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	_profiler.StopTimer(5);
 	std::cout << "Engine initialization finished: " << _profiler.GetDuration(4) << "ns" << std::endl;
@@ -130,6 +130,7 @@ void OmegaEngine::sequential_loop()
 		if (_sceneChangeRequested)
 		{
 			transitionScenes();
+			timestamp = std::chrono::high_resolution_clock::now();
 			continue;
 		}
 		else
@@ -165,6 +166,8 @@ void OmegaEngine::sequential_loop()
 				std::cerr << "ERROR: UNKNOWN S.ACTION" << std::endl;
 				break;
 			}
+
+			delete(action);
 
 			_deferredActions.pop_front();
 		}

@@ -19,13 +19,13 @@
 #include "PostProcess/NegativePP.h"
 #include "PostProcess/BlurPP.h"
 #include "PostProcess/BloomPP.h"
-#include "../Core/ComponentManager.h"
-#include "../Core/OmegaEngine.h"
 #include "TextRenderer.h"
 #include "../UI/UIImage.h"
 #include "../UI/UIText.h"
 #include "../Loading/TextureLoader.h"
-
+#include "../Core/ComponentManager.h"
+#include "../Core/OmegaEngine.h"
+#include "../Core/ComponentList.h"
 
 
 void GLAPIENTRY
@@ -554,47 +554,44 @@ void RenderingSystem::RenderUIImagesPass()
 	cpuProfiler.StartTimer(4);
 
 	glEnable(GL_BLEND);
-	glDisable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDisable(GL_DEPTH_TEST);
 
-	// render text components 
-	/*for (auto& i : images)
-		RenderImage(*imageShader, i);
-	*/
-	//std::sort(_images.begin(), _images.end(), View::comparePointers);	// sort for rendering order
-	//for (int i = 0; i < _images.size(); i++)
-	//{
-	//	RenderImage(*imageShader, _images[i]);
-	//}
+	auto uis = ComponentList<UIComponent>::Instance().All();
+	std::sort(uis.begin(), uis.end(), UIComponent::CompareZOrder);
 
-	imageShader->use();
-	auto imgs = ComponentManager<UIImage>::Instance().All();
-	for (auto& i : imgs)
+	for (auto& ui : uis)
 	{
-		auto size = glm::vec2(i->screenBounds.getWidth(), i->screenBounds.getHeight());
-		auto transform = i->GetTransform() * i->GetIndividualTransform();
-			// glm::translate(glm::mat4(1.0f), glm::vec3(i->screenBounds.getCenter(), 0.0f));
-			// image->GetEntity()->transform.getWorldTransformation();	// transform
+		if (!ui->GetActive())
+			continue;
 
-		//imageShader->setVec2("u_Size", size / 2.0f);
-		imageShader->setMat4("u_Model", transform);
-		imageShader->setMat4(SHADER_PROJECTION, uiProjection);
-		imageShader->setVec4("u_Tint", i->color.vec4());
-		//imageShader->setFloat("u_Opacity", image->opacity);
+		auto img = dynamic_cast<UIImage*>(ui);
+		if (img)
+		{
+			imageShader->use();
+			auto size = glm::vec2(img->screenBounds.getWidth(), img->screenBounds.getHeight());
+			auto transform = img->GetTransform() * img->GetIndividualTransform();
 
-		glBindVertexArray(quadVAO);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, i->GetTexture()->GetId());
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-		glBindTexture(GL_TEXTURE_2D, 0);
-		glBindVertexArray(0);
-	}
+			imageShader->setMat4(SHADER_PROJECTION, uiProjection);
+			imageShader->setMat4("u_Model", transform);
+			imageShader->setVec4("u_Tint", img->color.vec4());
 
-	auto txts = ComponentManager<UIText>::Instance().All();
-	for (auto& t : txts)
-	{
-		TextRenderer::Instance().RenderText(t->GetTextMesh(), 
-			glm::scale(t->GetTransform(), glm::vec3(t->GetFontScale())), t->color.vec3());
+			glBindVertexArray(quadVAO);
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, img->GetTexture()->GetId());
+			glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glBindVertexArray(0);
+		}
+
+		auto txt = dynamic_cast<UIText*>(ui);
+		if (txt)
+		{
+			TextRenderer::Instance().RenderText(
+				txt->GetTextMesh(),
+				txt->GetTransform() * txt->GetIndividualTransform(), 
+				txt->color.vec4());
+		}
 	}
 
 	profiler.StopTimer(4);
@@ -603,29 +600,6 @@ void RenderingSystem::RenderUIImagesPass()
 
 void RenderingSystem::RenderUITextPass()
 {
-	/*
-	// 6th pass - UI text 
-	profiler.StartTimer(5);
-	cpuProfiler.StartTimer(5);
-
-	// render text components 
-	std::sort(_texts.begin(), _texts.end(), View::comparePointers);		// sort for rendering order
-	for (int i = 0; i < _texts.size(); i++)
-	{
-		auto pos = _texts[i]->getPosition();
-		RenderText(*textShader,
-			_texts[i]->getText(),
-			_texts[i]->alignment,
-			pos.x, pos.y,
-			_texts[i]->scale,
-			_texts[i]->color,
-			_texts[i]->font);
-	}
-	// glDisable(GL_BLEND);
-
-	profiler.StopTimer(5);
-	cpuProfiler.StopTimer(5);
-	*/
 }
 
 void RenderingSystem::RenderCompositionPass()
@@ -860,7 +834,7 @@ void RenderingSystem::Update(float dt)
 		<< "Image Pass: " << profiler.GetDuration(7) / 1000000.0 << "ms\n"
 		<< "Text Pass: " << profiler.GetDuration(8) / 1000000.0 << "ms\n";
 
-	TextRenderer::Instance().RenderText(ss.str(), screenWidth, screenHeight, glm::vec3(1.0f), 0.5f, TextAlignment::Right);
+	// TextRenderer::Instance().RenderText(ss.str(), screenWidth, screenHeight, glm::vec4(1.0f), 0.5f, TextAlignment::Right);
 }
 
 void RenderingSystem::addPostProcess(const std::string name, std::unique_ptr<PostProcess> postProcess)

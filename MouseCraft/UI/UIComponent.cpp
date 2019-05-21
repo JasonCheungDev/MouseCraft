@@ -4,6 +4,8 @@
 #include "../Core/OmegaEngine.h"
 #include "../Core/ComponentFactory.h"
 
+const float UIComponent::Z_STEP = 0.001f;
+
 UIComponent::UIComponent(float width, float height, float x, float y) :
     size(width, height), anchorOffset(x, y) 
 {
@@ -20,8 +22,7 @@ UIComponent::UIComponent(float width, float height, float x, float y) :
     aspectRatio = 1;
 
     ClickAction = "";
-	zForce = -1;
-	z = 0;
+	zOverride = 0;
 
 	color = Color(1.0f, 1.0f, 1.0f, 1.0f);
 }
@@ -93,11 +94,13 @@ void UIComponent::Resize()
 		screenBounds.top		+= yPixelOffset;
 		screenBounds.bottom		+= yPixelOffset;
 
-		// ===== Setup entity transform (this allows entity rotation and scaling) =====
+		// ===== Setup entity transform (this allows group rotation and scaling) =====
 
 		// Transfer screen position to entity local position 
+		auto currentPosition = GetEntity()->transform.getLocalPosition();
 		auto localPosition = screenBounds.getCenter() - parentBounds.getCenter();
 		GetEntity()->transform.setLocalPosition(glm::vec3(localPosition, 0));
+		screenZ = parent->screenZ + Z_STEP;
 
 		// ===== Iterate resize on child panels =====
 		auto& children = this->GetEntity()->GetChildren();
@@ -272,6 +275,18 @@ void UIComponent::InitalizeFromJson(json json)
 			json["color"][2].get<float>(), 
 			json["color"][3].get<float>());
 	}
+
+	if (json.find("z") != json.end())
+	{
+		zOverride = json["z"].get<float>();
+	}
+}
+
+bool UIComponent::CompareZOrder(const UIComponent * lhs, const UIComponent * rhs)
+{
+	auto rightZ = (rhs->zOverride != 0) ? rhs->zOverride : rhs->screenZ;
+	auto leftZ = (rhs->zOverride != 0) ? lhs->zOverride : lhs->screenZ;
+	return leftZ < rightZ;
 }
 
 float UIComponent::ScreenWidth()

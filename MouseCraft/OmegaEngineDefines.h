@@ -10,6 +10,7 @@
 // ==== Core ====
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 720
+#define WINDOW_NAME "CLOUDTOP RACER"
 
 // ==== Input ==== 
 // #define MAX_PLAYERS 4

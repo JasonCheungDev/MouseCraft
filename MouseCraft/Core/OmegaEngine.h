@@ -29,6 +29,10 @@
 #define SCREEN_HEIGHT 720
 #endif // !SCREEN_HEIGHT
 
+#ifndef WINDOW_NAME
+#define WINDOW_NAME "OMEGA ENGINE"
+#endif // !WINDOW_NAME
+
 class OmegaEngine
 {
 // singleton pattern (threadsafe: https://stackoverflow.com/questions/1008019/c-singleton-design-pattern)
