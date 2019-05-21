@@ -37,8 +37,11 @@ namespace fs = std::experimental::filesystem;
 
 RaceScene::RaceScene()
 {
-	TextRenderer::Instance().LoadFont("res/fonts/kenvector_future.ttf");
 
+}
+
+void RaceScene::InitScene()
+{
 	// ===== LOAD PREFABS ===== //
 	std::string path = "res/levels/race/load";
 	for (const auto& entry : fs::directory_iterator(path))
@@ -55,7 +58,7 @@ RaceScene::RaceScene()
 	c_phys->setDrag(0.0f);	// car handles friction
 	e_player->AddComponent(c_phys);
 	e_player->name = "player";
-	
+
 	auto e_cam = EntityManager::Instance().Create();
 	e_cam->transform.setLocalPosition(glm::vec3(0, 1.0f, 2.0f));
 	// e_player->AddChild(e_cam);
@@ -88,7 +91,7 @@ RaceScene::RaceScene()
 	auto e_carWheelFR = EntityManager::Instance().Find("Lamborghini_Aventador:Wheel_FR", e_carModel);
 	auto e_carWheelRL = EntityManager::Instance().Find("Lamborghini_Aventador:Wheel_RL", e_carModel);
 	auto e_carWheelRR = EntityManager::Instance().Find("Lamborghini_Aventador:Wheel_RR", e_carModel);
-	
+
 	auto c_rotatorWheelFL = ComponentFactory::Create<Rotator>();
 	c_rotatorWheelFL->rotationSpeed = glm::vec3(3.14f, 0, 0);
 	e_carWheelFL->AddComponent(c_rotatorWheelFL);
@@ -164,7 +167,7 @@ RaceScene::RaceScene()
 	// ===== VFX ===== //
 	auto renderSystem = OmegaEngine::Instance().GetSystem<RenderingSystem>();
 	auto fogColor = glm::vec3(213 / 255.0f, 184 / 255.0f, 134 / 255.0f);
-	
+
 	auto heightFogPp = std::make_unique<PostProcess>();
 	auto heightShader = std::make_unique<Shader>(
 		"res/shaders/PostProcess/pp.vs",
@@ -187,7 +190,7 @@ RaceScene::RaceScene()
 
 	auto edgeBlur = std::make_unique<BlurPP>();
 	edgeBlur->GetSettings()->AddTexture("u_StencilTex", TextureLoader::Load("res/textures/vignette-circle-black.png"));
-	 renderSystem->addPostProcess("EdgeBlur", std::move(edgeBlur));
+	renderSystem->addPostProcess("EdgeBlur", std::move(edgeBlur));
 	c_player->speedBlur = renderSystem->getPostProcess("EdgeBlur");
 
 	// ====== UI ===== //
@@ -201,7 +204,7 @@ RaceScene::RaceScene()
 	root.AddChild(e_openAirStart);
 	auto c_openAirStartTrigger = ComponentFactory::Create<TriggerZone>();
 	e_openAirStart->AddComponent(c_openAirStartTrigger);
-	
+
 	auto e_openAirExit = EntityManager::Instance().Create();
 	e_openAirExit->transform.setLocalPosition(140, 0, -28);
 	root.AddChild(e_openAirExit);
@@ -215,7 +218,7 @@ RaceScene::RaceScene()
 	// ===== ZONE: GRAND GATES ===== //
 	// generate rings 
 	const auto startPos = glm::vec3(116, 1, -12);
-	const auto posStep = glm::vec3(0,0,4);
+	const auto posStep = glm::vec3(0, 0, 4);
 	const auto startRot = glm::radians(20.0f);
 	const auto rotStep = glm::radians(15.0f);
 	const auto startDelay = 0.1f;
@@ -240,7 +243,7 @@ RaceScene::RaceScene()
 		animLeft->duration = 5.0f;
 		animLeft->AddRotation(0.0f, glm::vec3());
 		animLeft->AddRotation(startDelay + i * delayStep, glm::vec3());
-		animLeft->AddRotation(startDelay + i * delayStep + duration, glm::vec3(0,0, startRot + i * rotStep));
+		animLeft->AddRotation(startDelay + i * delayStep + duration, glm::vec3(0, 0, startRot + i * rotStep));
 		auto animRight = new Animation();
 		animRight->SetRotationPolicy(RotationPolicy::EULER);
 		animLeft->SetCurve(curve);

@@ -28,9 +28,9 @@ void PhysicsMover::Notify(EventName eventName, Param * params)
 	{
 		auto data = static_cast<TypeParam<Axis2DEvent>*>(params)->Param;
 
-		if (data.axis == Axis::LEFT)
+		if (data.axis == Axis::STICK_LEFT)
 			moveInput = data.GetClamped();
-		else if (data.axis == Axis::RIGHT)
+		else if (data.axis == Axis::STICK_RIGHT)
 			turnInput = data.GetClamped();
 	}
 }

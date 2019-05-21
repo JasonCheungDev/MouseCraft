@@ -1,0 +1,50 @@
+{
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [
+        { "type": "UIRoot" }
+    ],
+	"entities": [
+		{
+            "name": "title",
+			"pos": [0,0,0],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [
+                {
+                    "type": "Text",
+                    "text": "LOADING...",
+                    "fontScale": 2.0,
+                    "align": "center",
+                    "width": "100%",
+                    "height": "100%",
+                    "x": "0",
+                    "y": "0",
+                    "z": 100,
+                    "anchor": [ "center", "center" ]
+                }
+            ],
+			"entities": [
+            ]
+        },
+        {
+			"pos": [0,0,0],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [
+                {
+                    "type": "Image",
+                    "path": "res/textures/white.png",
+                    "width": "100%",
+                    "height": "100%",
+                    "color": [0,0,0,0.8],
+                    "x": "0",
+                    "y": "0",
+                    "anchor": [ "center", "center" ]
+                }
+            ],
+            "entities": []
+        }
+	]
+}

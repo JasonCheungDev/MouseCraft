@@ -1,0 +1,12 @@
+CLOUDTOP RACER by JASON CHEUNG
+
+Created with the OMEGA ENGINE by
+Jason Cheung, Matt Goerwell, Matt Taylor, Niko Lauron, Kate Neufelt, Aaron Freytag, Colt King.
+This variant of the engine is largely developed by me,
+view the source code at https://github.com/JasonCheungDev/OmegaEngine
+
+LIBRARIES
+Box2D, OpenAL, nlohmann JSON, assimp
+
+ASSETS
+creepy_cat, karboosx, nahchimento, CustomMapMakers

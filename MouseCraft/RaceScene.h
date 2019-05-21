@@ -8,7 +8,7 @@ class RaceScene: public Scene
 public:
 	RaceScene();
 
-	void InitScene() {};
+	void InitScene();
 
 	void Update(const float delta) {};
 

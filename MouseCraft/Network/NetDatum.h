@@ -231,7 +231,7 @@ public:
 class PlayerAxisDatum : public NetDatum {
 public:
     PlayerAxisDatum(Axis2DEvent *eventData) : NetDatum(NetDatum::PLAYER_AXIS) {
-        appendInt(eventData->axis);
+        appendInt((Axis)eventData->axis);
         appendFloat(eventData->value.x);
         appendFloat(eventData->value.y);
     }

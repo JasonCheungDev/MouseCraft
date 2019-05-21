@@ -47,7 +47,6 @@ void PhysicsComponent::OnInitialized()
 		GetEntity()->SetParent(OmegaEngine::Instance().GetRoot());
 
 		PhysicsManager::Instance().InitializeBody(this, pos.x, pos.z, rotation);
-		
 	}
 }
 

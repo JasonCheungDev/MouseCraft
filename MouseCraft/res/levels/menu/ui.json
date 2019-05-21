@@ -1,0 +1,280 @@
+{
+	"pos": [0,0,0],
+	"scl": [1,1,1],
+	"rot": [0,0,0],
+	"components": [
+        { "type": "UIRoot" }
+    ],
+	"entities": [
+		{
+            "name": "title",
+			"pos": [0,0,0],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [
+                {
+                    "type": "Text",
+                    "text": "CLOUDTOP RACER",
+
+                    "fontScale": 2.0,
+                    "align": "center",
+                    "width": "100%",
+                    "height": "100%",
+                    "x": "0",
+                    "y": "50",
+                    "anchor": [ "center", "center" ]
+                }
+            ],
+			"entities": [
+            ]
+        },
+        {
+            "name": "play_button",
+			"pos": [0,0,0],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [
+                {
+                    "type": "Text",
+                    "text": "PLAY",
+                    "fontScale": 0.81,
+                    "color": [1,1,1,0.5],
+                    "align": "center",
+                    "width": "100%",
+                    "height": "100%",
+                    "x": "0",
+                    "y": "-50",
+                    "anchor": [ "center", "center" ]
+                },
+                {
+                    "type": "UISelectable",
+                    "id": "play_button",
+                    "default": 1,
+                    "down": "instructions_button"
+                }
+            ]
+        },
+        {
+            "name": "instructions_button",
+			"pos": [0,0,0],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [
+                {
+                    "type": "Text",
+                    "text": "INSTRUCTIONS",
+                    "fontScale": 0.81,
+                    "color": [1,1,1,0.5],
+                    "align": "center",
+                    "width": "100%",
+                    "height": "100%",
+                    "x": "0",
+                    "y": "-100",
+                    "anchor": [ "center", "center" ]
+                },
+                {
+                    "type": "UISelectable",
+                    "id": "instructions_button",
+                    "up": "play_button",
+                    "down": "credits_button"
+                }
+            ],
+			"entities": []
+        },
+        {
+            "name": "credits_button",
+			"pos": [0,0,0],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [
+                {
+                    "type": "Text",
+                    "text": "CREDITS",
+
+                    "fontScale": 0.81,
+                    "color": [1,1,1,0.5],
+                    "align": "center",
+                    "width": "100%",
+                    "height": "100%",
+                    "x": "0",
+                    "y": "-150",
+                    "anchor": [ "center", "center" ]
+                },
+                {
+                    "type": "UISelectable",
+                    "id": "credits_button",
+                    "up": "instructions_button"
+                }
+            ],
+			"entities": []
+        },
+
+        {
+            "enabled": false,
+            "name": "instructions",
+			"pos": [0,0,0],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [
+                {
+                    "type": "Image",
+                    "path": "res/textures/white.png",
+                    "width": "50%",
+                    "height": "80%",
+                    "color": [0,0,0,0.8],
+                    "x": "0",
+                    "y": "0",
+                    "anchor": [ "center", "center" ]
+                }
+            ],
+			"entities": [
+                {
+                    "pos": [0,0,0],
+                    "scl": [1,1,1],
+                    "rot": [0,0,0],
+                    "components": [
+                        {
+                            "type": "Text",
+                            "text": "INSTRUCTIONS",
+        
+                            "fontScale": 1.5,
+                            "align": "center",
+                            "width": "0",
+                            "height": "0",
+                            "x": "0",
+                            "y": "-20",
+                            "anchor": [ "center", "top" ]
+                        }
+                    ]
+                },
+                {
+                    "pos": [0,0,0],
+                    "scl": [1,1,1],
+                    "rot": [0,0,0],
+                    "components": [
+                        {
+                            "type": "Text",
+                            "text": "LEFT STICK to MOVE\n(A) to ACCELERATE\n(X) to BRAKE\n(Y) to REVERSE\nRIGHT TRIGGER to BOOST",
+        
+                            "fontScale": 0.55,
+                            "align": "center",
+                            "width": "0",
+                            "height": "0",
+                            "x": "0",
+                            "y": "0",
+                            "anchor": [ "center", "center" ]
+                        }
+                    ]
+                },
+                {
+                    "name": "i_back_button",
+                    "pos": [0,0,0],
+                    "scl": [1,1,1],
+                    "rot": [0,0,0],
+                    "components": [
+                        {
+                            "type": "Text",
+                            "text": "BACK",
+        
+                            "fontScale": 0.81,
+                            "color": [1,1,1,0.5],
+                            "align": "center",
+                            "width": "0",
+                            "height": "0",
+                            "x": "0",
+                            "y": "20",
+                            "anchor": [ "center", "bottom" ]
+                        },
+                        {
+                            "type": "UISelectable",
+                            "id": "i_back_button"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "enabled": false,
+            "name": "credits",
+			"pos": [0,0,0],
+			"scl": [1,1,1],
+			"rot": [0,0,0],
+			"components": [
+                {
+                    "type": "Image",
+                    "path": "res/textures/white.png",
+                    "width": "50%",
+                    "height": "80%",
+                    "color": [0,0,0,0.8],
+                    "x": "0",
+                    "y": "0",
+                    "anchor": [ "center", "center" ]
+                }
+            ],
+			"entities": [
+                {
+                    "pos": [0,0,0],
+                    "scl": [1,1,1],
+                    "rot": [0,0,0],
+                    "components": [
+                        {
+                            "type": "Text",
+                            "text": "CREDITS",
+        
+                            "fontScale": 1.5,
+                            "align": "center",
+                            "width": "0",
+                            "height": "0",
+                            "x": "0",
+                            "y": "-20",
+                            "anchor": [ "center", "top" ]
+                        }
+                    ]
+                },
+                {
+                    "pos": [0,0,0],
+                    "scl": [1,1,1],
+                    "rot": [0,0,0],
+                    "components": [
+                        {
+                            "type": "Text",
+                            "text": "CLOUDTOP RACER by JASON CHEUNG\n\nMade with OMEGA ENGINE\nDeveloped by Jason Cheung, Matt Goerwell, Matt Taylor,\nNiko Lauron, Kate Neufelt, Aaron Freytag, Colt King.\n\nThis variant of the engine (OmegaEngine V2) is largely developed by Jason Cheung.\nCheckout the source code at https://github.com/JasonCheungDev/OmegaEngineV2\n\nLIBRARIES\nBox2D, OpenAL, nlohmann JSON, assimp\n\nASSETS\ncreepy_cat, karboosx, nahchimento, CustomMapMakers",
+                            "fontScale": 0.32,
+                            "align": "center",
+                            "width": "0",
+                            "height": "0",
+                            "x": "0",
+                            "y": "0",
+                            "anchor": [ "center", "center" ]
+                        }
+                    ]
+                },
+                {
+                    "name": "c_back_button",
+                    "pos": [0,0,0],
+                    "scl": [1,1,1],
+                    "rot": [0,0,0],
+                    "components": [
+                        {
+                            "type": "Text",
+                            "text": "BACK",
+        
+                            "fontScale": 0.81,
+                            "color": [1,1,1,0.5],
+                            "align": "center",
+                            "width": "0",
+                            "height": "0",
+                            "x": "0",
+                            "y": "20",
+                            "anchor": [ "center", "bottom" ]
+                        },
+                        {
+                            "type": "UISelectable",
+                            "id": "c_back_button"
+                        }
+                    ]
+                }
+            ]
+        }
+	]
+}

@@ -15,6 +15,9 @@
 #include "MainScene.h"
 #include "PrefabScene.h"
 #include "RaceScene.h"
+#include "MenuScene.h"
+#include "Rendering/TextRenderer.h"
+#include "UINavigationSystem.h"
 
 SoundManager* noise;
 
@@ -39,15 +42,23 @@ void MainTest()
 	RenderingSystem* rs = new RenderingSystem();
 	rs->SetSize(OmegaEngine::Instance().getWindow()->getWidth(), OmegaEngine::Instance().getWindow()->getHeight());
 
-	//Add the systems
+	// Add the systems
 	OmegaEngine::Instance().AddSystem(rs);
 	OmegaEngine::Instance().AddSystem(new UpdateSystem());
 	OmegaEngine::Instance().AddSystem(&PhysicsManager::Instance());
 	OmegaEngine::Instance().AddSystem(new InputSystem());
 	OmegaEngine::Instance().AddSystem(NetworkSystem::Instance());
+	OmegaEngine::Instance().AddSystem(new UINavigationSystem());
 	OmegaEngine::Instance().AddSystem(new UIManager());
 
-	OmegaEngine::Instance().ChangeScene(new RaceScene());
+	// Extra loading here 
+	TextRenderer::Instance().LoadFont("res/fonts/kenvector_future.ttf");
+	TextRenderer::Instance().LoadFont("res/fonts/futur.ttf");
+	TextRenderer::Instance().LoadFont("res/fonts/Quicksand-Regular.ttf");
+	TextRenderer::Instance().LoadFont("res/fonts/Abel-Regular.ttf");
+	TextRenderer::Instance().SetDefaultFont("res/fonts/Quicksand-Regular.ttf");
+
+	OmegaEngine::Instance().ChangeScene(new MenuScene());
 
 	//Start the game
 	OmegaEngine::Instance().Loop();
