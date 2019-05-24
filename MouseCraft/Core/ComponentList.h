@@ -27,9 +27,11 @@ private:
 			if (c) _data.push_back(c);
 		}
 		EventManager::Subscribe(EventName::COMPONENT_ADDED, this);
+		EventManager::Subscribe(EventName::COMPONENT_REMOVED, this);
 	};
 	~ComponentList()
 	{
+		EventManager::Unsubscribe(EventName::COMPONENT_ADDED, this);
 		EventManager::Unsubscribe(EventName::COMPONENT_REMOVED, this);
 	};
 

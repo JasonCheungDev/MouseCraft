@@ -36,7 +36,9 @@ enum UnitType {
 
 /**
 Basic UI panel that makes up all of the UI system.
-UI systems are made by creating multiple of these nested within each other
+UI systems are made by creating multiple of these nested within each other.
+Do not adjust the entity position as this component overrides it; however, 
+you can adjust the rotation and scale which applies to all children. 
 */
 class UIComponent : public Component {
 public:
@@ -57,9 +59,9 @@ public:
 	glm::vec2           size;
 	UnitType            widthType;
 	UnitType            heightType;
-	float				zForce;
-	float				z;
-    
+	float				zOverride;  // override for z-order. set to 0 to use auto-generated.
+	float				rotation;	// individual rotation applied ontop of parent rotation. Does not affect children.
+
 	glm::vec2			anchorOffset;
 	VerticalAnchor      vAnchor;
     HorizontalAnchor    hAnchor;
@@ -69,11 +71,12 @@ public:
 	// If using scaling type sizing on one side, defines the ratio by which to scale on
     float               aspectRatio;
 
-	// Calculated screen coordinates, size and rotation in pixels
+	// Calculated screen coordinates, size and rotation in pixels. Auto-generated, do not set. 
 	Rect				screenBounds;
 	glm::vec2			screenSize;
+	float				screenZ;
     float				screenRotation;
-
+	
 	// Name of UIComponent's associated action to take when clicked
 	// Blank string if no action
     std::string         ClickAction;
@@ -86,7 +89,7 @@ public:
 	// Determine whether this panel uses transparency
 	virtual bool IsTransparent();
 
-	// Transformation matrix to get pivot into correct screen position (includes rotation and scale).
+	// Transformation matrix to get pivot into correct screen position (accounting for rotation and scale).
 	virtual glm::mat4 GetTransform();
 
 	// Transformation matrix specific to this component (does not affect children).
@@ -102,6 +105,8 @@ public:
 
 	void InitalizeFromJson(json json);
 
+	static bool CompareZOrder(const UIComponent* lhs, const UIComponent* rhs);
+
 protected:
 	// Recalculates screen size
 	virtual void CalculateScreenSize(const UIComponent* parent);
@@ -115,6 +120,7 @@ private:
 	UIRoot* root;
 	glm::mat4 _trans;
 	glm::mat4 _indivTrans;
+	static const float Z_STEP;	// z-step applied to render children behind parent.
 
 private:
 	static Component* Create(json json);

@@ -96,6 +96,40 @@ void InputSystem::Axis2DInput::Update()
 
 #pragma region Class::InputSystem
 
+InputSystem::InputSystem()
+{
+	SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER | SDL_INIT_JOYSTICK);
+
+	// display some input info
+	auto numControllers = SDL_NumJoysticks();
+	if (numControllers <= 0)
+	{
+		std::cout << "WARNING: There are no controllers plugged in!" << std::endl;
+	}
+	else
+	{
+		std::cout << "Detected " << numControllers << " controllers." << std::endl;
+		for (int i = 0; i < numControllers && i < MAX_PLAYERS; ++i)
+		{
+			std::cout << "Controller[" << i << "]: " << SDL_GameControllerNameForIndex(i) << std::endl;
+			SDL_GameControllerOpen(i);
+		}
+
+		if (numControllers > MAX_PLAYERS)
+		{
+			// Why do you have over 4 controllers? Unsure if this will have performance impact.
+			std::cout << "WARNING: Up to 4 controllers can be opened." << std::endl;
+		}
+	}
+
+	profiler.InitializeTimers(1);
+	profiler.LogOutput("Input.log");
+}
+
+InputSystem::~InputSystem()
+{
+}
+
 void InputSystem::Update(float dt)
 {
 	profiler.StartTimer(0);
@@ -113,75 +147,79 @@ void InputSystem::Update(float dt)
 		{
 			OmegaEngine::Instance().Stop();
 		}
-		else if (e.type == SDL_JOYAXISMOTION)
+		else if (e.type == SDL_CONTROLLERAXISMOTION)
 		{
-			/*
-			std::cout << "joy event" << std::endl;
-			std::cout << (unsigned)e.jaxis.axis << std::endl;
-			std::cout << (int)e.jaxis.value << std::endl;
-			std::cout << (unsigned)e.jbutton.button << std::endl;
-
-			std::cout << "\rjoy event: "
-			<< (unsigned)e.jaxis.axis << "\t"
-			<< (unsigned)e.jaxis.value << "\t"
-			<< (unsigned)e.jbutton.button
-			<< std::flush;
-			*/
-
-			int player = e.jaxis.which;
-			float value = (float)e.jaxis.value / (float)INT16_MAX;
+			int player = e.caxis.which;
+			float value = (float)e.caxis.value / (float)INT16_MAX;
 
 			if (player >= MAX_PLAYERS)
 				continue;
 
-			// left analog horizontal
-			if (e.jaxis.axis == 0)
+			switch (e.caxis.axis)
 			{
-				playerAxes[player * 2].SetX(value);
-			}
-			// left analog vertical 
-			else if (e.jaxis.axis == 1)
-			{
-				playerAxes[player * 2].SetY(value);
-			}
-			// right analog horizontal 
-			else if (e.jaxis.axis == 3)
-			{
-				playerAxes[player * 2 + 1].SetX(value);
-			}
-			// right analog vertical
-			else if (e.jaxis.axis == 4)
-			{
-				playerAxes[player * 2 + 1].SetY(value);
-			}
-			else
-			{
+			case SDL_CONTROLLER_AXIS_LEFTX:
+				playerAxes[player][0].SetX(value);
+				break;
+			case SDL_CONTROLLER_AXIS_LEFTY:
+				playerAxes[player][0].SetY(value);
+				break;
+			case SDL_CONTROLLER_AXIS_RIGHTX:
+				playerAxes[player][1].SetX(value);
+				break;
+			case SDL_CONTROLLER_AXIS_RIGHTY:
+				playerAxes[player][1].SetY(value);
+				break;
+			case SDL_CONTROLLER_AXIS_TRIGGERLEFT:
+				playerAxes[player][2].SetX(value);
+				break;
+			case SDL_CONTROLLER_AXIS_TRIGGERRIGHT:
+				playerAxes[player][2].SetY(value);
+				break;
+			default:
 				continue;
 			}
 		}
-		else if (e.type == SDL_JOYBUTTONDOWN || e.type == SDL_JOYBUTTONUP)
+		else if (e.type == SDL_CONTROLLERBUTTONDOWN || e.type == SDL_CONTROLLERBUTTONUP)
 		{
-			int player = e.jbutton.which;
-			bool isDown = e.jbutton.state == SDL_PRESSED;
+			int player = e.cbutton.which;
+			bool isDown = e.cbutton.state == SDL_PRESSED;
 			Button b;
 
-			switch (e.jbutton.button)
+			switch (e.cbutton.button)
 			{
-			case 5:
+			case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
 				b = Button::PRIMARY;
 				break;
-			case 4:
+			case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
 				b = Button::SECONDARY;
 				break;
-			case 0:
-				b = Button::AUX1;
+			case SDL_CONTROLLER_BUTTON_A:
+				b = Button::SOUTH;
 				break;
-			case 1:
-				b = Button::AUX2;
+			case SDL_CONTROLLER_BUTTON_B:
+				b = Button::EAST;
 				break;
-            case 6:
+			case SDL_CONTROLLER_BUTTON_X:
+				b = Button::WEST;
+				break;
+			case SDL_CONTROLLER_BUTTON_Y:
+				b = Button::NORTH;
+				break;
+            case SDL_CONTROLLER_BUTTON_GUIDE:
                 b = Button::OPTION;
                 break;
+			case SDL_CONTROLLER_BUTTON_DPAD_UP:
+				b = Button::UP;
+				break;
+			case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
+				b = Button::DOWN;
+				break;
+			case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
+				b = Button::LEFT;
+				break;
+			case SDL_CONTROLLER_BUTTON_DPAD_RIGHT:
+				b = Button::RIGHT;
+				break;
 			default:
 				continue;
 			}
@@ -192,6 +230,8 @@ void InputSystem::Update(float dt)
 		}
 		else if (e.type == SDL_KEYDOWN || e.type == SDL_KEYUP)
 		{
+			// std::cout << "KEY: " << (int) e.key.keysym.sym << std::endl;
+			
 			// handling both states here to minimize LINES
 			int player = DEBUG_PLAYER;
 			bool isDown = e.type == SDL_KEYDOWN;
@@ -273,16 +313,19 @@ void InputSystem::Update(float dt)
 	// notify joystick movement 
 	for (int player = 0; player < MAX_PLAYERS; ++player)
 	{
-		Axis2DInput& leftStick = playerAxes[player * 2];
-		Axis2DInput& rightStick = playerAxes[player * 2 + 1];
+		Axis2DInput& leftStick = playerAxes[player][0];
+		Axis2DInput& rightStick = playerAxes[player][1];
+		Axis2DInput& triggers = playerAxes[player][2];
 
 		// update 
 		leftStick.Update();
 		rightStick.Update();
+		triggers.Update();
 
 		// notify 
-		NotifyAxis(leftStick, Axis::LEFT, player);
-		NotifyAxis(rightStick, Axis::RIGHT, player);
+		NotifyAxis(leftStick, Axis::STICK_LEFT, player);
+		NotifyAxis(rightStick, Axis::STICK_RIGHT, player);
+		NotifyAxis(triggers, Axis::TRIGGER, player);
 	}
 
 	// notify debug keyboard player 
@@ -295,7 +338,7 @@ void InputSystem::Update(float dt)
 		debugPlayerAxis.SetY(dkUp + dkDown);
 	}
 	debugPlayerAxis.Update();
-	NotifyAxis(debugPlayerAxis, Axis::LEFT, DEBUG_PLAYER);
+	NotifyAxis(debugPlayerAxis, Axis::STICK_LEFT, DEBUG_PLAYER);
 
 	profiler.StopTimer(0);
 	profiler.FrameFinish();

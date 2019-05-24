@@ -2,7 +2,7 @@
 #include "../Rendering/ModelGen.h"
 #include "../Core/ComponentFactory.h"
 
-const std::string UIText::DEFAULT_FONT = "res/fonts/arial.ttf";
+const std::string UIText::DEFAULT_FONT = "";	// handled by TextRenderer
 
 UIText::UIText(std::string text, float x, float y, float fontSize, std::string fontPath) :
     UIComponent(0, 0, x, y), _text(text), _fontScale(fontSize), _spacing(1.0f), _fontPath(fontPath) 
@@ -99,6 +99,11 @@ float UIText::GetSpacing() const
 void UIText::CalculateScreenSize(const UIComponent * parent)
 {
 	screenSize = (_textMesh != nullptr) ? _textMesh->Size * _fontScale : glm::vec2();
+}
+
+glm::mat4 UIText::GetIndividualTransform()
+{
+	return glm::scale(glm::mat4(1.0f), glm::vec3(GetFontScale()));
 }
 
 Component* UIText::Create(nlohmann::json json)

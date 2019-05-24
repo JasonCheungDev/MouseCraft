@@ -92,6 +92,7 @@ public:
 	void SetScreenSize(unsigned int width, unsigned int height);
 	void LoadFont(std::string path);
 	void UnloadFont(std::string path);
+	void SetDefaultFont(std::string path);
 
 	// Convenience function to render text directly onto the screen.
 	// Not recommended, use RenderText(TextMesh*) instead. 
@@ -99,31 +100,31 @@ public:
 		std::string text, 
 		GLfloat x, 
 		GLfloat y,
-		glm::vec3 color			= glm::vec3(1.0f),
+		glm::vec4 color			= glm::vec4(1.0f),
 		GLfloat scale			= 1.0f,
 		TextAlignment alignment = TextAlignment::Left,
 		Shader *s				= nullptr, 
-		std::string font		= FONT_MANAGER_DEFAULT_FONT);
+		std::string font		= "");
 
 	// Convenience function to renders a TextMesh with given settings. 
 	void RenderText(
 		TextMesh* textMesh,
 		float x, float y, float scale = 1.0f,
-		glm::vec3 color = glm::vec3(1.0f),
+		glm::vec4 color = glm::vec4(1.0f),
 		Shader* s = nullptr);
 
 	// Renders a TextMesh with given settings. 
 	void RenderText(
 		TextMesh* textMesh,
 		glm::mat4 transformation = glm::mat4(1.0f),
-		glm::vec3 color = glm::vec3(1.0f),
+		glm::vec4 color = glm::vec4(1.0f),
 		Shader* s = nullptr);
 
 	// Convenience function generate a text mesh.
 	// The origin point is the top-left of the bounding box. 
 	TextMesh* GenerateTextMesh(
 		std::string text,
-		std::string font = FONT_MANAGER_DEFAULT_FONT,
+		std::string font = "",
 		TextAlignment alignment = TextAlignment::Left);
 
 private:
@@ -141,5 +142,6 @@ private:
 	unsigned int textVBO;	// quad buffer to draw a single letter
 	Shader* textShader;		// default text shader 
 	glm::mat4 uiProjection;
+	std::string _defaultFont = FONT_MANAGER_DEFAULT_FONT;
 };
 

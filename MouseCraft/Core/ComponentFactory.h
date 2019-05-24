@@ -29,7 +29,7 @@ public:
 		return Instance().CreateComponent<ComponentType>(args...);
 	}
 
-	void Destroy(Component* c)
+	static void Destroy(Component* c)
 	{
 		Instance().DestroyComponent(c);
 	}
