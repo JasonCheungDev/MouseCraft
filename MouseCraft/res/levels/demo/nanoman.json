@@ -1,11 +1,11 @@
 {
 	"loader": {
 		"type": "model",
-		"path": "res/external/creepy_cat/_Meshes/Wall_Angle_01.FBX"
+		"path": "res/models/nanosuit/nanosuit.obj"
 	},
-	"pos": [2.5,-1,-5],
-	"scl": [1,1,1],
-	"rot": [0,0,0],
+	"pos": [2,-0.25,-4],
+	"scl": [0.25,0.25,0.25],
+	"rot": [0,0.23,0],
 	"components": [],
 	"entities": []
 }

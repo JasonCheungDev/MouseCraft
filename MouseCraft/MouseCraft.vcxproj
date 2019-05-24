@@ -162,7 +162,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Car.cpp" />
     <ClCompile Include="Common\FreeLookMovement.cpp" />
     <ClCompile Include="Common\Animation.cpp" />
     <ClCompile Include="Common\PhysicsMover.cpp" />
@@ -175,7 +174,6 @@
     <ClCompile Include="Loading\ShaderLoader.cpp" />
     <ClCompile Include="Physics\PhysicsUtil.cpp" />
     <ClCompile Include="PrefabScene.cpp" />
-    <ClCompile Include="RaceScene.cpp" />
     <ClCompile Include="Rendering\CubeMap.cpp" />
     <ClCompile Include="Event\Handler.cpp" />
     <ClCompile Include="Event\Observer.cpp" />
@@ -258,7 +256,6 @@
     <ClCompile Include="Loading\TextLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Car.h" />
     <ClInclude Include="Common\FreeLookMovement.h" />
     <ClInclude Include="Common\Animation.h" />
     <ClInclude Include="Common\PhysicsMover.h" />
@@ -275,7 +272,6 @@
     <ClInclude Include="OmegaEngineDefines.h" />
     <ClInclude Include="Physics\PhysicsUtil.h" />
     <ClInclude Include="PrefabScene.h" />
-    <ClInclude Include="RaceScene.h" />
     <ClInclude Include="Rendering\CubeMap.h" />
     <ClInclude Include="Event\Handler.h" />
     <ClInclude Include="Event\Observer.h" />

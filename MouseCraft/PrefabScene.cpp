@@ -14,8 +14,6 @@
 #include "Common/FreeLookMovement.h"
 #include "Common/PhysicsMover.h"
 
-#include "Car.h"
-
 namespace fs = std::experimental::filesystem;
 
 PrefabScene::PrefabScene()
@@ -27,14 +25,9 @@ PrefabScene::PrefabScene()
 	c_cam->farPlane = 100.0f;
 	e_cam->AddComponent(c_cam);
 
-	auto c_player = 
-		ComponentFactory::Create<Car>();
-		// ComponentFactory::Create<PhysicsMover>();
-		//ComponentFactory::Create<FreeLookMovement>();
-	c_player->speed = 10.0f;
+	auto c_player = ComponentFactory::Create<FreeLookMovement>();
+	c_player->moveSpeed = 10.0f;
 	e_cam->AddComponent(c_player);
-	auto c_phys = ComponentFactory::Create<PhysicsComponent>(1.0f, 1.0f);
-	e_cam->AddComponent(c_phys);
 
 	std::string path = "res/levels/demo";
 	for (const auto& entry : fs::directory_iterator(path))

@@ -261,11 +261,11 @@ void InputSystem::Update(float dt)
 				break;
 			case SDLK_l:
 				EventManager::Notify(EventName::INPUT_BUTTON,
-					new TypeParam<ButtonEvent>(ButtonEvent{ player, Button::AUX1, isDown }));
+					new TypeParam<ButtonEvent>(ButtonEvent{ player, Button::DOWN, isDown }));
 				break;
 			case SDLK_SEMICOLON:
 				EventManager::Notify(EventName::INPUT_BUTTON,
-					new TypeParam<ButtonEvent>(ButtonEvent{ player, Button::AUX2, isDown }));
+					new TypeParam<ButtonEvent>(ButtonEvent{ player, Button::LEFT, isDown }));
 				break;
             case SDLK_RETURN:
                 EventManager::Notify(EventName::INPUT_BUTTON,

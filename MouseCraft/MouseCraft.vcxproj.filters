@@ -381,14 +381,8 @@
     <ClCompile Include="Rendering\Lighting\AmbientLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Car.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Loading\FileUtil.cpp">
       <Filter>Source Files\Loading</Filter>
-    </ClCompile>
-    <ClCompile Include="RaceScene.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Loading\MaterialLoader.cpp">
       <Filter>Source Files</Filter>
@@ -722,13 +716,7 @@
     <ClInclude Include="Rendering\Lighting\AmbientLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Car.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Loading\FileUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RaceScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Loading\MaterialLoader.h">
