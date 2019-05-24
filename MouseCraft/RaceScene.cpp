@@ -227,12 +227,17 @@ void RaceScene::InitScene()
 	const auto numRings = 8;
 	const auto curve = new SineConverter();
 
+	auto e_ringHolder = EntityManager::Instance().Create();
+	e_ringHolder->t().pos(startPos);
+	e_ringHolder->t().rot(glm::vec3(0, glm::pi<float>(), 0));
+	root.AddChild(e_ringHolder);
+
 	std::vector<TransformAnimator*> animators;
 	std::vector<PointLight*> lights;
 	for (int i = 0; i < numRings; i++)
 	{
 		auto e_halfRing = PrefabLoader::LoadPrefab("res/prefabs/race/ring_half.json");
-		e_halfRing->transform.setLocalPosition(startPos + (float)i * posStep);
+		e_halfRing->transform.setLocalPosition((float)i * -posStep);
 		e_halfRing->transform.setLocalScale(glm::vec3(0.33f));
 		auto animIdle = new Animation();
 		animIdle->duration = 5.0f;
@@ -243,14 +248,14 @@ void RaceScene::InitScene()
 		animLeft->duration = 5.0f;
 		animLeft->AddRotation(0.0f, glm::vec3());
 		animLeft->AddRotation(startDelay + i * delayStep, glm::vec3());
-		animLeft->AddRotation(startDelay + i * delayStep + duration, glm::vec3(0, 0, startRot + i * rotStep));
+		animLeft->AddRotation(startDelay + i * delayStep + duration, glm::vec3(0, 0, -(startRot + i * rotStep)));
 		auto animRight = new Animation();
 		animRight->SetRotationPolicy(RotationPolicy::EULER);
 		animLeft->SetCurve(curve);
 		animRight->duration = 5.0f;
 		animRight->AddRotation(0.0f, glm::vec3());
 		animRight->AddRotation(startDelay + i * delayStep, glm::vec3());
-		animRight->AddRotation(startDelay + i * delayStep + duration, glm::vec3(0, 0, -(startRot + i * rotStep)));
+		animRight->AddRotation(startDelay + i * delayStep + duration, glm::vec3(0, 0, (startRot + i * rotStep)));
 		auto c_tanim = ComponentFactory::Create<TransformAnimator>();
 		c_tanim->SetOneShot(true);
 		c_tanim->AddAnimation("idle", animIdle);
@@ -264,7 +269,7 @@ void RaceScene::InitScene()
 		e_halfRing->GetAllComponents<TransformAnimator>(animators);
 		e_halfRing->GetAllComponents<PointLight>(lights);
 		// finalize
-		root.AddChild(e_halfRing);
+		e_ringHolder->AddChild(e_halfRing);
 	}
 
 	auto e_ggStart = EntityManager::Instance().Create();
