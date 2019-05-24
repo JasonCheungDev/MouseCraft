@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -381,14 +381,8 @@
     <ClCompile Include="Rendering\Lighting\AmbientLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Car.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Loading\FileUtil.cpp">
       <Filter>Source Files\Loading</Filter>
-    </ClCompile>
-    <ClCompile Include="RaceScene.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Loading\MaterialLoader.cpp">
       <Filter>Source Files</Filter>
@@ -430,6 +424,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UISelectable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Car.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RaceScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -752,13 +752,7 @@
     <ClInclude Include="Rendering\Lighting\AmbientLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Car.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Loading\FileUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RaceScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Loading\MaterialLoader.h">
@@ -801,6 +795,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UISelectable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Car.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RaceScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

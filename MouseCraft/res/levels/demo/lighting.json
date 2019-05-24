@@ -11,9 +11,9 @@
 	],
 	"entities": [
 		{
-			"pos": [-7,18,-42],
+			"pos": [0,16,0],
 			"scl": [1,1,1],
-			"rot": [-0.57,-2.77,0],
+			"rot": [-30.0,45,0],
 			"components": [
 				{
 					"type": "DirectionalLight",
